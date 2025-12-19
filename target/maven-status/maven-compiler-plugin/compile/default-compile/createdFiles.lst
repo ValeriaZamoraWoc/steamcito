@@ -1,4 +1,5 @@
 CRUDs/CRUDEmpresa.class
+controllers/Reseñas/srvltComentarioCalificacionJuego.class
 models/Juegos/Comentario.class
 dtos/Juegos/dtoCategoria.class
 dtos/Juegos/dtoCalificacion.class
@@ -42,6 +43,7 @@ controllers/Registros/srvltRegistrarJuego.class
 services/Registros/RegistrarClasificacion.class
 controllers/Registros/srvltRegistroUsuarios$1.class
 com/mycompany/proyectosteamcito/resources/JakartaEE11Resource.class
+services/ComentariosYCalificaciones/ComentarYCalificarJuego.class
 CRUDs/CRUDCategoria.class
 CRUDs/CRUDGrupoFamiliar.class
 dtos/Juegos/dtoComentario.class

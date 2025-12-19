@@ -32,7 +32,7 @@ public class InstalarJuego {
         dtoJuego juego = cJ.buscarJuegoPorTitulo(nombreJuego);
         dtoBiblioteca biblio = cB.buscarBibliotecaPorMail(mail);
 
-        // Si lo tiene comprado → instalar
+        // instalar si está comprado
         if (cB.buscarJuegoEnBiblioteca(biblio, juego)) {
             dtoUsuarioComun usuario = cU.buscarUsuarioComunPorMail(mail);
             cB.instalarJuego(usuario, juego);

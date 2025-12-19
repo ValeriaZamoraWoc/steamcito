@@ -5,6 +5,8 @@
 package CRUDs;
 
 import dtos.Juegos.dtoComentario;
+import dtos.Juegos.dtoJuego;
+import dtos.Usuarios.dtoUsuarioComun;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,22 +21,25 @@ import services.General.Conexion;
  */
 public class CRUDComentario {
     
-    public void registrarComentario(dtoComentario comentario, Integer comentarioPadre){
+    public void registrarComentario(dtoUsuarioComun usuario,String descripcion, Integer comentarioPadre,dtoJuego juego){
         String sql = """
-            INSERT INTO comentario (descripcion, es_visible, comentario_padre)
-            VALUES (?, ?, ?);
+            INSERT INTO comentario (mail,descripcion, es_visible, id_juego, comentario_padre)
+            VALUES (?, ?, TRUE, ?, ? );
             """;
 
         try (Connection c = Conexion.obtenerConexion()){
             PreparedStatement st = c.prepareStatement(sql);
-            st.setString(1, comentario.getContenido());
-            st.setBoolean(2, comentario.isEsVisible());
+            st.setString(1, usuario.getMail());
+            st.setString(2, descripcion);
 
+            st.setInt(3, juego.getId());
+            
             if(comentarioPadre != null){
-                st.setInt(3, comentarioPadre);
+                st.setInt(4, comentarioPadre);
             } else {
-                st.setNull(3, java.sql.Types.INTEGER);
+                st.setNull(4, java.sql.Types.INTEGER);
             }
+            
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -42,6 +47,32 @@ public class CRUDComentario {
         }
     }
 
+    public dtoComentario buscarComentarioPadre(dtoUsuarioComun usuario){
+        dtoComentario comentario = null;
+        String sql ="""
+            SELECT * FROM comentario WHERE mail = ? AND comentario_padre IS NULL ORDER BY id_comentario DESC
+            LIMIT 1;
+                    """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, usuario.getMail());
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                comentario = new dtoComentario();
+                comentario.setIdComentario(rs.getInt("id_comentario"));
+                comentario.setContenido(rs.getString("descripcion"));
+                comentario.setEsVisible(rs.getBoolean("es_visible"));
+                comentario.setIdComentrioPadre(null);
+                comentario.setIdJuego(rs.getInt("id_juego"));
+                comentario.setMail(rs.getString("mail"));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comentario;
+    }
     
     public void ocultarComentario(dtoComentario comentario){
         String sql = """

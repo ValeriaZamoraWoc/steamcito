@@ -17,9 +17,12 @@ import services.General.Conexion;
  */
 public class CRUDCalificacion {
     
-    public void registrarCalificacion(dtoComentario comentario,dtoUsuario usuario,
-            int idJuego,Integer calificacion) {
+    public void registrarCalificacion(dtoComentario comentario,dtoUsuario usuario,int idJuego,Integer calificacion) {
 
+        if (calificacion == null) {
+            return;
+        }   
+        
         String sql = """
             INSERT INTO calificacion (mail, id_juego, calificacion, id_comentario)
             VALUES (?, ?, ?, ?);

@@ -11,6 +11,15 @@ package dtos.Juegos;
 public class dtoCalificacion {
     private int idCalificacion;
     private int calificacion;
+    private int idComentario;
+
+    public int getIdComentario() {
+        return idComentario;
+    }
+
+    public void setIdComentario(int idComentario) {
+        this.idComentario = idComentario;
+    }
     
     public void setIdCalificacion(int id){
         this.idCalificacion= id;

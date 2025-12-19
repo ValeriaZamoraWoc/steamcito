@@ -15,6 +15,33 @@ public class dtoComentario {
     private int idComentario;
     private String contenido;
     private boolean esVisible;
+    private Integer idComentrioPadre;
+    private int idJuego;
+    private String mail;
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    
+    public int getIdJuego() {
+        return idJuego;
+    }
+
+    public void setIdJuego(int idJuego) {
+        this.idJuego = idJuego;
+    }
+
+    public int getIdComentrioPadre() {
+        return idComentrioPadre;
+    }
+
+    public void setIdComentrioPadre(Integer idComentrioPadre) {
+        this.idComentrioPadre = idComentrioPadre;
+    }
 
     public int getIdComentario(){
         return idComentario;
