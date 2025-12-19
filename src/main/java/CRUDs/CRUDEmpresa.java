@@ -39,7 +39,6 @@ public class CRUDEmpresa {
         }
     }
 
-
     public void asignarComisionEmpresa(dtoEmpresa empresa, dtoComision comision){
         String sql = """
             INSERT INTO comision_empresa (id_empresa, id_comision)
@@ -54,10 +53,7 @@ public class CRUDEmpresa {
             e.printStackTrace();
         }
     }
-
-
-
-        
+    
     public dtoEmpresa buscarEmpresaPorNombre(String nombreEmpresa){
         dtoEmpresa empresa = null;
         String sql = """
@@ -81,7 +77,6 @@ public class CRUDEmpresa {
         }
         return empresa;
     }
-
 
     public List<Juego> obtenerCatalogoEmpresa(Empresa empresa){
         String sqlCatalogo = """

@@ -33,6 +33,7 @@ services/General/Tienda.class
 controllers/CORSFilter.class
 CRUDs/CRUDCalificacion.class
 services/General/Conexion.class
+controllers/Eliminaciones/srvltEliminarCategoriaPorAdmin.class
 services/Login/Login.class
 CRUDs/CRUDWallet.class
 CRUDs/CRUDBiblioteca.class
@@ -43,13 +44,16 @@ models/Empresas/Comision.class
 models/Usuarios/TipoUsuario.class
 controllers/Registros/srvltRegistrarJuego.class
 services/Registros/RegistrarClasificacion.class
+services/UsoJuegos/EliminarCategoria.class
 controllers/Registros/srvltRegistroUsuarios$1.class
+controllers/UsoJuegos/srvltCambiarCategoriaJuegoDesarrollador.class
 com/mycompany/proyectosteamcito/resources/JakartaEE11Resource.class
 services/ComentariosYCalificaciones/ComentarYCalificarJuego.class
 CRUDs/CRUDCategoria.class
 CRUDs/CRUDGrupoFamiliar.class
 dtos/Juegos/dtoComentario.class
 services/Registros/RegistrarCompra.class
+controllers/UsoJuegos/srvltCambiarCategoriaJuegoAdmin.class
 dtos/Juegos/dtoClasificacion.class
 controllers/Registros/srvltRegistroUsuarios.class
 controllers/UsoJuegos/srvltActualizarJuego.class

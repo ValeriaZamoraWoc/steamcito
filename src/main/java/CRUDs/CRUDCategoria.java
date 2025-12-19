@@ -83,4 +83,27 @@ public class CRUDCategoria {
         return categoria;
     }
     
+    public dtoCategoria buscarCategoriaPorId(Integer id){
+        dtoCategoria categoria = null;
+        String sql = """
+            SELECT * FROM categoria WHERE id_categoria = ? ;
+                     """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                categoria = new dtoCategoria();
+                categoria.setIdCategoria(rs.getInt("id_categoria"));
+                categoria.setNombreCategoria(rs.getString("nombre_categoria"));
+                categoria.setEdadCategoria(rs.getInt("edad_categoria"));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categoria;
+    }
+    
 }

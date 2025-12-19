@@ -4,6 +4,7 @@
  */
 package CRUDs;
 
+import dtos.Juegos.dtoCategoria;
 import dtos.Juegos.dtoJuego;
 import java.sql.Connection;
 import java.sql.Date;
@@ -75,6 +76,33 @@ public class CRUDJuego {
         }
         return juego;
     }
+    
+    public dtoJuego buscarJuegoPorId(Integer id){
+        dtoJuego juego = null;
+
+        String sql = """
+            SELECT id_juego, nombre_juego, precio, en_venta
+            FROM juego
+            WHERE id_juego = ?;
+            """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+                juego = new dtoJuego();
+                juego.setId(rs.getInt("id_juego"));
+                juego.setNombreJuego(rs.getString("nombre_juego"));
+                juego.setPrecio(rs.getInt("precio"));
+                juego.setEnVenta(rs.getBoolean("en_venta"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return juego;
+    }
 
     public void actualizarJuego(dtoJuego juego){
         String sql = """
@@ -94,6 +122,25 @@ public class CRUDJuego {
             st.setInt(6, juego.getClasificacion());
             st.setDate(7, Date.valueOf(juego.getFechaLanzamiento()));
             st.setInt(8, juego.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void cambiarCategoriaJuego(dtoJuego juego, dtoCategoria categoria){
+        String sql = """
+            UPDATE juego SET
+            id_categoria=?
+            WHERE id_juego = ? AND id_categoria= ? ;
+            """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, categoria.getIdCategoria());
+            st.setInt(2, juego.getId());
+            st.setInt(8, categoria.getIdCategoria());
 
             st.executeUpdate();
         } catch (SQLException e) {
