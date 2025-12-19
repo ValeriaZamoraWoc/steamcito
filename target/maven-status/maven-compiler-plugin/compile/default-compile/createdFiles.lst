@@ -5,10 +5,12 @@ dtos/Juegos/dtoCategoria.class
 dtos/Juegos/dtoCalificacion.class
 dtos/Usuarios/dtoGrupoFamiliar.class
 services/Registros/RegistrarUsuarioEnGrupo.class
+services/ComentariosYCalificaciones/ComentarYCalificarComentario.class
 CRUDs/CRUDSistema.class
 controllers/GruposFamiliares/srvltRegistrarGrupoFamiliar.class
 models/Juegos/Categoria.class
 dtos/Juegos/dtoJuego.class
+services/UsoJuegos/ActualizarJuego.class
 models/ObjetosUsuario/Biblioteca.class
 CRUDs/CRUDVenta.class
 services/Registros/RegistrarGrupoFamiliar.class
@@ -50,6 +52,7 @@ dtos/Juegos/dtoComentario.class
 services/Registros/RegistrarCompra.class
 dtos/Juegos/dtoClasificacion.class
 controllers/Registros/srvltRegistroUsuarios.class
+controllers/UsoJuegos/srvltActualizarJuego.class
 models/Usuarios/UsuarioComun.class
 controllers/Registros/srvlRegistrarCompra.class
 models/ObjetosUsuario/Wallet.class
@@ -73,6 +76,7 @@ models/Juegos/Calificacion.class
 services/Registros/RegistrarEmpresa.class
 models/Usuarios/Administrador.class
 controllers/srvltLogin.class
+controllers/Reseñas/srvltComentarioCalificacionComentarios.class
 services/General/TipoBusqueda.class
 models/Usuarios/Usuario.class
 dtos/ObjetosUsuario/dtoPrestamo.class

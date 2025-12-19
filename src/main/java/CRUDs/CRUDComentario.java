@@ -74,6 +74,33 @@ public class CRUDComentario {
         return comentario;
     }
     
+    public dtoComentario buscarComentarioPorId(Integer id){
+        dtoComentario comentario = null;
+        String sql ="""
+            SELECT * FROM comentario WHERE id_comentario = ? AND comentario_padre IS NULL ORDER BY id_comentario DESC
+            LIMIT 1;
+                    """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                comentario = new dtoComentario();
+                comentario.setIdComentario(rs.getInt("id_comentario"));
+                comentario.setContenido(rs.getString("descripcion"));
+                comentario.setEsVisible(rs.getBoolean("es_visible"));
+                comentario.setIdComentrioPadre(null);
+                comentario.setIdJuego(rs.getInt("id_juego"));
+                comentario.setMail(rs.getString("mail"));
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comentario;
+    }
+    
     public void ocultarComentario(dtoComentario comentario){
         String sql = """
             UPDATE comentario SET es_visible = FALSE

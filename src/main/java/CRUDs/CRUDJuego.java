@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import services.General.Conexion;
-import models.Juegos.Juego;
 
 /**
  *
@@ -77,6 +76,31 @@ public class CRUDJuego {
         return juego;
     }
 
+    public void actualizarJuego(dtoJuego juego){
+        String sql = """
+            UPDATE juego SET
+            nombre_juego=?, descripcion=?, especificaciones=?, precio=?,
+            id_categoria=?, id_clasificacion=?,fecha_lanzamiento =?
+            WHERE id_juego = ?;
+            """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, juego.getNombreJuego());
+            st.setString(2, juego.getDescripcion());
+            st.setString(3, juego.getEspecificaciones());
+            st.setInt(4, juego.getPrecio());
+            st.setInt(5, juego.getCategoria());
+            st.setInt(6, juego.getClasificacion());
+            st.setDate(7, Date.valueOf(juego.getFechaLanzamiento()));
+            st.setInt(8, juego.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     //búsqueda por categoría
     public List<dtoJuego> buscarJuegosPorCategoria(String categoria){
