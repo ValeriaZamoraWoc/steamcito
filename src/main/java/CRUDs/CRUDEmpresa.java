@@ -6,6 +6,7 @@ package CRUDs;
 
 import dtos.Empresas.dtoComision;
 import dtos.Empresas.dtoEmpresa;
+import dtos.Usuarios.dtoUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +39,7 @@ public class CRUDEmpresa {
             e.printStackTrace();
         }
     }
-
+    
     public void asignarComisionEmpresa(dtoEmpresa empresa, dtoComision comision){
         String sql = """
             INSERT INTO comision_empresa (id_empresa, id_comision)

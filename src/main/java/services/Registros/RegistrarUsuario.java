@@ -56,7 +56,7 @@ public class RegistrarUsuario {
         }
     }
     
-    public void registrarUsuarioComun(String mail, String nick, String contraseña, LocalDate feechaNacimiento, String nombreEmpresa,
+    public void registrarUsuarioComun(String mail, String nick, String contraseña, LocalDate feechaNacimiento, 
             String pais, int telefono){
         
         

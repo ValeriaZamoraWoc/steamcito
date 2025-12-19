@@ -27,7 +27,7 @@ public class ComentarYCalificarComentario {
             Integer idComentarioPadre) {
         dtoUsuarioComun usuario = cU.buscarUsuarioComunPorMail(mail);
         dtoJuego juego = cJ.buscarJuegoPorTitulo(nombreJuego);
-        dtoComentario comentarioPadre = cCO.buscarComentarioPorId(idComentarioPadre);
+        dtoComentario comentarioPadre = cCO.buscarComentarioPadrePorId(idComentarioPadre);
 
         if (usuario == null || juego == null || comentarioPadre == null) {
             return;

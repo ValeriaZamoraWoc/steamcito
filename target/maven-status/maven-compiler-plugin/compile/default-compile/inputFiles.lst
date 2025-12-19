@@ -30,6 +30,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Registros/srvltRegistroUsuarios.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Reseñas/srvltComentarioCalificacionComentarios.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Reseñas/srvltComentarioCalificacionJuego.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Reseñas/srvltDeshabilitarComentario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/UsoJuegos/srvltActualizarJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/UsoJuegos/srvltCambiarCategoriaJuegoAdmin.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/UsoJuegos/srvltCambiarCategoriaJuegoDesarrollador.java
@@ -68,6 +69,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/models/Usuarios/UsuarioComun.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/ComentarYCalificarComentario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/ComentarYCalificarJuego.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/DesabilitarComentarios.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/ConectorBD.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/Conexion.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/SistemaCentral.java

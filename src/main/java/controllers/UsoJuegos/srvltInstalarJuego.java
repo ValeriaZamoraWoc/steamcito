@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.Map;
 import services.UsoJuegos.InstalarJuego;
 import com.google.gson.Gson;
+import java.util.HashMap;
 
 
 /**
@@ -22,17 +23,37 @@ import com.google.gson.Gson;
 @WebServlet("/instalarJuego")
 public class srvltInstalarJuego extends HttpServlet {
     private InstalarJuego servicio = new InstalarJuego();
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
+
         String mail = request.getParameter("mail");
-        String juego = request.getParameter("juego");
+        String nombreJuego = request.getParameter("juego");
 
-        Map<String, Object> resultado =
-            servicio.intentarInstalarJuego(juego, mail);
+        Map<String, Object> resultado = new HashMap<>();
 
-        response.setContentType("application/json");
+        if (mail == null || mail.isBlank() || nombreJuego == null || nombreJuego.isBlank()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            resultado.put("instalado", false);
+            resultado.put("mensaje", "Faltan parámetros obligatorios: mail y juego");
+            response.getWriter().write(new Gson().toJson(resultado));
+            return;
+        }
+
+        try {
+            resultado = servicio.intentarInstalarJuego(nombreJuego, mail);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resultado.put("instalado", false);
+            resultado.put("mensaje", "Error al intentar instalar el juego");
+            e.printStackTrace();
+        }
+
         response.getWriter().write(new Gson().toJson(resultado));
     }
-
 }

@@ -60,6 +60,7 @@ controllers/UsoJuegos/srvltActualizarJuego.class
 models/Usuarios/UsuarioComun.class
 controllers/Registros/srvlRegistrarCompra.class
 models/ObjetosUsuario/Wallet.class
+services/ComentariosYCalificaciones/DesabilitarComentarios.class
 services/Registros/RegistrarUsuario.class
 CRUDs/CRUDUsuario.class
 services/MovimientoWallet/MovimientoWallet.class
@@ -76,6 +77,7 @@ CRUDs/CRUDClasificacion.class
 controllers/GruposFamiliares/srvltRegistrarUsuarioEnGrupo.class
 controllers/MovimientoWallet/srvltDescontarSaldo.class
 controllers/Registros/srvltRegistrarClasificacion.class
+controllers/Reseñas/srvltDeshabilitarComentario.class
 models/Juegos/Calificacion.class
 services/Registros/RegistrarEmpresa.class
 models/Usuarios/Administrador.class
