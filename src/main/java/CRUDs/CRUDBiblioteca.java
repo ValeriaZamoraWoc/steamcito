@@ -143,4 +143,31 @@ public class CRUDBiblioteca {
         return false;
     }
 
+    public void cambiarVisibilidadBiblioteca(dtoBiblioteca biblioteca){
+        String sqlBoolean = """
+            SELECT es_visible FROM biblioteca WHERE mail = ? ;
+                            """;
+        String sqlCambio ="""
+            UPDATE biblioteca SET es_visible = ? WHERE mail = ? ;
+                          """;
+        
+        Boolean tipo=null;
+         try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sqlBoolean);
+            st.setString(1, biblioteca.getMailUsuario());
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                tipo= rs.getBoolean("es_visible");
+                
+                PreparedStatement st2 = c.prepareStatement(sqlCambio);
+                st2.setBoolean(1, tipo);
+                st2.setString(2,biblioteca.getMailUsuario());
+                st2.executeUpdate();
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

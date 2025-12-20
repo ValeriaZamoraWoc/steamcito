@@ -22,6 +22,7 @@ public class ActualizarJuego {
     CRUDJuego crudJuego = new CRUDJuego();
     CRUDClasificacion crudClasificacion = new CRUDClasificacion();
     CRUDCategoria crudCategoria = new CRUDCategoria();
+    CRUDEmpresa cE= new CRUDEmpresa();
     
     public void actualizarJuego(String nombreJuego, String descripcion, String especificaciones,
         String clasificacion, String categoria, int precio, LocalDate fechaLanzamiento ){
@@ -48,5 +49,14 @@ public class ActualizarJuego {
         dtoCategoria categoria = crudCategoria.buscarCategoriaPorNombre(nombreCategoria);
         if (categoria == null) throw new IllegalArgumentException("Categoria inválida");
         return categoria.getIdCategoria();
+    }
+    
+    public void suspenderVentaJuego(String nombreJuego, String nombreEmpresa){
+        dtoEmpresa empresa = cE.buscarEmpresaPorNombre(nombreEmpresa);
+        dtoJuego juego = cE.buscarJuegoEnCatalogo(nombreJuego, empresa);
+        
+        if(juego != null){
+            cE.suspenderVentaJuego(juego);
+        }
     }
 }

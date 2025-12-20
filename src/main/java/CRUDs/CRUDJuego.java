@@ -206,4 +206,28 @@ public class CRUDJuego {
         return juegos;
     }
     
+    public List<dtoJuego> cargarTodosLosJuegos(){
+        List<dtoJuego> juegos = new ArrayList<>();
+        String sqlEmpresa = """
+                SELECT * FROM juego ;
+                """;
+        try(Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sqlEmpresa);
+            ResultSet resultado = st.executeQuery();
+
+            while(resultado.next()){
+                dtoJuego j = new dtoJuego();
+                j.setId(resultado.getInt("id_juego"));
+                j.setNombreJuego(resultado.getString("nombre_juego"));
+                j.setPrecio(resultado.getInt("precio"));
+                juegos.add(j);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return juegos;
+    }
+    
 }

@@ -6,6 +6,7 @@ package CRUDs;
 
 import dtos.Empresas.dtoComision;
 import dtos.Empresas.dtoEmpresa;
+import dtos.Juegos.dtoJuego;
 import dtos.Usuarios.dtoUsuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -79,6 +80,30 @@ public class CRUDEmpresa {
         return empresa;
     }
 
+    public dtoEmpresa buscarEmpresaPorId(Integer id){
+        dtoEmpresa empresa = null;
+        String sql = """
+            SELECT id_empresa, nombre_empresa
+            FROM empresa
+            WHERE id_empresa = ?;
+            """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+                empresa = new dtoEmpresa();
+                empresa.setIdEmpresa(rs.getInt("id_empresa"));
+                empresa.setNombreEmpresa(rs.getString("nombre_empresa"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return empresa;
+    }
+    
     public List<Juego> obtenerCatalogoEmpresa(Empresa empresa){
         String sqlCatalogo = """
                 SELECT j.id_juego, j.nombre_juego, cl.nombre_clasificacion, 
@@ -229,5 +254,45 @@ public class CRUDEmpresa {
             e.printStackTrace();
         }
         return juegos;
+    }
+    
+    public void suspenderVentaJuego(dtoJuego juego){
+        String sql="""
+            UPDATE juego SET en_venta = FALSE
+            WHERE id_juego = ? ;
+                   """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, juego.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public dtoJuego buscarJuegoEnCatalogo(String nombreJuego, dtoEmpresa empresa){
+        dtoJuego juego = null;
+        String sql = """
+            SELECT j.id_juego, j.nombreJuego, j.precio j.en_venta FROM juego j
+            INNER JOIN empresa e ON j.id_empresa = e.id_empresa
+            WHERE id_empresa = ?;
+            """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, empresa.getIdEmpresa());
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+                juego = new dtoJuego();
+                juego.setId(rs.getInt("id_juego"));
+                juego.setNombreJuego(rs.getString("nombre_juego"));
+                juego.setPrecio(rs.getInt("precio"));
+                juego.setEnVenta(rs.getBoolean("en_venta"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return juego;
     }
 }
