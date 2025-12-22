@@ -28,47 +28,44 @@ public class srvltCambiarCategoriaJuegoAdmin extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        response.setContentType("text/plain;charset=UTF-8");
+
         String idCategoriaStr = request.getParameter("idCategoria");
         String idJuegoStr = request.getParameter("idJuego");
         String mail = request.getParameter("mail");
 
-        Map<String, Object> resultado = new HashMap<>();
-        response.setContentType("application/json");
-
-        //datos incompletos
+        // Validación: datos obligatorios
         if (idCategoriaStr == null || idCategoriaStr.isBlank() ||
             idJuegoStr == null || idJuegoStr.isBlank() ||
             mail == null || mail.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan datos obligatorios");
-            response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+            response.getWriter().write("Faltan datos obligatorios");
             return;
         }
 
         int idCategoria;
         int idJuego;
+
         try {
-            //cambio de string a int
             idCategoria = Integer.parseInt(idCategoriaStr);
             idJuego = Integer.parseInt(idJuegoStr);
         } catch (NumberFormatException e) {
-            //excepcion
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "ID inválido");
-            response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+            response.getWriter().write("ID inválido");
             return;
         }
 
-        //flujo normal
+        // Lógica principal
         String mensaje = servicio.cambiarCategoriaDeJuegoPorAdmin(idCategoria, idJuego, mail);
 
-        resultado.put("exito", mensaje.equals("Categoría cambiada correctamente"));
-        resultado.put("mensaje", mensaje);
+        if ("Categoría cambiada correctamente".equals(mensaje)) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+        response.getWriter().write(mensaje);
     }
+
 }

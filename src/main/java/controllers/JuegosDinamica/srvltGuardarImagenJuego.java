@@ -29,7 +29,6 @@ public class srvltGuardarImagenJuego extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        response.getWriter().write("SERVLET VIVO");
         response.setContentType("application/json;charset=UTF-8");
 
         String idJuegoStr = request.getParameter("idJuego");
@@ -41,19 +40,15 @@ public class srvltGuardarImagenJuego extends HttpServlet{
         }
 
         int idJuego = Integer.parseInt(idJuegoStr);
-
-        // 1. Ruta física
+        
         String rutaBase = getServletContext().getRealPath("/uploads/juegos/");
         File carpeta = new File(rutaBase);
         if (!carpeta.exists()) carpeta.mkdirs();
 
-        // 2. Nombre único
         String nombreArchivo = "juego_" + idJuego + "_" + imagen.getSubmittedFileName();
 
-        // 3. Guardar archivo
         imagen.write(rutaBase + nombreArchivo);
 
-        // 4. URL pública
         String url = request.getScheme() + "://" +
              request.getServerName() + ":" +
              request.getServerPort() +

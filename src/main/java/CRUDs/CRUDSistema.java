@@ -197,7 +197,6 @@ public class CRUDSistema {
         return juegos;
     }
 
-
     public List<dtoJuego> juegosMasVendidosCategoria(String categoria){
         Map<dtoJuego, Integer> mapaJuego = new HashMap<>();
 
@@ -237,6 +236,39 @@ public class CRUDSistema {
         List<dtoJuego> juegosOrdenados = new ArrayList<>();
         for (Map.Entry<dtoJuego, Integer> entry : listaOrdenada) {
             juegosOrdenados.add(entry.getKey());
+        }
+
+        return juegosOrdenados;
+    }
+    
+    public List<dtoJuego> obtenerTodosLosJuegos(){
+        List<dtoJuego> juegosOrdenados = new ArrayList<>();
+        String sqlJuegos = """
+                SELECT * FROM juego;
+                """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sqlJuegos);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                dtoJuego j = new dtoJuego();
+                j.setId(rs.getInt("id_juego"));
+                j.setNombreJuego(rs.getString("nombre_juego"));
+                j.setClasificacion(rs.getInt("id_clasificacion"));
+                j.setCategoria(rs.getInt("id_categoria"));
+                j.setEmpresa(rs.getInt("id_empresa"));
+                j.setPrecio(rs.getInt("precio"));
+                j.setEnVenta(rs.getBoolean("en_venta"));
+                j.setDescripcion(rs.getString("descripcion"));
+                j.setEspecificaciones(rs.getString("especificaciones"));
+                j.setUrlImagen(rs.getString("url_imagen"));
+                j.setFechaLanzamiento(rs.getObject("fecha_lanzamiento", LocalDate.class));
+                juegosOrdenados.add(j);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return juegosOrdenados;

@@ -29,9 +29,7 @@ public class srvltSuspenderVentaJuego extends HttpServlet{
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         String nombreJuego = request.getParameter("nombreJuego");
         String nombreEmpresa = request.getParameter("empresa");
@@ -41,25 +39,20 @@ public class srvltSuspenderVentaJuego extends HttpServlet{
             nombreEmpresa == null || nombreEmpresa.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan datos obligatorios");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Faltan datos obligatorios");
             return;
         }
 
         try {
             servicio.suspenderVentaJuego(nombreJuego, nombreEmpresa);
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Venta del juego suspendida correctamente");
             response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Venta del juego suspendida correctamente");
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al suspender la venta del juego");
+            response.getWriter().write("Error al suspender la venta del juego");
             e.printStackTrace();
         }
-
-        response.getWriter().write(new Gson().toJson(resultado));
     }
+
 }

@@ -30,9 +30,7 @@ public class srvltRegistrarJuego extends HttpServlet{
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
@@ -43,7 +41,7 @@ public class srvltRegistrarJuego extends HttpServlet{
         String precioSTR = request.getParameter("precio");
         String fechaLanzamientoSTR = request.getParameter("fechaLanzamiento");
 
-        //datos incompletos
+        // Validación de datos obligatorios
         if (nombre == null || nombre.isBlank() ||
             descripcion == null || descripcion.isBlank() ||
             especificacion == null || especificacion.isBlank() ||
@@ -54,21 +52,16 @@ public class srvltRegistrarJuego extends HttpServlet{
             fechaLanzamientoSTR == null || fechaLanzamientoSTR.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan parámetros obligatorios");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Faltan parámetros obligatorios");
             return;
         }
 
-        //validar que todo esté bien escrito
         int precio;
         try {
             precio = Integer.parseInt(precioSTR);
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Precio inválido");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Precio inválido");
             return;
         }
 
@@ -77,26 +70,25 @@ public class srvltRegistrarJuego extends HttpServlet{
             fecha = LocalDate.parse(fechaLanzamientoSTR);
         } catch (DateTimeParseException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Fecha inválida (Formato: yyyy-MM-dd)");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Fecha inválida (Formato: yyyy-MM-dd)");
             return;
         }
 
         try {
-            //correcto
-            servicio.registrarJuego(nombre, descripcion, especificacion, clasificacion, 
-                                    categoria, empresa, precio, fecha);
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Juego registrado correctamente");
+            servicio.registrarJuego(
+                nombre, descripcion, especificacion,
+                clasificacion, categoria, empresa,
+                precio, fecha
+            );
+
             response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Juego registrado correctamente");
+
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al registrar el juego");
+            response.getWriter().write("Error al registrar el juego");
             e.printStackTrace();
         }
-
-        response.getWriter().write(new Gson().toJson(resultado));
     }
+
 }

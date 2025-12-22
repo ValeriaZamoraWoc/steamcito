@@ -18,7 +18,7 @@ public class CRUDImagen {
     
     public void registrarImagen(String url) {
         String sql="""
-            INSERT INTO imagen url VALUES ( ?);
+            INSERT INTO imagen (url) VALUES (?);
                    """;
         try (Connection c = Conexion.obtenerConexion()){
             PreparedStatement st = c.prepareStatement(sql);
@@ -26,6 +26,7 @@ public class CRUDImagen {
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
     

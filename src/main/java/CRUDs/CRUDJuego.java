@@ -5,6 +5,7 @@
 package CRUDs;
 
 import dtos.Juegos.dtoCategoria;
+import dtos.Juegos.dtoComentario;
 import dtos.Juegos.dtoJuego;
 import java.sql.Connection;
 import java.sql.Date;
@@ -228,6 +229,33 @@ public class CRUDJuego {
         }
 
         return juegos;
+    }
+    
+    public List<dtoComentario> obtenerComentariosJuego(Integer idJuego){
+        List<dtoComentario> comentarios= new ArrayList<>();
+        String sql= """
+            SELECT * FROM comentario WHERE id_juego = ?;
+                    """;
+        try(Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, idJuego);
+            ResultSet rs = st.executeQuery();
+
+            while(rs.next()){
+                dtoComentario comen = new dtoComentario();
+                comen.setIdComentario(rs.getInt("id_comentario"));
+                comen.setContenido(rs.getString("descripcion"));
+                comen.setEsVisible(rs.getBoolean("es_visible"));
+                comen.setIdComentrioPadre(rs.getInt("comentario_padre"));
+                comen.setIdJuego(rs.getInt("id_juego"));
+                comen.setMail(rs.getString("mail"));
+                comentarios.add(comen);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comentarios;
     }
     
 }

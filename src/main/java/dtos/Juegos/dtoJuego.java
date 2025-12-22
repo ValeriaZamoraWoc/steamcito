@@ -24,6 +24,15 @@ public class dtoJuego {
     private int precio;
     private boolean enVenta;
     private LocalDate fechaLanzamiento;
+    private String urlImagen;
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
+    }
 
     public int getId() {
         return id;

@@ -29,19 +29,17 @@ public class srvltRegistroPeticionComision extends HttpServlet{
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         String empresa = request.getParameter("empresa");
         String porcentajeStr = request.getParameter("porcentaje");
 
-        //datos incompletos
-        if (empresa == null || empresa.isBlank() || porcentajeStr == null || porcentajeStr.isBlank()) {
+        // datos incompletos
+        if (empresa == null || empresa.isBlank() ||
+            porcentajeStr == null || porcentajeStr.isBlank()) {
+
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan parámetros obligatorios");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Faltan parámetros obligatorios");
             return;
         }
 
@@ -50,24 +48,20 @@ public class srvltRegistroPeticionComision extends HttpServlet{
             porcentaje = Integer.parseInt(porcentajeStr);
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Porcentaje inválido");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Porcentaje inválido");
             return;
         }
 
         try {
             servicio.registrarEmpresa(empresa, porcentaje);
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Petición registrada correctamente");
             response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Petición registrada correctamente");
+
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al registrar petición");
+            response.getWriter().write("Error al registrar petición");
             e.printStackTrace();
         }
-
-        response.getWriter().write(new Gson().toJson(resultado));
     }
+
 }

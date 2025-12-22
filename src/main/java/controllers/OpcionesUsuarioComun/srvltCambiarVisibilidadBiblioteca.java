@@ -29,34 +29,27 @@ public class srvltCambiarVisibilidadBiblioteca extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         String mail = request.getParameter("mail");
 
         // Validación básica
         if (mail == null || mail.isBlank()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Mail requerido");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Mail requerido");
             return;
         }
 
         try {
             servicio.cambiarVisibilidadBiblioteca(mail);
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Visibilidad de la biblioteca actualizada");
             response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Visibilidad de la biblioteca actualizada");
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al cambiar la visibilidad de la biblioteca");
+            response.getWriter().write("Error al cambiar la visibilidad de la biblioteca");
             e.printStackTrace();
         }
-
-        response.getWriter().write(new Gson().toJson(resultado));
     }
+
 }

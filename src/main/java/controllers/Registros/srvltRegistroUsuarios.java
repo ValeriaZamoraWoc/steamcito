@@ -32,9 +32,7 @@ public class srvltRegistroUsuarios extends HttpServlet{
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         try {
             String tipoStr = request.getParameter("tipoUsuario");
@@ -43,84 +41,86 @@ public class srvltRegistroUsuarios extends HttpServlet{
             String contra = request.getParameter("contrasena");
             String fechaStr = request.getParameter("fechaNacimiento");
 
-            //datos incompletos
+            // datos incompletos
             if (tipoStr == null || mail == null || nick == null || contra == null || fechaStr == null ||
                 tipoStr.isBlank() || mail.isBlank() || nick.isBlank() || contra.isBlank() || fechaStr.isBlank()) {
+
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resultado.put("exito", false);
-                resultado.put("mensaje", "Faltan parámetros obligatorios");
-                response.getWriter().write(new Gson().toJson(resultado));
+                response.getWriter().write("Faltan parámetros obligatorios");
                 return;
             }
 
-            TipoUsuario tipo = TipoUsuario.valueOf(tipoStr);
+            TipoUsuario tipo;
+            try {
+                tipo = TipoUsuario.valueOf(tipoStr);
+            } catch (IllegalArgumentException e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("Tipo de usuario inválido");
+                return;
+            }
+
             LocalDate fecha;
             try {
                 fecha = LocalDate.parse(fechaStr);
             } catch (DateTimeParseException e) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resultado.put("exito", false);
-                resultado.put("mensaje", "Formato de fecha inválido (yyyy-MM-dd)");
-                response.getWriter().write(new Gson().toJson(resultado));
+                response.getWriter().write("Formato de fecha inválido (yyyy-MM-dd)");
                 return;
             }
 
             switch (tipo) {
-                case Comun:
-                {
+
+                case Comun: {
                     String pais = request.getParameter("pais");
                     String telefonoStr = request.getParameter("telefono");
-                    if (pais == null || telefonoStr == null || pais.isBlank() || telefonoStr.isBlank()) {
+
+                    if (pais == null || telefonoStr == null ||
+                        pais.isBlank() || telefonoStr.isBlank()) {
+
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        resultado.put("exito", false);
-                        resultado.put("mensaje", "Faltan datos para usuario común");
-                        response.getWriter().write(new Gson().toJson(resultado));
+                        response.getWriter().write("Faltan datos para usuario común");
                         return;
                     }
+
                     int telefono;
                     try {
                         telefono = Integer.parseInt(telefonoStr);
                     } catch (NumberFormatException e) {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        resultado.put("exito", false);
-                        resultado.put("mensaje", "Teléfono inválido");
-                        response.getWriter().write(new Gson().toJson(resultado));
+                        response.getWriter().write("Teléfono inválido");
                         return;
                     }
+
                     servicio.registrarUsuarioComun(mail, nick, contra, fecha, pais, telefono);
+                    break;
                 }
-                case Desarrollador:
-                {
+
+                case Desarrollador: {
                     String empresa = request.getParameter("empresa");
+
                     if (empresa == null || empresa.isBlank()) {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                        resultado.put("exito", false);
-                        resultado.put("mensaje", "Empresa no encontrada para desarrollador");
-                        response.getWriter().write(new Gson().toJson(resultado));
+                        response.getWriter().write("Empresa requerida para desarrollador");
                         return;
                     }
+
                     servicio.registrarDesarrollador(mail, nick, contra, fecha, empresa);
+                    break;
                 }
-                case Admin :
+
+                case Admin:
                     servicio.registrarAdministrador(mail, nick, contra, fecha);
+                    break;
             }
 
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Usuario registrado correctamente");
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Usuario registrado correctamente");
 
-        } catch (IllegalArgumentException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Tipo de usuario inválido");
-            response.getWriter().write(new Gson().toJson(resultado));
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al registrar usuario");
+            response.getWriter().write("Error al registrar usuario");
             e.printStackTrace();
-            response.getWriter().write(new Gson().toJson(resultado));
         }
     }
+
 }

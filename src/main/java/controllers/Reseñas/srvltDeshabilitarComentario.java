@@ -27,41 +27,46 @@ public class srvltDeshabilitarComentario extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/plain;charset=UTF-8");
+
         String idComentarioStr = request.getParameter("idComentario");
         String mail = request.getParameter("mail");
 
-        Map<String, Object> resultado = new HashMap<>();
-        response.setContentType("application/json");
-
-        //datos incompletos
+        // datos incompletos
         if (idComentarioStr == null || idComentarioStr.isBlank() ||
             mail == null || mail.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan datos obligatorios");
-            response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+            response.getWriter().write("Faltan datos obligatorios");
             return;
         }
 
         int idComentario;
         try {
-            //string a int
             idComentario = Integer.parseInt(idComentarioStr);
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "ID de comentario inválido");
-            response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+            response.getWriter().write("ID de comentario inválido");
             return;
         }
 
-        //flujo normal
-        String mensaje = servicio.desabilitarComentario(idComentario, mail);
-        resultado.put("exito", mensaje.equals("Comentario oculto"));
-        resultado.put("mensaje", mensaje);
+        try {
+            String mensaje = servicio.desabilitarComentario(idComentario, mail);
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().write(new com.google.gson.Gson().toJson(resultado));
+            if ("Comentario oculto".equals(mensaje)) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            } else {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            }
+
+            response.getWriter().write(mensaje);
+
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("Error al deshabilitar comentario");
+            e.printStackTrace();
+        }
     }
+
 }

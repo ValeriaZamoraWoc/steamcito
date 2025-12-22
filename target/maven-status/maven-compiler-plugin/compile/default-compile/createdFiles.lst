@@ -1,5 +1,6 @@
 models/Juegos/Comentario.class
 dtos/Juegos/dtoCategoria.class
+controllers/Gets/srvltObtenerTodosLosJuegos.class
 CRUDs/CRUDSistema.class
 CRUDs/CRUDVenta.class
 services/Registros/RegistrarGrupoFamiliar.class
@@ -10,6 +11,7 @@ controllers/Registros/srvltRegistoComision.class
 services/General/SistemaCentral.class
 dtos/Usuarios/dtoUsuario.class
 CRUDs/CRUDPrestamo.class
+controllers/GruposFamiliares/srvltEliminarUsuarioGrupoFamiliar.class
 dtos/Empresas/dtoEmpresa.class
 services/Registros/RegistrarImagenes.class
 controllers/JuegosDinamica/srvltCambiarCategoriaJuegoDesarrollador.class
@@ -22,19 +24,24 @@ controllers/Registros/srvltRegistroUsuarios.class
 models/Usuarios/UsuarioComun.class
 models/ObjetosUsuario/Wallet.class
 services/Registros/RegistrarUsuario.class
+services/OpcionesUsuarioComun/ObtenerBibliotecaUsuario.class
 services/MovimientoWallet/MovimientoWallet.class
+services/ComentariosYCalificaciones/ObtenerComentariosPorJuego.class
 models/Usuarios/GrupoFamiliar.class
 dtos/Usuarios/dtoUsuarioDesarrollador.class
 dtos/Usuarios/dtoUsuarioComun.class
 services/General/ConectorBD.class
 CRUDs/CRUDClasificacion.class
 controllers/JuegosDinamica/srvltCambiarCategoriaJuegoAdmin.class
+services/General/LocalDateAdapter.class
 controllers/JuegosDinamica/srvltInstalarJuego.class
 controllers/MovimientoWallet/srvltDescontarSaldo.class
 controllers/JuegosDinamica/srvltActualizarJuego.class
+controllers/Gets/srvltObtenerBibliotecaUsuario.class
 controllers/Reseñas/srvltDeshabilitarComentario.class
 services/Registros/RegistrarEmpresa.class
 controllers/Reseñas/srvltComentarioCalificacionComentarios.class
+services/OpcionesUsuarioComun/SacarUsuarioGrupoFamiliar.class
 models/Juegos/Clasificacion.class
 CRUDs/CRUDEmpresa.class
 controllers/Reseñas/srvltComentarioCalificacionJuego.class
@@ -91,6 +98,7 @@ controllers/Registros/srvltRegistrarClasificacion.class
 models/Juegos/Calificacion.class
 models/Usuarios/Administrador.class
 controllers/srvltLogin.class
+controllers/Reseñas/srvltObtenerComentariosPorJuego.class
 services/General/TipoBusqueda.class
 models/Usuarios/Usuario.class
 dtos/ObjetosUsuario/dtoPrestamo.class

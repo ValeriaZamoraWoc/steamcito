@@ -28,33 +28,29 @@ public class srvltRegistroEmpresa extends HttpServlet{
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        Map<String, Object> resultado = new HashMap<>();
+        response.setContentType("text/plain;charset=UTF-8");
 
         String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
 
-        if (nombre == null || nombre.isBlank() || descripcion == null || descripcion.isBlank()) {
+        if (nombre == null || nombre.isBlank() ||
+            descripcion == null || descripcion.isBlank()) {
+
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Faltan parámetros obligatorios");
-            response.getWriter().write(new Gson().toJson(resultado));
+            response.getWriter().write("Faltan parámetros obligatorios");
             return;
         }
 
         try {
             servicio.registrarEmpresa(nombre, descripcion);
-            resultado.put("exito", true);
-            resultado.put("mensaje", "Empresa registrada correctamente");
             response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Empresa registrada correctamente");
+
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            resultado.put("exito", false);
-            resultado.put("mensaje", "Error al registrar la empresa");
+            response.getWriter().write("Error al registrar la empresa");
             e.printStackTrace();
         }
-
-        response.getWriter().write(new Gson().toJson(resultado));
     }
+
 }
