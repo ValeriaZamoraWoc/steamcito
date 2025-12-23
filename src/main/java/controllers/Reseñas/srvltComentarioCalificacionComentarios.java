@@ -25,8 +25,6 @@ public class srvltComentarioCalificacionComentarios extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("ENTRÉ AL SERVLET COMENTAR COMENTARIO");
-
         String descripcion = request.getParameter("descripcion");
         String nombreJuego = request.getParameter("nombreJuego");
         String mail = request.getParameter("mail");

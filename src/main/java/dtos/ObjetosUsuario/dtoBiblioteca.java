@@ -21,7 +21,7 @@ public class dtoBiblioteca {
         this.mailUsuario = mailUsuario;
     }
 
-    public boolean esPublica() {
+    public boolean getEsPublica() {
         return esPublica;
     }
 

@@ -24,7 +24,7 @@ public class CRUDWallet {
         try (Connection c = Conexion.obtenerConexion()){
             PreparedStatement st = c.prepareStatement(sql);
             st.setString(1, dto.getMail());
-            st.executeQuery();
+            st.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

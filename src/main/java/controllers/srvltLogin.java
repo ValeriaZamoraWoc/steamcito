@@ -35,7 +35,6 @@ public class srvltLogin extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().write("""
                 {
-                  "mensaje": "Login exitoso",
                   "rol": "%s",
                   "mail": "%s"
                 }

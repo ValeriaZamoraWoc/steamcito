@@ -30,46 +30,47 @@ public class RegistrarCompra {
     CRUDUsuario crudU = new CRUDUsuario();
     CRUDCategoria crudC = new CRUDCategoria();
     
-    public boolean registrarCompra(String nombreJuego, String mail) {
+    public String registrarCompra(String nombreJuego, String mail) {
 
         // Buscar juego
         dtoJuego juego = crudJ.buscarJuegoPorTitulo(nombreJuego);
         if (juego == null) {
-            return false;
+            return "noexiste el juego";
         }
+        System.out.println("id categoria juego "+ juego.getCategoria() );
 
         // biblioteca
         dtoBiblioteca biblioteca = crudB.buscarBibliotecaPorMail(mail);
         if (biblioteca == null) {
-            return false; 
+            return "no existe la biblioteca"; 
         }
 
         // wallet
         dtoWallet wallet = crudW.obtenerWallet(mail);
         if (wallet == null) {
-            return false;
+            return "no existe la wallet";
         }
 
         // usuario
         dtoUsuarioComun usuario = crudU.buscarUsuarioComunPorMail(mail);
         if (usuario == null) {
-            return false;
+            return "no existe el usuario común";
         }
 
         // edad
         dtoCategoria categoria = crudC.buscarCategoriaPorId(juego.getCategoria());
         if (categoria == null) {
-            return false; 
+            return "no existe la categoria"; 
         }
 
         int edadUsuario = calcularEdad(usuario.getFechaNacimiento());
         if (edadUsuario < categoria.getEdadCategoria()) {
-            return false;
+            return "no cumple con la edad";
         }
 
         // Validar saldo
         if (wallet.getSaldo() < juego.getPrecio()) {
-            return false; 
+            return "no tiene saldo suficiente"; 
         }
 
         // Registrar compra
@@ -83,7 +84,7 @@ public class RegistrarCompra {
         crudV.registrarVenta(bj, juego.getPrecio());
         crudW.descontarSaldo(wallet, juego.getPrecio());
 
-        return true;
+        return "sí se pudo";
     }
 
     private int calcularEdad(LocalDate fechaNacimiento) {

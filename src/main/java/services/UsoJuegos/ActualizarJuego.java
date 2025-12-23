@@ -26,7 +26,7 @@ public class ActualizarJuego {
     
     public void actualizarJuego(String nombreJuego, String descripcion, String especificaciones,
         String clasificacion, String categoria, int precio, LocalDate fechaLanzamiento ){
-        dtoJuego juego = new dtoJuego();
+        dtoJuego juego = crudJuego.buscarJuegoPorTitulo(nombreJuego);
         juego.setNombreJuego(nombreJuego);
         juego.setDescripcion(descripcion);
         juego.setEspecificaciones(especificaciones);

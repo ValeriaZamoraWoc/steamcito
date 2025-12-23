@@ -124,7 +124,7 @@ public class CRUDBiblioteca {
     
     public boolean buscarJuegoEnBiblioteca(dtoBiblioteca biblioteca, dtoJuego juego){
         String sql = """
-            SELECT * FROM biblioteca usuario WHERE mail = ? AND id_juego = ?;
+            SELECT * FROM biblioteca_juego WHERE mail = ? AND id_juego = ?;
                      """;
         
         try (Connection c = Conexion.obtenerConexion()){
@@ -144,28 +144,19 @@ public class CRUDBiblioteca {
     }
 
     public void cambiarVisibilidadBiblioteca(dtoBiblioteca biblioteca){
-        String sqlBoolean = """
+        /*String sqlBoolean = """
             SELECT es_visible FROM biblioteca WHERE mail = ? ;
-                            """;
+                            """;*/
         String sqlCambio ="""
-            UPDATE biblioteca SET es_visible = ? WHERE mail = ? ;
+            UPDATE biblioteca SET es_publica = ? WHERE mail = ? ;
                           """;
         
-        Boolean tipo=null;
          try (Connection c = Conexion.obtenerConexion()){
-            PreparedStatement st = c.prepareStatement(sqlBoolean);
-            st.setString(1, biblioteca.getMailUsuario());
-            ResultSet rs = st.executeQuery();
+            PreparedStatement st = c.prepareStatement(sqlCambio);
+            st.setBoolean(1, !biblioteca.getEsPublica());
+            st.setString(2,biblioteca.getMailUsuario());
+            st.executeUpdate();
             
-            if(rs.next()){
-                tipo= rs.getBoolean("es_visible");
-                
-                PreparedStatement st2 = c.prepareStatement(sqlCambio);
-                st2.setBoolean(1, tipo);
-                st2.setString(2,biblioteca.getMailUsuario());
-                st2.executeUpdate();
-
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

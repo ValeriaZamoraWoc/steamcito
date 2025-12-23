@@ -18,9 +18,11 @@ public class Login {
 
     public dtoUsuario login(String mail, String password) {
 
-        if (mail == null || password == null) {
+        if (mail == null || password == null ||
+            mail.isBlank() || password.isBlank()) {
             throw new RuntimeException("Datos incompletos");
         }
+
 
         dtoUsuario usuario = crud.inicioSesion(mail, password);
 

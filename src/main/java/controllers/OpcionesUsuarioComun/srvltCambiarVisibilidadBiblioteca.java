@@ -33,7 +33,7 @@ public class srvltCambiarVisibilidadBiblioteca extends HttpServlet {
 
         String mail = request.getParameter("mail");
 
-        // Validación básica
+        //datos incompletos
         if (mail == null || mail.isBlank()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Mail requerido");

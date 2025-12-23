@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import services.General.Conexion;
@@ -55,8 +56,7 @@ public class CRUDJuego {
         dtoJuego juego = null;
 
         String sql = """
-            SELECT id_juego, nombre_juego, precio, en_venta
-            FROM juego
+            SELECT * FROM juego
             WHERE nombre_juego = ?;
             """;
 
@@ -69,8 +69,17 @@ public class CRUDJuego {
                 juego = new dtoJuego();
                 juego.setId(rs.getInt("id_juego"));
                 juego.setNombreJuego(rs.getString("nombre_juego"));
+                juego.setClasificacion(rs.getInt("id_clasificacion"));
+                juego.setCategoria(rs.getInt("id_categoria"));
+                juego.setEmpresa(rs.getInt("id_empresa"));
                 juego.setPrecio(rs.getInt("precio"));
                 juego.setEnVenta(rs.getBoolean("en_venta"));
+                juego.setDescripcion(rs.getString("descripcion"));
+                juego.setEspecificaciones(rs.getString("especificaciones"));
+                juego.setUrlImagen(rs.getString("url_imagen"));
+                
+                Date fecha = rs.getDate("fecha_lanzamiento");
+                juego.setFechaLanzamiento(fecha.toLocalDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();
