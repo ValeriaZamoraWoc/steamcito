@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
-import models.Usuarios.TipoUsuario;
+
 import services.Registros.RegistrarUsuario;
 
 /**

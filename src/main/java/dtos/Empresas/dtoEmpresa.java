@@ -4,9 +4,6 @@
  */
 package dtos.Empresas;
 
-import java.util.ArrayList;
-import models.Juegos.Juego;
-import models.Usuarios.Desarrollador;
 
 /**
  *

@@ -4,7 +4,6 @@
  */
 package dtos.Juegos;
 
-import models.Juegos.Calificacion;
 
 /**
  *

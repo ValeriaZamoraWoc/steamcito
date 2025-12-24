@@ -4,10 +4,6 @@
  */
 package dtos.Usuarios;
 
-import java.util.ArrayList;
-import models.ObjetosUsuario.Biblioteca;
-import models.ObjetosUsuario.Prestamo;
-import models.ObjetosUsuario.Wallet;
 
 /**
  *

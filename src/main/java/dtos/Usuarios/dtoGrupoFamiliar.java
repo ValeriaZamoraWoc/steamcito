@@ -5,7 +5,7 @@
 package dtos.Usuarios;
 
 import java.util.List;
-import models.Usuarios.UsuarioComun;
+
 
 /**
  *
@@ -13,6 +13,7 @@ import models.Usuarios.UsuarioComun;
  */
 public class dtoGrupoFamiliar {
 
+    private String nombreGrupo;
     private int idGrupoFamiliar;
     private List<String> mailsIntegrantes;
 
@@ -31,4 +32,14 @@ public class dtoGrupoFamiliar {
     public List<String> getMailsIntegrantes() {
         return mailsIntegrantes;
     }
+
+    public String getNombreGrupo() {
+        return nombreGrupo;
+    }
+
+    public void setNombreGrupo(String nombreGrupo) {
+        this.nombreGrupo = nombreGrupo;
+    }
+    
+    
 }

@@ -5,8 +5,6 @@
 package dtos.ObjetosUsuario;
 
 import java.time.LocalDate;
-import models.Juegos.Juego;
-import models.Usuarios.UsuarioComun;
 
 /**
  *

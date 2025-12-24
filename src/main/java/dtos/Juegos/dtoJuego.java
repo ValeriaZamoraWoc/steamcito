@@ -5,8 +5,6 @@
 package dtos.Juegos;
 
 import java.time.LocalDate;
-import models.Juegos.Categoria;
-import models.Juegos.Clasificacion;
 
 /**
  *

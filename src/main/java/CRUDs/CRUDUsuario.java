@@ -4,6 +4,7 @@
  */
 package CRUDs;
 
+import controllers.Registros.TipoUsuario;
 import dtos.Juegos.dtoJuego;
 import dtos.Usuarios.dtoUsuario;
 import dtos.Usuarios.dtoUsuarioComun;
@@ -17,7 +18,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import services.General.Conexion;
-import models.Usuarios.TipoUsuario;
 
 
 /**
@@ -221,7 +221,8 @@ public class CRUDUsuario {
         List<dtoJuego> juegos = new ArrayList<>();
 
         String sql = """
-            SELECT j.id_juego, j.nombre_juego, j.precio, j.en_venta
+            SELECT j.id_juego, j.nombre_juego, j.id_clasificacion, j.id_categoria, j.id_empresa, j.precio, j.en_venta, 
+                     j.descripcion, j.especificaciones, j.fecha_lanzamiento, j.url_imagen
             FROM biblioteca_juego bj
             INNER JOIN juego j ON bj.id_juego = j.id_juego
             WHERE bj.mail = ? ;
@@ -237,8 +238,16 @@ public class CRUDUsuario {
                 dtoJuego dto = new dtoJuego();
                 dto.setId(rs.getInt("id_juego"));
                 dto.setNombreJuego(rs.getString("nombre_juego"));
+                dto.setClasificacion(rs.getInt("id_clasificacion"));
+                dto.setCategoria(rs.getInt("id_categoria"));
+                dto.setEmpresa(rs.getInt("id_empresa"));
                 dto.setPrecio(rs.getInt("precio"));
                 dto.setEnVenta(rs.getBoolean("en_venta"));
+                dto.setDescripcion(rs.getString("descripcion"));
+                dto.setEspecificaciones(rs.getString("especificaciones"));
+                Date fecha = rs.getDate("fecha_lanzamiento");
+                dto.setFechaLanzamiento(fecha.toLocalDate());
+                dto.setUrlImagen(rs.getString("url_imagen"));
 
                 juegos.add(dto);
             }

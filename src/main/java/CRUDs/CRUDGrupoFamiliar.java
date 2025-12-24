@@ -43,7 +43,6 @@ public class CRUDGrupoFamiliar {
         }
     }
 
-    
     public void agregarPersonaAGrupoFamiliar(int idGrupo, dtoUsuarioComun usuario){
         
         if(!grupoTieneCupo(idGrupo)){
@@ -207,5 +206,64 @@ public class CRUDGrupoFamiliar {
         return ids;
     }
 
+    public List<dtoGrupoFamiliar> obtenerGruposPorUsuario(String mail) {
+        List<dtoGrupoFamiliar> grupos = new ArrayList<>();
+
+        String sql = """
+            SELECT gf.id_grupoFamiliar, gf.nombre_grupoFamiliar
+            FROM grupoFamiliar gf
+            INNER JOIN grupoFamiliar_usuario gfu ON gf.id_grupoFamiliar = gfu.id_grupoFamiliar
+            WHERE gfu.mail = ?
+        """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, mail);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                dtoGrupoFamiliar grupo = new dtoGrupoFamiliar();
+                grupo.setIdGrupoFamiliar(rs.getInt("id_grupoFamiliar"));
+                grupo.setNombreGrupo(rs.getString("nombre_grupoFamiliar"));
+                grupos.add(grupo);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return grupos;
+    }
+
+    public List<dtoUsuarioComun> obtenerIntegrantesGrupo(int idGrupo) {
+        List<dtoUsuarioComun> integrantes = new ArrayList<>();
+
+        String sql = """
+            SELECT u.mail, u.nickname, de.telefono
+            FROM grupoFamiliar_usuario gfu
+            INNER JOIN usuario u ON gfu.mail = u.mail
+            INNER JOIN datosExtra de ON gfu.mail= de.mail
+            WHERE gfu.id_grupoFamiliar = ?
+        """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, idGrupo);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                dtoUsuarioComun usuario = new dtoUsuarioComun();
+                usuario.setMail(rs.getString("mail"));
+                usuario.setNickname(rs.getString("nickname"));
+                usuario.setTelefono(rs.getInt("telefono"));
+                integrantes.add(usuario);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return integrantes;
+    }
 
 }

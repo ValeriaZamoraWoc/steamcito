@@ -13,56 +13,67 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import services.Registros.RegistrarImagenes;
 
 /**
  *
  * @author cacerola
  */
-@WebServlet("/registrarImagenJuego")
+@WebServlet("/guardarImagenJuego")
 @MultipartConfig
-public class srvltGuardarImagenJuego extends HttpServlet{
-    
+public class srvltGuardarImagenJuego extends HttpServlet {
+
     private RegistrarImagenes servicio = new RegistrarImagenes();
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
 
-        response.setContentType("application/json;charset=UTF-8");
-
-        String idJuegoStr = request.getParameter("idJuego");
-        Part imagen = request.getPart("imagen");
-
-        if (idJuegoStr == null || imagen == null) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            return;
-        }
-
-        int idJuego = Integer.parseInt(idJuegoStr);
-        
-        String rutaBase = getServletContext().getRealPath("/uploads/juegos/");
-        File carpeta = new File(rutaBase);
-        if (!carpeta.exists()) carpeta.mkdirs();
-
-        String nombreArchivo = "juego_" + idJuego + "_" + imagen.getSubmittedFileName();
-
-        imagen.write(rutaBase + nombreArchivo);
-
-        String url = request.getScheme() + "://" +
-             request.getServerName() + ":" +
-             request.getServerPort() +
-             request.getContextPath() +
-             "/uploads/juegos/" + nombreArchivo;
-        
         try {
+            String idJuegoStr = req.getParameter("idJuego");
+            Part part = req.getPart("imagen");
+
+            if (idJuegoStr == null || part == null || part.getSize() == 0) {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                return;
+            }
+
+            int idJuego = Integer.parseInt(idJuegoStr);
+
+            String home = System.getProperty("user.home");
+            File carpeta = new File(home + File.separator + "uploads" + File.separator + "juegos");
+
+            if (!carpeta.exists()) {
+                carpeta.mkdirs();
+            }
+
+            String nombreArchivo = "juego_" + idJuego + "_" + System.currentTimeMillis() + ".jpg";
+            File archivoFinal = new File(carpeta, nombreArchivo);
+            part.write(archivoFinal.getAbsolutePath());
+
+            String url =
+                req.getScheme() + "://" +
+                req.getServerName() + ":" +
+                req.getServerPort() +
+                req.getContextPath() +
+                "/uploads/juegos/" + nombreArchivo;
+
+
             servicio.registrarImagenJuego(idJuego, url);
-            response.getWriter().write("""
-                { "exito": true, "url": "%s" }
+
+            resp.setContentType("application/json");
+            resp.getWriter().write("""
+                {
+                  "exito": true,
+                  "url": "%s"
+                }
             """.formatted(url));
+
         } catch (Exception e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            e.printStackTrace();
+            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
-    
 }
+

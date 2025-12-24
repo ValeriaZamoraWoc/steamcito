@@ -7,6 +7,7 @@ package services.Registros;
 import CRUDs.CRUDEmpresa;
 import CRUDs.CRUDUsuario;
 import CRUDs.CRUDWallet;
+import controllers.Registros.TipoUsuario;
 import dtos.Empresas.dtoEmpresa;
 import dtos.ObjetosUsuario.dtoWallet;
 import dtos.Usuarios.dtoUsuario;
@@ -14,7 +15,6 @@ import dtos.Usuarios.dtoUsuarioComun;
 import dtos.Usuarios.dtoUsuarioDesarrollador;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import models.Usuarios.TipoUsuario;
 
 /**
  *

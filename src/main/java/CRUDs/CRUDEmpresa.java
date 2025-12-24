@@ -15,8 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import services.General.Conexion;
-import models.Empresas.Empresa;
-import models.Juegos.Juego;
+
 
 /**
  *
@@ -104,40 +103,53 @@ public class CRUDEmpresa {
         return empresa;
     }
     
-    public List<Juego> obtenerCatalogoEmpresa(Empresa empresa){
+    public List<dtoJuego> obtenerCatalogoEmpresa(dtoEmpresa empresa){
+        List<dtoJuego> catalogo = new ArrayList<>();
+
         String sqlCatalogo = """
                 SELECT j.id_juego, j.nombre_juego, cl.nombre_clasificacion, 
                        ct.nombre_categoria, j.especificaciones, j.descripcion, 
-                       j.en_venta, e.nombre_empresa, j.precio 
+                       j.en_venta, e.nombre_empresa, j.precio,
+                       img.url_imagen as url_imagen  -- Añadido para obtener la imagen
                 FROM juego j 
                 INNER JOIN clasificacion cl ON j.id_clasificacion = cl.id_clasificacion
                 INNER JOIN categoria ct ON j.id_categoria = ct.id_categoria
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
+                LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego 
                 WHERE e.nombre_empresa = ?;
                 """;
-        
+
         try (Connection c = Conexion.obtenerConexion()){ 
-            
+
             PreparedStatement st = c.prepareStatement(sqlCatalogo);
             st.setString(1, empresa.getNombreEmpresa());
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){
-                Juego juego = new Juego(
-                    resultado.getInt("id_juego"),
-                    resultado.getString("nombre_juego"),
-                    resultado.getInt("precio")
-                );
-                empresa.agregarJuegoCatalogo(juego);
+                dtoJuego juego = new dtoJuego();
+                juego.setId(resultado.getInt("id_juego"));
+                juego.setNombreJuego(resultado.getString("nombre_juego"));
+                juego.setPrecio(resultado.getInt("precio"));
+                juego.setDescripcion(resultado.getString("descripcion"));
+                juego.setEspecificaciones(resultado.getString("especificaciones"));
+                juego.setEnVenta(resultado.getBoolean("en_venta"));
+
+                String urlImagen = resultado.getString("url_imagen");
+                if (urlImagen != null) {
+                    juego.setUrlImagen(urlImagen);
+                }
+
+
+                catalogo.add(juego);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return empresa.getCatalogo();
+        return catalogo;
     }
 
-    public List<String[]> obtenerVentasEmpresa(Empresa empresa){
+    public List<String[]> obtenerVentasEmpresa(dtoEmpresa empresa){
         List<String[]> ventas = new ArrayList<>();
         
         String sqlVentas = """
@@ -197,27 +209,40 @@ public class CRUDEmpresa {
         return ventas;
     }
 
-    public List<Juego> obtenerJuegosMejorCalificadosEmpresa(Empresa empresa){
-        List<Juego> juegos = new ArrayList<>();
+    public List<dtoJuego> obtenerJuegosMejorCalificadosEmpresa(dtoEmpresa empresa){
+        List<dtoJuego> juegos = new ArrayList<>();
+
         String sqlMejores = """
-                SELECT j.id_juego, j.nombre_juego, c.calificacion, j.precio 
+                SELECT j.id_juego, j.nombre_juego, c.calificacion, j.precio,
+                       img.url_imagen as url_imagen
                 FROM calificacion c
                 INNER JOIN juego j ON c.id_juego = j.id_juego
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
+                LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego
                 WHERE e.nombre_empresa = ? 
                 ORDER BY c.calificacion DESC;
                 """;
+
         try (Connection c = Conexion.obtenerConexion()) {
             PreparedStatement st = c.prepareStatement(sqlMejores);
             st.setString(1, empresa.getNombreEmpresa());
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){
-                Juego juego = new Juego(
-                    resultado.getInt("id_juego"),
-                    resultado.getString("nombre_juego"),
-                    resultado.getInt("precio")
-                );
+                dtoJuego juego = new dtoJuego();
+                juego.setId(resultado.getInt("id_juego"));
+                juego.setNombreJuego(resultado.getString("nombre_juego"));
+                juego.setPrecio(resultado.getInt("precio"));
+
+                // Obtener URL de imagen si existe
+                String urlImagen = resultado.getString("url_imagen");
+                if (urlImagen != null) {
+                    juego.setUrlImagen(urlImagen);
+                }
+
+                // Si necesitas almacenar la calificación, podrías agregar un campo en dtoJuego
+                // int calificacion = resultado.getInt("calificacion");
+
                 juegos.add(juego);
             }
 
@@ -227,27 +252,37 @@ public class CRUDEmpresa {
         return juegos;
     }
 
-    public List<Juego> obtenerJuegosPeorCalificadiosEmpresa(Empresa empresa){
-        List<Juego> juegos = new ArrayList<>();
+    public List<dtoJuego> obtenerJuegosPeorCalificadosEmpresa(dtoEmpresa empresa){
+        List<dtoJuego> juegos = new ArrayList<>();
+
         String sqlPeores = """
-                SELECT j.id_juego, j.nombre_juego, c.calificacion, j.precio 
+                SELECT j.id_juego, j.nombre_juego, c.calificacion, j.precio,
+                       img.url_imagen as url_imagen
                 FROM calificacion c
                 INNER JOIN juego j ON c.id_juego = j.id_juego
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
+                LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego
                 WHERE e.nombre_empresa = ? 
                 ORDER BY c.calificacion ASC;
                 """;
+
         try (Connection c = Conexion.obtenerConexion()) {
             PreparedStatement st = c.prepareStatement(sqlPeores);
             st.setString(1, empresa.getNombreEmpresa());
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){
-                Juego juego = new Juego(
-                    resultado.getInt("id_juego"),
-                    resultado.getString("nombre_juego"),
-                    resultado.getInt("precio")
-                );
+                dtoJuego juego = new dtoJuego();
+                juego.setId(resultado.getInt("id_juego"));
+                juego.setNombreJuego(resultado.getString("nombre_juego"));
+                juego.setPrecio(resultado.getInt("precio"));
+
+                // Obtener URL de imagen si existe
+                String urlImagen = resultado.getString("url_imagen");
+                if (urlImagen != null) {
+                    juego.setUrlImagen(urlImagen);
+                }
+
                 juegos.add(juego);
             }
         } catch (SQLException e) {
@@ -255,7 +290,6 @@ public class CRUDEmpresa {
         }
         return juegos;
     }
-    
     public void suspenderVentaJuego(dtoJuego juego){
         String sql="""
             UPDATE juego SET en_venta = FALSE
