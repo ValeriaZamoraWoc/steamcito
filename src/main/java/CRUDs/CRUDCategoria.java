@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import services.General.Conexion;
 
 /**
@@ -104,6 +106,30 @@ public class CRUDCategoria {
             e.printStackTrace();
         }
         return categoria;
+    }
+    
+    public List<dtoCategoria> obtenerCategorias(){
+        List<dtoCategoria> categorias = new ArrayList<>();
+        String sql = """
+            SELECT * FROM categoria;
+                     """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                dtoCategoria categoria = new dtoCategoria();
+                categoria = new dtoCategoria();
+                categoria.setIdCategoria(rs.getInt("id_categoria"));
+                categoria.setNombreCategoria(rs.getString("nombre_categoria"));
+                categoria.setEdadCategoria(rs.getInt("edad_categoria"));
+                categorias.add(categoria);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return categorias;
     }
     
 }

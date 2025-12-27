@@ -103,26 +103,26 @@ public class CRUDEmpresa {
         return empresa;
     }
     
-    public List<dtoJuego> obtenerCatalogoEmpresa(dtoEmpresa empresa){
+    public List<dtoJuego> obtenerCatalogoEmpresa(Integer empresa){
         List<dtoJuego> catalogo = new ArrayList<>();
 
         String sqlCatalogo = """
                 SELECT j.id_juego, j.nombre_juego, cl.nombre_clasificacion, 
                        ct.nombre_categoria, j.especificaciones, j.descripcion, 
                        j.en_venta, e.nombre_empresa, j.precio,
-                       img.url_imagen as url_imagen  -- Añadido para obtener la imagen
+                       img.url as url_imagen 
                 FROM juego j 
                 INNER JOIN clasificacion cl ON j.id_clasificacion = cl.id_clasificacion
                 INNER JOIN categoria ct ON j.id_categoria = ct.id_categoria
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
-                LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego 
-                WHERE e.nombre_empresa = ?;
+                LEFT JOIN imagen img ON j.url_imagen = img.url 
+                WHERE e.id_empresa = ?;
                 """;
 
         try (Connection c = Conexion.obtenerConexion()){ 
 
             PreparedStatement st = c.prepareStatement(sqlCatalogo);
-            st.setString(1, empresa.getNombreEmpresa());
+            st.setInt(1, empresa);
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){
@@ -149,27 +149,29 @@ public class CRUDEmpresa {
         return catalogo;
     }
 
-    public List<String[]> obtenerVentasEmpresa(dtoEmpresa empresa){
+    public List<String[]> obtenerVentasEmpresa(Integer idEmpresa){
         List<String[]> ventas = new ArrayList<>();
         
         String sqlVentas = """
-                SELECT v.monto, j.nombre_juego, c.porcentaje 
+                SELECT v.dinero_comision, v.dinero_empresa, j.nombre_juego, c.porcentaje 
                 FROM venta v
                 INNER JOIN juego j ON v.id_juego = j.id_juego
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
                 INNER JOIN comision_empresa ce ON e.id_empresa = ce.id_empresa
                 INNER JOIN comision c ON ce.id_comision = c.id_comision
-                WHERE e.nombre_empresa = ?;
+                WHERE e.id_empresa = ?;
                 """;
 
         try (Connection c = Conexion.obtenerConexion()){ 
             PreparedStatement st = c.prepareStatement(sqlVentas);
-            st.setString(1, empresa.getNombreEmpresa());
+            st.setInt(1, idEmpresa);
             ResultSet resultado = st.executeQuery();
 
             while (resultado.next()) {
                 String juego = resultado.getString("nombre_juego");
-                int monto = resultado.getInt("monto");
+                int dc =resultado.getInt("dinero_comision");
+                int de=resultado.getInt("dinero_empresa");
+                int monto = dc+de;
                 int porcentaje = resultado.getInt("porcentaje");
 
                 boolean encontrado = false;
@@ -209,23 +211,23 @@ public class CRUDEmpresa {
         return ventas;
     }
 
-    public List<dtoJuego> obtenerJuegosMejorCalificadosEmpresa(dtoEmpresa empresa){
+    public List<dtoJuego> obtenerJuegosMejorCalificadosEmpresa(Integer idEmpresa){
         List<dtoJuego> juegos = new ArrayList<>();
 
         String sqlMejores = """
                 SELECT j.id_juego, j.nombre_juego, c.calificacion, j.precio,
-                       img.url_imagen as url_imagen
+                       img.url
                 FROM calificacion c
                 INNER JOIN juego j ON c.id_juego = j.id_juego
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
-                LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego
-                WHERE e.nombre_empresa = ? 
+                LEFT JOIN imagen img ON j.url_imagen = img.url
+                WHERE e.id_empresa = ? 
                 ORDER BY c.calificacion DESC;
                 """;
 
         try (Connection c = Conexion.obtenerConexion()) {
             PreparedStatement st = c.prepareStatement(sqlMejores);
-            st.setString(1, empresa.getNombreEmpresa());
+            st.setInt(1, idEmpresa);
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){
@@ -252,7 +254,7 @@ public class CRUDEmpresa {
         return juegos;
     }
 
-    public List<dtoJuego> obtenerJuegosPeorCalificadosEmpresa(dtoEmpresa empresa){
+    public List<dtoJuego> obtenerJuegosPeorCalificadosEmpresa(Integer idEmpresa){
         List<dtoJuego> juegos = new ArrayList<>();
 
         String sqlPeores = """
@@ -262,13 +264,13 @@ public class CRUDEmpresa {
                 INNER JOIN juego j ON c.id_juego = j.id_juego
                 INNER JOIN empresa e ON j.id_empresa = e.id_empresa
                 LEFT JOIN imagen_juego img ON j.id_juego = img.id_juego
-                WHERE e.nombre_empresa = ? 
+                WHERE e.id_empresa = ? 
                 ORDER BY c.calificacion ASC;
                 """;
 
         try (Connection c = Conexion.obtenerConexion()) {
             PreparedStatement st = c.prepareStatement(sqlPeores);
-            st.setString(1, empresa.getNombreEmpresa());
+            st.setInt(1, idEmpresa);
             ResultSet resultado = st.executeQuery();
 
             while(resultado.next()){

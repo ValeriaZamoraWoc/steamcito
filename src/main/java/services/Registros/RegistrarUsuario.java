@@ -38,10 +38,10 @@ public class RegistrarUsuario {
         }
     }
     
-    public void registrarDesarrollador(String mail, String nick, String contraseña, LocalDate feechaNacimiento, String nombreEmpresa){
+    public void registrarDesarrollador(String mail, String nick, String contraseña, LocalDate feechaNacimiento, Integer idEmpresa){
         CRUDEmpresa crudEmpresa= new CRUDEmpresa();
         
-        dtoEmpresa empresa = crudEmpresa.buscarEmpresaPorNombre(nombreEmpresa);
+        dtoEmpresa empresa = crudEmpresa.buscarEmpresaPorId(idEmpresa);
         
         dtoUsuarioDesarrollador usuario = new dtoUsuarioDesarrollador();
         usuario.setMail(mail);

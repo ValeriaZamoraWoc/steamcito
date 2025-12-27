@@ -96,9 +96,10 @@ public class srvltRegistroUsuarios extends HttpServlet{
                 }
 
                 case Desarrollador: {
-                    String empresa = request.getParameter("empresa");
+                    String empresaSt = request.getParameter("empresa");
+                    Integer empresa = Integer.parseInt(empresaSt);
 
-                    if (empresa == null || empresa.isBlank()) {
+                    if (empresaSt == null || empresaSt.isBlank()) {
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                         response.getWriter().write("Empresa requerida para desarrollador");
                         return;

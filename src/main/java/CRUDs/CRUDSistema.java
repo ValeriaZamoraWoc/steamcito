@@ -4,6 +4,8 @@
  */
 package CRUDs;
 
+import dtos.Empresas.EstadoPeticion;
+import dtos.Empresas.dtoPeticionComision;
 import dtos.Juegos.dtoJuego;
 import dtos.ObjetosUsuario.dtoWallet;
 import dtos.Usuarios.dtoUsuario;
@@ -53,7 +55,39 @@ public class CRUDSistema {
         return ganancias;
     }
 
+    public Integer obteneriIdBanner(){
+        Integer idJuego = null;
+        String sql ="""
+            SELECT * FROM banner
+                    """;
+        try (Connection c = Conexion.obtenerConexion()) {
+           PreparedStatement st = c.prepareStatement(sql);
+           ResultSet rs = st.executeQuery();
 
+           if (rs.next()) {
+               idJuego= rs.getInt("id_juego");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idJuego;
+    }
+    
+    public void editarBanner(Integer idJuegoAnterior, Integer idJuegoNuevo){
+        String sql ="""
+            UPDATE banner SET id_juego = ? WHERE id_juego= ?;
+                    """;
+        try (Connection c = Conexion.obtenerConexion()) {
+           PreparedStatement st = c.prepareStatement(sql);
+           st.setInt(1, idJuegoNuevo);
+           st.setInt(2, idJuegoAnterior);
+           st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
     //inicio de sesion
     public dtoUsuario inicioSesion(String mail, String contraseña){
         dtoUsuario usuario = null;

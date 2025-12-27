@@ -5,7 +5,7 @@
 package services.Registros;
 
 import CRUDs.CRUDEmpresa;
-import CRUDs.CRUDPeticionComision;
+import CRUDs.CRUDPeticiones;
 import dtos.Empresas.dtoEmpresa;
 
 /**
@@ -13,12 +13,17 @@ import dtos.Empresas.dtoEmpresa;
  * @author cacerola
  */
 public class RegistrarPeticionComision {
-    CRUDPeticionComision crudPC = new CRUDPeticionComision();
+    CRUDPeticiones crudPC = new CRUDPeticiones();
+    CRUDPeticiones cP= new CRUDPeticiones();
     CRUDEmpresa crudE= new CRUDEmpresa();
     
-    public void registrarEmpresa(String nombreEmpresa, Integer porcentaje){
+    public boolean registrarEmpresa(String nombreEmpresa, Integer porcentaje){
         dtoEmpresa empresa = crudE.buscarEmpresaPorNombre(nombreEmpresa);
         
-        crudPC.registrarPeticion(empresa, porcentaje);
+        if(!cP.existePeticion(empresa.getIdEmpresa())){
+            crudPC.registrarPeticion(empresa, porcentaje);
+            return true;
+        }
+        return false;
     }
 }

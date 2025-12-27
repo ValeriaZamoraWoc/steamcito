@@ -5,11 +5,14 @@
 package CRUDs;
 
 import dtos.Juegos.dtoCalificacion;
+import dtos.Juegos.dtoCategoria;
 import dtos.Juegos.dtoClasificacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import services.General.Conexion;
 
 /**
@@ -68,5 +71,28 @@ public class CRUDClasificacion {
             e.printStackTrace();
         }
         return clasificacion;
+    }
+    
+    public List<dtoClasificacion> obtenerClasificaciones(){
+        List<dtoClasificacion> clasificaciones = new ArrayList<>();
+        String sql = """
+            SELECT * FROM clasificacion;
+                     """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+                dtoClasificacion clasificacion = new dtoClasificacion();
+                clasificacion = new dtoClasificacion();
+                clasificacion.setIdClasificacion(rs.getInt("id_clasificacion"));
+                clasificacion.setNombreCalsificacion(rs.getString("nombre_clasificacion"));
+                clasificaciones.add(clasificacion);
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return clasificaciones;
     }
 }

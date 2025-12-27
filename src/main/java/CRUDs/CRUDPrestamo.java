@@ -33,7 +33,7 @@ public class CRUDPrestamo {
             st.setString(2, prestamo.getMailDueno());
             st.setInt(3, prestamo.getIdJuego());
             st.setDate(4, Date.valueOf(prestamo.getFechaPrestamo()));
-            st.setBoolean(5, prestamo.isDevuelto());
+            st.setBoolean(5, prestamo.isDevuelto());    
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,15 +43,14 @@ public class CRUDPrestamo {
     public void devolverPrestamo(dtoPrestamo prestamo){
         String sql = """
             UPDATE prestamo
-            SET devuelto = ?, fecha_devolucion = ?
+            SET devuelto = TRUE, fecha_devolucion = ?
             WHERE id_prestamo = ?;
             """;
 
         try (Connection c = Conexion.obtenerConexion()){
             PreparedStatement st = c.prepareStatement(sql);
-            st.setBoolean(1, prestamo.isDevuelto());
-            st.setDate(2, Date.valueOf(prestamo.getFechaDevolucion()));
-            st.setInt(3, prestamo.getIdPrestamo());
+            st.setDate(1, Date.valueOf(prestamo.getFechaDevolucion()));
+            st.setInt(2, prestamo.getIdPrestamo());
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

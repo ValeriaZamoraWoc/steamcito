@@ -5,6 +5,7 @@
 package controllers;
 
 import dtos.Usuarios.dtoUsuario;
+import dtos.Usuarios.dtoUsuarioDesarrollador;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,15 +34,29 @@ public class srvltLogin extends HttpServlet {
 
             response.setStatus(HttpServletResponse.SC_OK);
             response.setContentType("application/json");
-            response.getWriter().write("""
-                {
-                  "rol": "%s",
-                  "mail": "%s"
-                }
-            """.formatted(
-                usuario.getClass().getSimpleName(),
-                usuario.getMail()
-            ));
+
+            String rol = usuario.getClass().getSimpleName();
+            String correo = usuario.getMail();
+            String jsonFinal;
+
+            if (usuario instanceof dtoUsuarioDesarrollador dev) {
+                jsonFinal = """
+                    {
+                      "rol": "%s",
+                      "mail": "%s",
+                      "idEmpresa": %d
+                    }
+                """.formatted(rol, correo, dev.getIdEmpresa());
+            } else {
+                jsonFinal = """
+                    {
+                      "rol": "%s",
+                      "mail": "%s"
+                    }
+                """.formatted(rol, correo);
+            }
+
+            response.getWriter().write(jsonFinal);
 
         } catch (RuntimeException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);

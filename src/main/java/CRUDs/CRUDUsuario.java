@@ -216,6 +216,37 @@ public class CRUDUsuario {
         return dto;
     }
 
+    public dtoUsuarioDesarrollador buscarUsuarioDevPorMail(String mail){
+        dtoUsuarioDesarrollador dto = null;
+
+        String sql = """
+            SELECT u.mail, u.nickname, u.contraseña, u.fechaNacimiento,
+            ue.id_empresa FROM usuario u
+            INNER JOIN usuario_empresa ue ON u.mail = ue.mail
+            WHERE u.mail = ?;
+        """;
+
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, mail);
+            ResultSet rs = st.executeQuery();
+
+            if(rs.next()){
+                dto = new dtoUsuarioDesarrollador();
+                dto.setMail(rs.getString("mail"));
+                dto.setNickname(rs.getString("nickname"));
+                dto.setContraseña(rs.getString("contraseña"));
+                dto.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                dto.setIdEmpresa(rs.getInt("id_empresa"));
+                
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return dto;
+    }
+    
     public List<dtoJuego> obtenerBibliotecaUsuario(String mail) throws SQLException {
 
         List<dtoJuego> juegos = new ArrayList<>();

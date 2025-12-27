@@ -53,9 +53,15 @@ public class srvltRegistroPeticionComision extends HttpServlet{
         }
 
         try {
-            servicio.registrarEmpresa(empresa, porcentaje);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Petición registrada correctamente");
+            boolean b =servicio.registrarEmpresa(empresa, porcentaje);
+            
+            if(b){
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write("Petición registrada correctamente");
+            }else{
+                response.getWriter().write("No se puede registrar otra petición");
+            }
+            
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

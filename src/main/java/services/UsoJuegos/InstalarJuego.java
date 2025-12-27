@@ -32,7 +32,7 @@ public class InstalarJuego {
         dtoJuego juego = cJ.buscarJuegoPorTitulo(nombreJuego);
         dtoBiblioteca biblio = cB.buscarBibliotecaPorMail(mail);
 
-        // instalar si está comprado
+        //instalar si está comprado
         if (cB.buscarJuegoEnBiblioteca(biblio, juego)) {
             dtoUsuarioComun usuario = cU.buscarUsuarioComunPorMail(mail);
             cB.instalarJuego(usuario, juego);
@@ -41,19 +41,19 @@ public class InstalarJuego {
             return respuesta;
         }
 
-        // ❌ No lo tiene comprado
+        //No lo tiene comprado
         respuesta.put("instalado", false);
         respuesta.put("mensaje", "No tienes el juego comprado");
 
-        List<Integer> grupos = cG.gruposQueTienenJuego(mail, juego.getId());
+        List<String> duenos = cG.gruposQueTienenJuego(mail, juego.getId());
 
-        if (grupos.isEmpty()) {
+        if (duenos.isEmpty()) {
             respuesta.put("encontrado", false);
             respuesta.put("detalle", "No se encontró en ningún grupo familiar");
         } else {
             respuesta.put("encontrado", true);
-            respuesta.put("detalle", "Se encontró en los siguientes grupos");
-            respuesta.put("grupos", grupos);
+            respuesta.put("detalle", "Disponible para préstamo");
+            respuesta.put("grupos", duenos);
         }
 
         return respuesta;

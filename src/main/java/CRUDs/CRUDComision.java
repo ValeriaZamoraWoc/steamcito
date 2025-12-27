@@ -28,6 +28,18 @@ public class CRUDComision {
             e.printStackTrace();
         }
     }
+    public void registrarComisionConPorcentaje(Integer comision){
+        String sql="""
+            INSERT INTO comision (porcentaje) VALUES (?);
+                   """;
+        try (Connection c = Conexion.obtenerConexion()){
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setInt(1, comision);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     
     public void eliminarComision(int idComision){
         String sql ="""

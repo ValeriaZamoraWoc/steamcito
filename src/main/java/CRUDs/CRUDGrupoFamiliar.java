@@ -178,16 +178,21 @@ public class CRUDGrupoFamiliar {
         return dto;
     }
 
-    public List<Integer> gruposQueTienenJuego(String mail, int idJuego) {
-        List<Integer> ids = new ArrayList<>();
+    public List<String> gruposQueTienenJuego(String mail, int idJuego) {
+        List<String> mails = new ArrayList<>();
 
         String sql = """
-            SELECT id_grupoFamiliar FROM grupoFamiliar_usuario
-            WHERE mail = ? AND id_grupoFamiliar IN ( SELECT id_grupoFamiliar FROM grupoFamiliar_usuario 
-            INNER JOIN biblioteca_juego ON grupoFamiliar_usuario.mail = biblioteca_juego.mail
-            WHERE id_juego = ? AND grupoFamiliar_usuario.mail != ?
-                     """;
-        
+            SELECT DISTINCT b.mail
+            FROM grupoFamiliar_usuario g1
+            INNER JOIN grupoFamiliar_usuario g2 
+                   ON g1.id_grupoFamiliar = g2.id_grupoFamiliar
+            INNER JOIN biblioteca_juego b 
+                   ON b.mail = g2.mail
+            WHERE g1.mail = ?
+              AND b.id_juego = ?
+              AND b.mail <> ?;
+        """;
+
         try (Connection con = Conexion.obtenerConexion();
              PreparedStatement st = con.prepareStatement(sql)) {
 
@@ -197,14 +202,16 @@ public class CRUDGrupoFamiliar {
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                ids.add(rs.getInt(1)); 
+                mails.add(rs.getString("mail"));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return ids;
+        return mails;
     }
+
 
     public List<dtoGrupoFamiliar> obtenerGruposPorUsuario(String mail) {
         List<dtoGrupoFamiliar> grupos = new ArrayList<>();
