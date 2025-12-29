@@ -375,3 +375,87 @@
   from { opacity: 0; transform: translateY(-5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Contenedor de Préstamos dentro de la tarjeta */
+.loan-alert-inline {
+  background: rgba(102, 192, 244, 0.1);
+  border: 1px solid rgba(102, 192, 244, 0.3);
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 4px;
+  animation: fadeInDown 0.3s ease-out;
+}
+
+.loan-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: #66c0f4;
+}
+
+.loan-header h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.loan-msg {
+  font-size: 0.8rem;
+  color: #acb2b8;
+  margin-bottom: 10px;
+}
+
+.loan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.loan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 6px 10px;
+  border-radius: 3px;
+}
+
+.owner-mail {
+  font-size: 0.75rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.btn-mini-loan {
+  background: #66c0f4;
+  color: white;
+  border: none;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-mini-loan:hover {
+  filter: brightness(1.2);
+}
+
+/* Animación */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajuste del actions-panel para que respire */
+.actions-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}

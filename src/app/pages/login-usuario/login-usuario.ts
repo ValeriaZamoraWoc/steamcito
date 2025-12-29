@@ -37,5 +37,8 @@ export class LoginUsuario {
       this.error = 'Credenciales inválidas';
     }
   }
+irRegistro() {
+  this.router.navigate(['registro-usuario']);
+}
 
 }

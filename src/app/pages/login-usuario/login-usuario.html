@@ -2,33 +2,42 @@
   <div class="login-card">
     <div class="login-header">
       <h2>Iniciar sesión</h2>
-      <p>Con el nombre de tu cuenta de Steam</p>
+      <p>Con el nombre de tu cuenta de Steamcito</p>
     </div>
 
     <form (ngSubmit)="logear()" class="login-form">
       <div class="form-group">
         <label>Correo electrónico</label>
-        <input type="email" [(ngModel)]="mail" name="mail" required placeholder="tu@correo.com">
+        <input type="email" [(ngModel)]="mail" name="mail" required placeholder="tu@correo.com" class="steam-input">
       </div>
 
       <div class="form-group">
         <label>Contraseña</label>
-        <input type="password" [(ngModel)]="password" name="password" required>
+        <input type="password" [(ngModel)]="password" name="password" required class="steam-input">
       </div>
 
       <button type="submit" class="btn-login">Iniciar sesión</button>
       
-      <p *ngIf="error" class="error-msg">
-        {{ error }}
-      </p>
+      <p *ngIf="error" class="error-msg">⚠ {{ error }}</p>
     </form>
 
-    <hr class="steam-hr">
+    <div class="login-divider">
+      <hr class="steam-hr">
+      <span>O</span>
+    </div>
+
+    <div class="register-promo">
+      <p>¿No tienes una cuenta?</p>
+      <button (click)="irRegistro()" class="btn-register-link">Únete a Steamcito</button>
+    </div>
 
     <div *ngIf="loginService.isLogged()" class="logged-status">
-      <p>Logeado como: <strong>{{ loginService.user()?.mail }}</strong></p>
-      <p class="role-badge">{{ loginService.user()?.rol }}</p>
-      <button (click)="loginService.logout()" class="btn-logout">Cerrar sesión</button>
+      <div class="user-pill">
+        <span class="dot online"></span>
+        <strong>{{ loginService.user()?.mail }}</strong>
+        <span class="role-tag">{{ loginService.user()?.rol }}</span>
+      </div>
+      <button (click)="loginService.logout()" class="btn-logout-link">Cerrar sesión</button>
     </div>
   </div>
 </div>

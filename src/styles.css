@@ -49,3 +49,96 @@ body {
   cursor: pointer;
   &:hover { filter: brightness(1.1); }
 }
+.auth-page, .login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+.registro-card, .login-card {
+  background: #1b2838;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  border: 1px solid #2a475e;
+}
+
+.steam-input {
+  width: 100%;
+  background: #23262e;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: #fff;
+  padding: 10px;
+  margin-top: 5px;
+  transition: border 0.3s;
+}
+
+.steam-input:focus {
+  border-color: #66c0f4;
+  outline: none;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.btn-steam-blue, .btn-login {
+  width: 100%;
+  background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-top: 15px;
+}
+
+/* Botón de Registro Especial */
+.btn-register-link {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #67707b;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 2px;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.btn-register-link:hover {
+  border-color: #fff;
+}
+
+.login-divider {
+  position: relative;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.login-divider span {
+  background: #1b2838;
+  padding: 0 10px;
+  color: #67707b;
+  position: relative;
+  top: -12px;
+}
+
+.dynamic-section {
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+  border: 1px solid #2a475e;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease;
+}

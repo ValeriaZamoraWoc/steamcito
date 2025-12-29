@@ -1,0 +1,76 @@
+<div class="auth-page">
+  <div class="registro-card">
+    <header class="auth-header">
+      <h2>Crear Cuenta</h2>
+      <p>Únete a la comunidad de Steamcito y empieza a jugar.</p>
+    </header>
+
+    <div class="auth-body">
+      <div class="form-group main-select">
+        <label>¿Cómo quieres unirte?</label>
+        <select [(ngModel)]="tipoUsuario" class="steam-input">
+          <option value="Comun">🎮 Usuario Común</option>
+          <option value="Desarrollador">🛠️ Desarrollador</option>
+          <option value="Admin">🛡️ Administrador</option>
+        </select>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Correo electrónico</label>
+          <input [(ngModel)]="mail" class="steam-input" placeholder="correo@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label>Nickname</label>
+          <input [(ngModel)]="nickname" class="steam-input" placeholder="Tu alias">
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" [(ngModel)]="contrasena" class="steam-input" placeholder="••••••••">
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Nacimiento</label>
+          <input type="date" [(ngModel)]="fechaNacimiento" class="steam-input">
+        </div>
+      </div>
+
+      <div class="dynamic-section animate-fade-in" *ngIf="tipoUsuario==='Comun'">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>País</label>
+            <input [(ngModel)]="pais" class="steam-input" placeholder="Ej: Guatemala">
+          </div>
+          <div class="form-group">
+            <label>Teléfono</label>
+            <input type="number" [(ngModel)]="telefono" class="steam-input" placeholder="5555-5555">
+          </div>
+        </div>
+      </div>
+
+      <div class="dynamic-section dev-box animate-fade-in" *ngIf="tipoUsuario==='Desarrollador'">
+        <h4><span class="icon">🏢</span> Información de Empresa</h4>
+        <div class="form-group">
+          <label>Nombre de la Empresa</label>
+          <input [(ngModel)]="nombreEmpresa" class="steam-input">
+        </div>
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea [(ngModel)]="descripcionEmpresa" class="steam-input" rows="2"></textarea>
+        </div>
+        <button type="button" class="btn-secondary" (click)="registrarEmpresa()">Validar Empresa</button>
+      </div>
+
+      <div class="auth-footer">
+        <button type="button" class="btn-steam-blue" (click)="registrar()">Finalizar Registro</button>
+      </div>
+
+      <div class="alerts-container">
+        <div *ngIf="mensaje" class="alert success-steam">✓ {{ mensaje }}</div>
+        <div *ngIf="error" class="alert error-steam">⚠ {{ error }}</div>
+      </div>
+    </div>
+  </div>
+</div>

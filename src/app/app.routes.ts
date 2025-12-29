@@ -9,6 +9,7 @@ export const routes: Routes = [
  //public
   { path: 'login', component: LoginUsuario },
   { path: 'registro-empresa', component: RegistroEmpresa },
+  { path: 'registro-usuario', loadComponent: () => import('./pages/registro-general/registro-general').then(m => m.RegistrarUsuarioComponent)},
 //privado
   {
     path: 'app',

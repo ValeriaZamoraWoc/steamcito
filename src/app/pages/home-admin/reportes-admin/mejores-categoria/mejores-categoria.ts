@@ -42,14 +42,15 @@ export class MejoresCategoriaComponent implements OnInit {
   }
 
   buscar(): void {
-    if (!this.categoriaSeleccionada) return;
+    const categoria = this.categoriaSeleccionada?.trim();
+    if (!categoria) return;
 
     this.cargando = true;
     this.error = null;
 
     this.reportesService.obtenerReporte(
       'mejoresCalificadosCategoria',
-      { categoria: this.categoriaSeleccionada }
+      { categoria }
     ).subscribe({
       next: resp => {
         this.juegos = resp.datos.map((fila: string[]) => ({
@@ -57,12 +58,14 @@ export class MejoresCategoriaComponent implements OnInit {
           promedio: Number(fila[3].replace(',', '.'))
         }));
         this.cargando = false;
+        this.cdr.detectChanges();
       },
       error: () => {
         this.error = 'Error al cargar reporte';
         this.cargando = false;
+        this.cdr.detectChanges();
       }
     });
-    this.cdr.detectChanges();
   }
+
 }

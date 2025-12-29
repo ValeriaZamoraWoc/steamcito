@@ -6,6 +6,8 @@ import { RegistrarJuegoService } from '../../../services/registrar-juego-service
 import { Categoria, CategoriasClasificacionesService, Clasificacion } from '../../../services/categorias-clasificaciones-service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
+import { EmpresaPerfil, VerPerfilEmpresaService } from '../../../services/ver-perfil-empresa-service';
 
 @Component({
   selector: 'app-subir-juego',
@@ -15,33 +17,36 @@ import { filter } from 'rxjs/operators';
   styleUrl: './subir-juego.css'
 })
 export class SubirJuegoComponent implements OnInit {
-
+  
+  empresaPerfil: EmpresaPerfil | null = null;
   nombre = '';
   descripcion = '';
   especificaciones = '';
-
   clasificacion!: number;
   categoria!: number;
-
   precio: number | null = null;
   fechaLanzamiento = '';
-
   categorias: Categoria[] = [];
   clasificaciones: Clasificacion[] = [];
-
   mensaje = '';
   error = '';
+  idJuegoCreado: number | null = null;
+  archivoImagen: File | null = null;
+  imagenSubida = false;
 
   constructor(
     private registrarJuegoService: RegistrarJuegoService,
     private loginService: LoginService,
     private catClasService: CategoriasClasificacionesService,
     private cdr: ChangeDetectorRef,
-      private router: Router
+    private juegosService: ObtenerJuegoPorIdService,
+    private router: Router,
+    private perfilEmpresaService: VerPerfilEmpresaService
   ) {}
 
   ngOnInit(): void {
     this.router.events
+    
     .pipe(filter(event => event instanceof NavigationEnd))
     .subscribe(() => {
       this.limpiarFormulario();
@@ -57,27 +62,34 @@ export class SubirJuegoComponent implements OnInit {
       
     });
     this.cdr.detectChanges();
-  }
-
-  registrar() {
-    this.mensaje = '';
-    this.error = '';
-
     const idEmpresa = this.loginService.getIdEmpresa();
 
     if (!idEmpresa) {
-      this.error = 'No se pudo identificar la empresa';
+      this.error = 'Empresa no identificada';
       return;
     }
 
-    if (
-      !this.nombre || !this.descripcion || !this.especificaciones ||
-      !this.categoria || !this.clasificacion ||
-      this.precio === null || !this.fechaLanzamiento
-    ) {
-      this.error = 'Todos los campos son obligatorios';
-      return;
-    }
+    this.perfilEmpresaService.obtenerPerfilEmpresa(idEmpresa)
+      .subscribe({
+        next: (resp: any) => {
+          this.empresaPerfil = resp.empresa ?? resp;
+        },
+        error: () => {
+          this.error = 'No se pudo cargar el perfil de la empresa';
+        }
+      });
+          this.cdr.detectChanges();
+  }
+
+  registrar() {
+    this.error = '';
+    this.mensaje = '';
+    if (!this.empresaPerfil) {
+        this.error = 'Perfil de empresa no cargado';
+        return;
+      }
+
+    const nombreEmpresa = this.empresaPerfil.nombreEmpresa;
 
     this.registrarJuegoService.registrarJuego({
       nombre: this.nombre,
@@ -85,19 +97,20 @@ export class SubirJuegoComponent implements OnInit {
       especificaciones: this.especificaciones,
       clasificacion: this.clasificacion.toString(),
       categoria: this.categoria.toString(),
-      empresa: idEmpresa,
-      precio: this.precio,
+      empresa: nombreEmpresa,
+      precio: this.precio!,
       fechaLanzamiento: this.fechaLanzamiento
     }).subscribe({
-      next: msg => {
-        this.mensaje = msg;
-        this.limpiarFormulario();
+      next: resp => {
+        this.idJuegoCreado = resp.idJuego;
+        this.mensaje = resp.mensaje;
       },
       error: err => {
         this.error = err.error || 'Error al registrar el juego';
       }
     });
-    this.cdr.detectChanges();
+        this.cdr.detectChanges();
+
   }
 
   limpiarFormulario() {
@@ -108,5 +121,36 @@ export class SubirJuegoComponent implements OnInit {
     this.categoria = 0;
     this.precio = null;
     this.fechaLanzamiento = '';
+  }
+  onFileChange(e: any) {
+    this.archivoImagen = e.target.files[0];
+  }
+  subirImagen() {
+    if (!this.archivoImagen || !this.idJuegoCreado) return;
+
+    const form = new FormData();
+    form.append('idJuego', this.idJuegoCreado.toString());
+    form.append('imagen', this.archivoImagen);
+
+    this.juegosService.subirImagenJuego(form)
+      .subscribe({
+        next: () => {
+          this.imagenSubida = true;
+          this.mensaje = 'Imagen subida. Juego listo para publicar.';
+        },
+        error: () => {
+          this.error = 'Error al subir la imagen';
+        }
+      });
+          this.cdr.detectChanges();
+
+  }
+  volverAlCatalogo() {
+    if (!this.imagenSubida) return;
+
+    this.limpiarFormulario();
+    this.router.navigate(['/app/home-dev/catalogo']);
+        this.cdr.detectChanges();
+
   }
 }

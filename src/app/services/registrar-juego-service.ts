@@ -16,10 +16,10 @@ export class RegistrarJuegoService {
     especificaciones: string;
     clasificacion: string;
     categoria: string;
-    empresa: number;
+    empresa: string;
     precio: number;
     fechaLanzamiento: string;
-  }): Observable<string> {
+  }):  Observable<{ idJuego: number; mensaje: string }>{
 
     const body = new URLSearchParams();
     body.set('nombre', data.nombre);
@@ -27,16 +27,15 @@ export class RegistrarJuegoService {
     body.set('especificaciones', data.especificaciones);
     body.set('clasificacion', data.clasificacion);
     body.set('categoria', data.categoria);
-    body.set('empresa', data.empresa.toString());
+    body.set('empresa', data.empresa.toString()); 
     body.set('precio', data.precio.toString());
     body.set('fechaLanzamiento', data.fechaLanzamiento);
 
-    return this.http.post(
+    return this.http.post<{ idJuego: number; mensaje: string }>(
       `${API_BASE_URL}/registroJuego`,
       body.toString(),
       {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        responseType: 'text'
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       }
     );
   }

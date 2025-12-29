@@ -53,13 +53,17 @@ export class BuscadorComponent {
           return;
         }
 
-        if (this.tipo === 'grupofamiliar') {
-          this.router.navigate([
-            '/app/grupos-familiares',
-            resp.idGrupoFamiliar
-          ]);
-          return;
-        }
+if (this.tipo === 'grupofamiliar') {
+  const grupoCompleto = {
+    ...resp,
+    integrantes: resp.integrantes || [] 
+  };
+
+  this.router.navigate(['/app/grupos-familiares'], { 
+    state: { grupoEncontrado: grupoCompleto } 
+  });
+  return;
+}
 
         this.resultados = Array.isArray(resp) ? resp : [resp];
       },
