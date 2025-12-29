@@ -24,7 +24,7 @@ public class RegistrarJuego {
     CRUDCategoria crudCategoria = new CRUDCategoria();
     CRUDEmpresa crudEmpresa = new CRUDEmpresa();
     
-    public void registrarJuego(String nombreJuego, String descripcion, String especificaciones,
+    public dtoJuego registrarJuego(String nombreJuego, String descripcion, String especificaciones,
             String clasificacion, String categoria, String empresa, int precio, LocalDate fechaLanzamiento ){
         dtoJuego juego = new dtoJuego();
         juego.setNombreJuego(nombreJuego);
@@ -38,7 +38,7 @@ public class RegistrarJuego {
         juego.setEnVenta(true);
         
         crudJuego.registrarJuego(juego);
-        
+        return crudJuego.buscarJuegoPorTitulo(nombreJuego);
     }
     
     private int encontrarEmpresa(String nombreEmpresa){
@@ -55,4 +55,5 @@ public class RegistrarJuego {
         dtoCategoria categoria = crudCategoria.buscarCategoriaPorNombre(nombreCategoria);
         return categoria.getIdCategoria();
     }
+    
 }

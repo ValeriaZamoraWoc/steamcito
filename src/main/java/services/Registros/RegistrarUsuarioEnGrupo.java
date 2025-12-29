@@ -17,9 +17,8 @@ public class RegistrarUsuarioEnGrupo {
     CRUDGrupoFamiliar crudGP = new CRUDGrupoFamiliar();
     CRUDUsuario crudU = new CRUDUsuario();
     
-    public void registrarUsuarioEnGrupo(String mail, String nombreGrupo){
-        dtoGrupoFamiliar grupo = crudGP.obtenerGrupoFamiliar(nombreGrupo);
+    public void registrarUsuarioEnGrupo(String mail, Integer id){
         dtoUsuarioComun usuario= crudU.buscarUsuarioComunPorMail(mail);
-        crudGP.agregarPersonaAGrupoFamiliar(grupo.getIdGrupoFamiliar(), usuario);
+        crudGP.agregarPersonaAGrupoFamiliar(id, usuario);
     }
 }

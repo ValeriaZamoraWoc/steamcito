@@ -24,7 +24,8 @@ public class srvltRegistrarUsuarioEnGrupo extends HttpServlet{
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String mail = request.getParameter("mail");
-        String nombreGrupo = request.getParameter("nombreGrupo");
-        servicio.registrarUsuarioEnGrupo(mail, nombreGrupo);
+        String idGrupo = request.getParameter("idGrupo");
+        Integer id = Integer.parseInt(idGrupo);
+        servicio.registrarUsuarioEnGrupo(mail, id);
     }
 }
