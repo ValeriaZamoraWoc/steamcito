@@ -5,6 +5,7 @@
 package controllers.Registros;
 
 import com.google.gson.Gson;
+import dtos.Empresas.dtoEmpresa;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -43,8 +44,10 @@ public class srvltRegistroEmpresa extends HttpServlet{
 
         try {
             servicio.registrarEmpresa(nombre, descripcion);
+            dtoEmpresa empresa = servicio.buscarEmpresaPorNombre(nombre);
+            String id = String.valueOf(empresa.getIdEmpresa());
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Empresa registrada correctamente");
+            response.getWriter().write(id);
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

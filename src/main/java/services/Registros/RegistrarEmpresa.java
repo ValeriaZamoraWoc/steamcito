@@ -31,4 +31,7 @@ public class RegistrarEmpresa {
         empresa= crudEmpresa.buscarEmpresaPorNombre(nombreEmpresa);
         crudEmpresa.asignarComisionEmpresa(empresa, comision);
     }
+    public dtoEmpresa buscarEmpresaPorNombre(String nombreEmpresa){
+        return crudEmpresa.buscarEmpresaPorNombre(nombreEmpresa);
+    }
 }

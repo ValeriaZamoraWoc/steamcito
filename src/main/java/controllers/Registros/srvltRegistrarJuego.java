@@ -5,6 +5,7 @@
 package controllers.Registros;
 
 import com.google.gson.Gson;
+import dtos.Juegos.dtoJuego;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -75,20 +76,28 @@ public class srvltRegistrarJuego extends HttpServlet{
         }
 
         try {
-            servicio.registrarJuego(
+            dtoJuego juego =servicio.registrarJuego(
                 nombre, descripcion, especificacion,
                 clasificacion, categoria, empresa,
                 precio, fecha
             );
 
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Juego registrado correctamente");
+            response.setContentType("application/json");
+            response.getWriter().write("""
+            {
+              "idJuego": %d,
+              "mensaje": "Juego creado. Falta imagen."
+            }
+            """.formatted(juego.getId()));
+
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write("Error al registrar el juego");
             e.printStackTrace();
         }
+        
     }
 
 }
