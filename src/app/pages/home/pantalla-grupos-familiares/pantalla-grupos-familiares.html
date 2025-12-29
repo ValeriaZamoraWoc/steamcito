@@ -1,0 +1,45 @@
+<div class="family-page">
+  <header class="section-header">
+    <h2>Grupos Familiares</h2>
+    <p>Gestiona el acceso compartido a bibliotecas y miembros de tu familia.</p>
+  </header>
+
+  <div *ngIf="cargando" class="loading-state">
+    <div class="steam-spinner"></div>
+    <p>Sincronizando grupos...</p>
+  </div>
+
+  <div *ngIf="error" class="error-banner">
+    <span class="icon">⚠</span> {{ error }}
+  </div>
+
+  <div class="family-content" *ngIf="!cargando">
+    
+    <div *ngIf="grupos.length === 0" class="empty-state">
+      <div class="family-icon-placeholder"></div>
+      <h3>No hay grupos familiares</h3>
+      <p>No perteneces a ningún grupo familiar en este momento.</p>
+    </div>
+
+    <div class="groups-grid" *ngIf="grupos.length > 0">
+      <div class="group-card" *ngFor="let grupo of grupos">
+        <div class="group-info">
+          <div class="group-avatar">
+            <span>{{ grupo.nombreGrupo.charAt(0) }}</span>
+          </div>
+          <div class="group-details">
+            <h3>{{ grupo.nombreGrupo }}</h3>
+            <span class="status-label">Grupo Activo</span>
+          </div>
+        </div>
+        
+        <div class="group-actions">
+          <button (click)="verIntegrantes(grupo)" class="btn-steam-dark">
+            Mirar integrantes
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

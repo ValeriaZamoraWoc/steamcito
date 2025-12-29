@@ -1,0 +1,69 @@
+<div class="admin-report-detail">
+  <header class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge quality">Quality Assurance</span>
+      </div>
+      <h3>Calidad por Categoría</h3>
+      <p>Ranking de los títulos con mayor índice de satisfacción según su género.</p>
+    </div>
+  </header>
+
+  <div class="admin-filter-bar highlight-purple">
+    <div class="filter-group">
+      <label>Categoría</label>
+      <div class="select-wrapper">
+        <select [(ngModel)]="categoriaSeleccionada">
+          <option value="">-- Todas las categorías --</option>
+          <option *ngFor="let c of categorias" [value]="c.nombreCategoria">
+            {{ c.nombreCategoria }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-search-quality" (click)="buscar()">
+      <span class="icon">✨</span> Evaluar Calidad
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring gold"></div>
+    <span>Consultando valoraciones...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && juegos.length > 0">
+    <table class="admin-table quality-table">
+      <thead>
+        <tr>
+          <th>Título del Juego</th>
+          <th class="text-right">Índice de Satisfacción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let j of juegos">
+          <td class="game-column">
+            <div class="quality-dot" [class.excellent]="j.promedio >= 4.5"></div>
+            <strong>{{ j.nombre }}</strong>
+          </td>
+          <td class="text-right">
+            <div class="rating-display-admin">
+              <span class="score-number">{{ j.promedio | number:'1.1-1' }}</span>
+              <div class="stars-container">
+                <span class="star-icon">★</span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && juegos.length === 0 && !error">
+    <div class="empty-illustration">⭐</div>
+    <p>Selecciona una categoría para ver los títulos más aclamados.</p>
+  </div>
+</div>

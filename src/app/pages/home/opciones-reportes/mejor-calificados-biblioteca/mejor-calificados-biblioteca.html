@@ -1,0 +1,49 @@
+<div class="report-container-user">
+  <div class="report-header-minimal">
+    <h3><span class="icon-trophy">🏆</span> Salón de la Fama</h3>
+    <p>Los títulos de tu biblioteca con el índice de satisfacción más alto en la plataforma.</p>
+  </div>
+
+  <div *ngIf="cargando" class="user-loader">
+    <div class="spinner-steam"></div>
+    <p>Consultando el ranking global...</p>
+  </div>
+
+  <div *ngIf="error" class="user-alert error">
+    <span class="alert-icon">❌</span>
+    <p>{{ error }}</p>
+  </div>
+
+  <div class="hall-of-fame-list" *ngIf="!cargando && juegos.length > 0">
+    <div class="fame-card" *ngFor="let juego of juegos; let i = index">
+      <div class="rank-indicator" [class.gold-rank]="i === 0">
+        {{ i + 1 }}
+      </div>
+      
+      <div class="fame-poster-container">
+        <img [src]="juego.portada" alt="{{ juego.nombre }}" class="fame-poster">
+      </div>
+
+      <div class="fame-details">
+        <div class="title-row">
+          <h3>{{ juego.nombre }}</h3>
+          <span class="elite-badge" *ngIf="juego.promedio >= 4.5">Imprescindible</span>
+        </div>
+        
+        <div class="community-rating">
+          <div class="rating-bar-container">
+            <div class="rating-fill" [style.width.%]="(juego.promedio / 5) * 100"></div>
+          </div>
+          <span class="rating-number">
+            <span class="star-mini">★</span> {{ juego.promedio | number:'1.1-1' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && juegos.length === 0" class="user-empty-state">
+    <div class="empty-icon">🎖️</div>
+    <p>Tu biblioteca aún no cuenta con juegos calificados por la comunidad.</p>
+  </div>
+</div>

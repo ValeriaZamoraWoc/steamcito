@@ -1,0 +1,80 @@
+<div class="user-reports-hub">
+  <header class="reports-header">
+    <div class="header-main">
+      <h2><span class="icon-pulse">📊</span> Mi Centro de Estadísticas</h2>
+      <p>Análisis detallado de tu biblioteca, valoraciones y actividad en grupos familiares.</p>
+    </div>
+  </header>
+
+  <div class="sub-menu-container">
+    <div class="personal-grid">
+      
+      <button class="action-card" (click)="reportePersonal('mejoresCalificadosBiblioteca')">
+        <div class="card-content">
+          <span class="card-icon lib">📚</span>
+          <div class="card-text">
+            <strong>Ranking Biblioteca</strong>
+            <small>Tus juegos mejor calificados por la comunidad.</small>
+          </div>
+        </div>
+      </button>
+
+      <button class="action-card" (click)="reportePersonal('calificacionesPersonales')">
+        <div class="card-content">
+          <span class="card-icon lib">⭐</span>
+          <div class="card-text">
+            <strong>Mis Valoraciones</strong>
+            <small>Repaso de cómo has calificado tus juegos.</small>
+          </div>
+        </div>
+      </button>
+
+      <button class="action-card" (click)="reportePersonal('clasificacionesFavoritas')">
+        <div class="card-content">
+          <span class="card-icon lib">🏷️</span>
+          <div class="card-text">
+            <strong>Géneros Favoritos</strong>
+            <small>Lo que más predomina en tu colección.</small>
+          </div>
+        </div>
+      </button>
+
+      <button class="action-card social" (click)="reportePersonal('prestadosMasTiempo')">
+        <div class="card-content">
+          <span class="card-icon soc">⏳</span>
+          <div class="card-text">
+            <strong>Invasión Familiar</strong>
+            <small>Títulos prestados con más horas de juego.</small>
+          </div>
+        </div>
+        <div class="social-tag">Familia</div>
+      </button>
+
+      <button class="action-card social" (click)="reportePersonal('prestadosMejorCalificados')">
+        <div class="card-content">
+          <span class="card-icon soc">🏆</span>
+          <div class="card-text">
+            <strong>Joyas Prestadas</strong>
+            <small>Lo mejor valorado de tus grupos familiares.</small>
+          </div>
+        </div>
+        <div class="social-tag">Familia</div>
+      </button>
+
+      <button class="action-card highlight" (click)="verHistorialGastos()">
+        <div class="card-content">
+          <span class="card-icon eco">💸</span>
+          <div class="card-text">
+            <strong>Historial de Gastos</strong>
+            <small>Registro de compras y valor de biblioteca.</small>
+          </div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="report-display-area">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="members-container">
+  <header class="section-header">
+    <h2>Integrantes del Grupo</h2>
+    <p>Lista de miembros vinculados a este grupo familiar</p>
+  </header>
+
+  <div *ngIf="cargando" class="loading-state">
+    <div class="steam-spinner"></div>
+    <p>Buscando miembros...</p>
+  </div>
+
+  <div *ngIf="error" class="error-banner">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!cargando && integrantes.length === 0" class="empty-state">
+    <p>Este grupo no tiene integrantes registrados.</p>
+  </div>
+
+  <div class="members-list" *ngIf="integrantes.length > 0">
+    <div class="member-card" *ngFor="let integrante of integrantes">
+      <div class="member-info">
+        <div class="member-avatar">
+          <span class="online-indicator"></span>
+        </div>
+        <div class="member-data">
+          <h3 class="nickname">{{ integrante.nickname }}</h3>
+          <div class="contact-info">
+            <span class="mail"><strong>Email:</strong> {{ integrante.mail }}</span>
+            <span class="phone"><strong>Tel:</strong> {{ integrante.telefono || 'No registrado' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-actions">
+        <button (click)="verPerfil(integrante.mail)" class="btn-profile">
+          Ver perfil
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

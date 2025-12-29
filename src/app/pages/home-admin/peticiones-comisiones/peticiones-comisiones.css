@@ -1,0 +1,154 @@
+.admin-table-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 15px;
+}
+
+.section-header h2 {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-header p {
+  color: #8f98a0;
+}
+
+/* Estilos de la Tabla */
+.table-wrapper {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #2a475e;
+}
+
+.steam-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #c7d5e0;
+  text-align: left;
+}
+
+.steam-table thead {
+  background: #171a21;
+}
+
+.steam-table th {
+  padding: 15px 20px;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #66c0f4;
+  letter-spacing: 1px;
+}
+
+.table-row {
+  border-bottom: 1px solid #2a475e;
+  transition: background 0.2s;
+}
+
+.table-row:hover {
+  background: rgba(102, 192, 244, 0.05);
+}
+
+.steam-table td {
+  padding: 15px 20px;
+  vertical-align: middle;
+}
+
+/* Células Especiales */
+.empresa-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-weight: 500;
+}
+
+.company-icon {
+  width: 30px;
+  height: 30px;
+  background: #3d4450;
+  border-radius: 3px;
+}
+
+.percentage-cell {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  color: #a3cf06;
+}
+
+/* Badges de Estado */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 2px;
+  font-size: 11px;
+  font-weight: bold;
+  background: #3d4450;
+  color: #fff;
+}
+
+.status-badge.pending {
+  background: rgba(235, 158, 52, 0.2);
+  color: #eb9e34;
+  border: 1px solid #eb9e34;
+}
+
+/* Botones de Acción */
+.actions-cell {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.btn-approve {
+  background: #a3cf06;
+  color: #000;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-reject {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 6px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-reject:hover {
+  background: rgba(255, 77, 77, 0.1);
+}
+
+/* Otros Estados */
+.empty-state {
+  text-align: center;
+  padding: 60px;
+  color: #8f98a0;
+}
+
+.empty-icon {
+  font-size: 48px;
+  color: #a3cf06;
+  margin-bottom: 15px;
+}
+
+.steam-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(102, 192, 244, 0.1);
+  border-left-color: #66c0f4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }

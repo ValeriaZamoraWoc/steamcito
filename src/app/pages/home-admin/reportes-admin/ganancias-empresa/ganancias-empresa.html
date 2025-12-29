@@ -1,0 +1,48 @@
+<div class="admin-report-detail">
+  <div class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge">Partner Analytics</span>
+      </div>
+      <h3>Ganancias por Socio Comercial</h3>
+      <p>Desglose de ingresos acumulados segmentados por empresa desarrolladora.</p>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring"></div>
+    <span>Recopilando datos de facturación...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && empresas.length > 0">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Socio / Empresa</th>
+          <th class="text-right">Monto Total Generado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of empresas">
+          <td class="company-name-cell">
+            <div class="company-icon-wrapper">
+              <span class="icon">🏢</span>
+            </div>
+            <span class="company-name">{{ e.empresa }}</span>
+          </td>
+          <td class="text-right money-column highlight-purple">
+            <span class="currency">Q</span> {{ e.monto | number:'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && empresas.length === 0 && !error">
+    <p>No se encontraron datos de facturación para las empresas registradas.</p>
+  </div>
+</div>

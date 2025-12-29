@@ -1,0 +1,68 @@
+<div class="admin-report-detail">
+  <header class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge">Content Analysis</span>
+      </div>
+      <h3>Ventas por Categoria </h3>
+      <p>Monitoreo de descargas basado en los géneros de videojuegos.</p>
+    </div>
+  </header>
+
+  <div class="admin-filter-bar">
+    <div class="filter-group">
+      <label for="clas-select">Filtro de Audiencia</label>
+      <div class="select-wrapper">
+        <select id="clas-select" [(ngModel)]="clasificacionSeleccionada">
+          <option value="">-- Seleccione clasificación --</option>
+          <option *ngFor="let c of clasificaciones" [value]="c.nombreCalsificacion">
+            {{ c.nombreCalsificacion }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-search-alt" (click)="buscar()">
+      <span class="icon">📊</span> Generar Estadísticas
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring"></div>
+    <span>Filtrando base de datos...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && juegos.length > 0">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th class="text-center">Audiencia</th>
+          <th class="text-right">Volumen Vendido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let j of juegos">
+          <td class="game-column">
+            <span class="icon-game">🎮</span>
+            <strong>{{ j.nombre }}</strong>
+          </td>
+          <td class="text-center">
+            <span class="rating-badge">{{ clasificacionSeleccionada || 'N/A' }}</span>
+          </td>
+          <td class="text-right sales-volume-highlight">
+            {{ j.totalVentas | number }} <small>Copias</small>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && juegos.length === 0 && !error">
+    <div class="empty-illustration">📡</div>
+    <p>Utiliza el selector superior para analizar un segmento de audiencia.</p>
+  </div>
+</div>

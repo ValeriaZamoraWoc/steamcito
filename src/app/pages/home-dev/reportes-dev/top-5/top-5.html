@@ -1,0 +1,51 @@
+<div class="report-detail">
+  <div class="report-header">
+    <div class="header-with-icon">
+      <span class="report-icon trophy">🏆</span>
+      <div>
+        <h3>Salón de la Fama: Top 5</h3>
+        <p>Los cinco títulos con mejor desempeño y recepción histórica de tu empresa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="loading-state">
+    <div class="steam-spinner"></div>
+    <p>Calculando el ranking de élite...</p>
+  </div>
+
+  <div *ngIf="error" class="alert-error">
+    <span class="icon">⚠</span> {{ error }}
+  </div>
+
+  <div class="top-ranking-container" *ngIf="top5.length > 0">
+    <div class="top-card" *ngFor="let juego of top5; let i = index" [class.gold-rank]="i === 0">
+      <div class="rank-position">{{ i + 1 }}</div>
+      
+      <div class="game-info-wrapper">
+        <div class="game-main-data">
+          <strong>{{ juego.nombre }}</strong>
+          <span class="rank-label" *ngIf="i === 0">Mejor Valoración</span>
+        </div>
+        
+        <div class="rank-stats">
+          <div class="stat-box">
+            <span class="stat-label">Promedio de Satisfacción</span>
+            <div class="stat-value-group">
+              <span class="stat-number">{{ juego.promedio }}</span>
+              <div class="stars-mini">
+                <span *ngFor="let star of [1,2,3,4,5]" 
+                      [style.color]="star <= juego.promedio ? '#ffc107' : '#3d4450'">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-report" *ngIf="!cargando && top5.length === 0 && !error">
+    <div class="empty-icon">📁</div>
+    <p>No hay datos suficientes para generar el ranking.</p>
+  </div>
+</div>

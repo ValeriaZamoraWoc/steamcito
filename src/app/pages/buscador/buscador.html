@@ -1,0 +1,135 @@
+<div class="buscador-container">
+  <header class="section-header">
+    <h2><span class="icon-pulse">🔍</span> Buscador de la Comunidad</h2>
+    <p>Encuentra juegos, empresas, amigos o clanes familiares en Steamcito</p>
+  </header>
+
+  <form (ngSubmit)="buscar()" class="search-form">
+    <div class="search-bar-wrapper">
+      <input
+        type="text"
+        [(ngModel)]="query"
+        name="query"
+        placeholder="¿Qué estás buscando hoy?"
+        required
+        class="main-search-input"
+      />
+      <button type="submit" class="btn-search-icon">Buscar</button>
+    </div>
+
+    <div class="filter-chips">
+      <label class="chip" [class.active]="tipo === 'juego'">
+        <input type="radio" name="tipo" value="juego" [(ngModel)]="tipo">
+        <span>🎮 Juego</span>
+      </label>
+
+      <label class="chip" [class.active]="tipo === 'categoria'">
+        <input type="radio" name="tipo" value="categoria" [(ngModel)]="tipo">
+        <span>🏷️ Categoría</span>
+      </label>
+
+      <label class="chip" [class.active]="tipo === 'clasificacion'">
+        <input type="radio" name="tipo" value="clasificacion" [(ngModel)]="tipo">
+        <span>🔞 Clasificación</span>
+      </label>
+
+      <label
+  class="chip"
+  *ngIf="puedeBuscarEmpresa"
+  [class.active]="tipo === 'empresa'"
+>
+  <input type="radio" name="tipo" value="empresa" [(ngModel)]="tipo">
+  <span>🏢 Empresa</span>
+</label>
+
+
+      <label
+  class="chip"
+  *ngIf="puedeBuscarSocial"
+  [class.active]="tipo === 'usuariomail'"
+>
+  <input type="radio" name="tipo" value="usuariomail" [(ngModel)]="tipo">
+  <span>📧 Email</span>
+</label>
+
+
+      <label
+  class="chip"
+  *ngIf="puedeBuscarSocial"
+  [class.active]="tipo === 'usuarionick'"
+>
+  <input type="radio" name="tipo" value="usuarionick" [(ngModel)]="tipo">
+  <span>👤 Nickname</span>
+</label>
+
+
+      <label
+  class="chip social"
+  *ngIf="puedeBuscarSocial"
+  [class.active]="tipo === 'grupofamiliar'"
+>
+  <input type="radio" name="tipo" value="grupofamiliar" [(ngModel)]="tipo">
+  <span>👨‍👩‍👧‍👦 Grupo Familiar</span>
+</label>
+
+    </div>
+  </form>
+
+  <div class="results-wrapper" *ngIf="resultados && resultados.length">
+    <h3 class="results-title">Resultados encontrados ({{ resultados.length }})</h3>
+
+    <div class="results-grid">
+      <ng-container *ngIf="['juego', 'categoria', 'clasificacion'].includes(tipo)">
+        <div *ngFor="let juego of resultados" class="steam-card">
+          <div class="card-info">
+            <h4>{{ juego.nombreJuego }}</h4>
+            <p>{{ juego.descripcion }}</p>
+          </div>
+          <div class="card-actions">
+            <a *ngIf="loginService.isComun()" [routerLink]="['/app/juego', juego.id]" class="btn-action">Ver detalles</a>
+            <a *ngIf="loginService.isDesarrollador()" [routerLink]="['/app/home-dev/juego', juego.id]" class="btn-action dev">Panel Dev</a>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="tipo === 'empresa'">
+        <div *ngFor="let emp of resultados" class="steam-card company">
+          <div class="card-info">
+            <h4>{{ emp.nombre }}</h4>
+            <span class="badge">Socio Steamcito</span>
+          </div>
+          <a [routerLink]="['/app/home-dev/ver-perfil-empresa', emp.idEmpresa]" class="btn-action">Ver Perfil</a>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="tipo === 'usuariomail' || tipo === 'usuarionick'">
+        <div *ngFor="let u of resultados" class="steam-card user">
+          <div class="user-avatar-placeholder">{{ u.nickname.charAt(0) }}</div>
+          <div class="card-info">
+            <h4>{{ u.nickname }}</h4>
+            <p>{{ u.mail }}</p>
+          </div>
+          <a [routerLink]="['/app/perfil-usuario', u.mail]" class="btn-action">Ver Perfil</a>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="tipo === 'grupofamiliar'">
+        <div *ngFor="let grupo of resultados" class="steam-card group-social">
+          <div class="group-icon-wrapper">
+            <span class="icon">🏘️</span>
+          </div>
+          <div class="card-info">
+            <h4>{{ grupo.nombreGrupo }}</h4>
+            <div class="group-meta">
+              <span class="member-count">ID: #{{ grupo.idGrupoFamiliar }}</span>
+            </div>
+          </div>
+          <div class="card-actions">
+            <a [routerLink]="['/app/perfil-grupo', grupo.idGrupoFamiliar]" class="btn-action social">Explorar Grupo</a>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

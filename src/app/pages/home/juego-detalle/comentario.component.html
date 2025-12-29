@@ -1,0 +1,61 @@
+<div class="comment-card">
+  <div class="comment-header">
+    <div class="user-avatar-mini"></div>
+    <span class="user-name">{{ comentario.mail }}</span>
+  </div>
+  
+  <div class="comment-body">
+    <p>{{ comentario.contenido }}</p>
+  </div>
+
+  <div class="comment-footer">
+    <div *ngIf="puedeResponder" class="comment-actions">
+      <button (click)="mostrarRespuesta = !mostrarRespuesta" class="btn-link">
+        {{ mostrarRespuesta ? 'Cancelar' : 'Responder' }}
+      </button>
+    </div>
+
+    <div *ngIf="mostrarRespuesta && puedeResponder" class="reply-input-box animate-fade-in">
+  <div class="reply-editor-mini">
+    <textarea 
+      [(ngModel)]="respuesta" 
+      class="steam-textarea-mini"
+      placeholder="Escribe una respuesta a este comentario..."
+      rows="3">
+    </textarea>
+
+    <div class="reply-footer-mini">
+      <div class="rating-selector-mini">
+        <label>Valorar:</label>
+        <select [(ngModel)]="calificacion" class="steam-select-mini">
+          <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{n}} ★</option>
+        </select>
+      </div>
+      
+      <div class="reply-actions-mini">
+        <button (click)="mostrarRespuesta = false" class="btn-cancel-mini">Cancelar</button>
+        <button 
+          (click)="responder()" 
+          class="btn-post-mini" 
+          [disabled]="!respuesta.trim()">
+          Responder
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    <div *ngIf="puedeOcultar" class="mod-actions">
+      <button class="btn-danger-link" (click)="ocultarComentario()">Ocultar Comentario</button>
+    </div>
+  </div>
+
+  <div class="replies-container" *ngIf="comentario.respuestas?.length">
+    <app-comentario
+      *ngFor="let r of comentario.respuestas"
+      [comentario]="r"
+      [puedeResponder]="puedeResponder"
+      [puedeOcultar]="puedeOcultar"
+      (comentarioOcultado)="comentarioOcultado.emit()"
+    ></app-comentario>
+  </div>
+</div>

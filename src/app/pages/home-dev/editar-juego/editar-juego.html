@@ -1,0 +1,98 @@
+<div class="edit-game-page">
+  <header class="admin-header">
+    <div class="header-content">
+      <h2>Editor de Producto</h2>
+      <p>Modificando detalles técnicos y comerciales del título.</p>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-cancel-top" (click)="volver()">Regresar al catálogo</button>
+    </div>
+  </header>
+
+  <div class="alert-container">
+    <div class="alert error" *ngIf="error">
+      <span class="icon">⚠</span> {{ error }}
+    </div>
+    <div class="alert success" *ngIf="mensaje">
+      <span class="icon">✓</span> {{ mensaje }}
+    </div>
+  </div>
+
+  <form (ngSubmit)="guardarCambios()" class="steam-edit-form">
+    
+    <section class="form-section">
+      <h3 class="section-label">Información General</h3>
+      <div class="form-group">
+        <label>Nombre del Juego</label>
+        <input [(ngModel)]="nombre" name="nombre" placeholder="Ej: Half-Life 3">
+      </div>
+
+      <div class="form-group">
+        <label>Descripción Corta</label>
+        <textarea [(ngModel)]="descripcion" name="descripcion" rows="4" placeholder="Describe la experiencia de juego..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Especificaciones Técnicas</label>
+        <textarea [(ngModel)]="especificaciones" name="especificaciones" rows="3" placeholder="Requisitos mínimos de hardware..."></textarea>
+      </div>
+    </section>
+
+    <section class="form-section grid-section">
+      <div class="form-group">
+        <label>Clasificación de Edad</label>
+        <select [(ngModel)]="clasificacion" name="clasificacion">
+          <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">
+            {{ c.nombreCalsificacion }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Categoría Principal</label>
+        <select [(ngModel)]="categoria" name="categoria">
+          <option *ngFor="let c of categorias" [value]="c.idCategoria">
+            {{ c.nombreCategoria }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Precio de Venta (Q)</label>
+        <div class="price-input">
+          <span class="currency">Q</span>
+          <input type="number" [(ngModel)]="precio" name="precio" step="0.01">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Fecha de Lanzamiento</label>
+        <input type="date" [(ngModel)]="fechaLanzamiento" name="fechaLanzamiento">
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h3 class="section-label">Multimedia</h3>
+      <div class="file-upload-box">
+        <label class="custom-file-upload">
+          <input type="file" (change)="onFileChange($event)">
+          <div class="upload-content">
+            <span class="upload-icon">📁</span>
+            <span>Subir nueva imagen de portada</span>
+            <small>Formato recomendado: 16:9 (JPG/PNG)</small>
+          </div>
+        </label>
+      </div>
+    </section>
+
+    <div class="form-footer">
+      <button type="button" class="btn-save-main" (click)="guardarCambios()">
+        Guardar cambios
+      </button>
+      <button type="button" class="btn-cancel" (click)="volver()">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+</div>

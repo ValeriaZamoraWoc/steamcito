@@ -1,0 +1,44 @@
+<div class="report-detail">
+  <div class="report-header">
+    <div class="header-with-icon">
+      <span class="report-icon negative">📉</span>
+      <div>
+        <h4>Títulos con Menor Valoración</h4>
+        <p>Juegos que requieren atención. Estos títulos tienen el promedio de satisfacción más bajo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="loading-state">
+    <div class="steam-spinner"></div>
+    <p>Analizando feedback negativo...</p>
+  </div>
+
+  <div *ngIf="error" class="alert-error">
+    <span class="icon">⚠</span> {{ error }}
+  </div>
+
+  <div class="rank-list" *ngIf="juegos.length > 0">
+    <div class="rank-item negative-item" *ngFor="let j of juegos; let i = index">
+      <div class="rank-number">#{{ i + 1 }}</div>
+      
+      <div class="rank-info">
+        <div class="rank-main">
+          <strong>{{ j.nombre }}</strong>
+          <span class="total-reviews-alert">{{ j.totalResenas }} críticas</span>
+        </div>
+        
+        <div class="rating-container">
+          <div class="rating-bar-bg">
+            <div class="rating-bar-fill-danger" [style.width.%]="(j.promedio / 5) * 100"></div>
+          </div>
+          <span class="rating-value-danger">{{ j.promedio }} / 5</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-report" *ngIf="!cargando && juegos.length === 0 && !error">
+    <p>¡Felicidades! No hay títulos con calificaciones bajas para mostrar.</p>
+  </div>
+</div>

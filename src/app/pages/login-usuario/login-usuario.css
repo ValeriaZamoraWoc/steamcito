@@ -1,0 +1,91 @@
+/* Centrado del login en la pantalla */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+/* La tarjeta estilo Steam */
+.login-card {
+  background: rgba(24, 26, 30, 0.9); /* Fondo oscuro semi-transparente */
+  padding: 40px;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.login-header h2 {
+  color: var(--text-bright);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+}
+
+.login-header p {
+  font-size: 0.9rem;
+  color: var(--accent-blue);
+}
+
+/* Estilo de los Inputs */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  color: #afafaf;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+input {
+  background-color: #32353c;
+  border: 1px solid #000;
+  border-radius: 3px;
+  color: white;
+  padding: 10px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+input:focus {
+  border: 1px solid var(--accent-blue);
+}
+
+/* El botón verde clásico */
+.btn-login {
+  width: 100%;
+  background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%);
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-login:hover {
+  filter: brightness(1.2);
+}
+
+.error-msg {
+  background: rgba(194, 45, 45, 0.2);
+  color: #ff4d4d;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-size: 0.85rem;
+  border: 1px solid #c22d2d;
+}
+
+.steam-hr {
+  border: 0;
+  height: 1px;
+  background: #333;
+  margin: 30px 0;
+}

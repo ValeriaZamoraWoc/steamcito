@@ -1,0 +1,572 @@
+/* Contenedor Principal */
+.reports-hub {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hub-header {
+  margin-bottom: 40px;
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 20px;
+}
+
+.hub-header h2 {
+  color: #fff;
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.hub-header p {
+  color: #66c0f4;
+  margin-top: 10px;
+}
+
+/* La Cuadrícula de Tarjetas */
+.reportes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+.reporte-card {
+  background: #1b2838;
+  border: 1px solid #2a475e;
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.reporte-card:hover {
+  transform: translateY(-5px);
+  border-color: #66c0f4;
+  background: #212e3d;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.reporte-card h3 {
+  color: #fff;
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.card-desc {
+  color: #8f98a0;
+  font-size: 0.9rem;
+  margin-bottom: 25px;
+  flex-grow: 1; /* Empuja los botones hacia abajo */
+}
+
+/* Botones */
+.btn-report {
+  background: #2a475e;
+  color: #c7d5e0;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.btn-report:hover {
+  background: #66c0f4;
+  color: #fff;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-report.positive:hover { background: #a3cf06; color: #000; }
+.btn-report.negative:hover { background: #c22d2d; color: #fff; }
+.btn-report.highlight { border: 1px solid #66c0f4; color: #66c0f4; background: transparent; }
+.btn-report.highlight:hover { background: #66c0f4; color: #fff; }
+
+/* Contenedor del Router Outlet */
+.report-outlet-container {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 30px;
+}
+/* Estilos específicos para el reporte de comentarios */
+.report-detail {
+  padding: 20px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.report-header {
+  margin-bottom: 25px;
+}
+
+.report-header h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.report-header p {
+  color: #66c0f4;
+  font-size: 0.9rem;
+}
+
+/* Tabla de Reporte */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+.report-table th {
+  background: #171a21;
+  color: #66c0f4;
+  padding: 15px;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.report-table td {
+  padding: 20px 15px;
+  border-bottom: 1px solid #2a475e;
+  vertical-align: middle;
+}
+
+/* Celdas específicas */
+.game-name-cell {
+  color: #fff;
+  font-weight: bold;
+  width: 20%;
+}
+
+.user-cell {
+  color: #8f98a0;
+  white-space: nowrap;
+}
+
+.user-avatar-mini {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background: #3d4450;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.comment-text-cell {
+  width: 45%;
+}
+
+.comment-bubble {
+  margin: 0;
+  color: #c7d5e0;
+  font-style: italic;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+/* Calificación */
+.star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(163, 207, 6, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #a3cf06;
+}
+
+.star-rating .score {
+  color: #a3cf06;
+  font-weight: bold;
+}
+
+.star-rating .star {
+  color: #a3cf06;
+}
+
+/* Estado Vacío */
+.empty-report {
+  text-align: center;
+  padding: 50px;
+  color: #56687a;
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Cabecera con Icono */
+.header-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.report-icon {
+  font-size: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.report-icon.positive { color: #a3cf06; border: 1px solid rgba(163, 207, 6, 0.3); }
+
+/* Lista de Ranking */
+.rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rank-item {
+  background: #1b2838;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border: 1px solid transparent;
+  transition: background 0.2s;
+}
+
+.rank-item:hover {
+  background: #212e3d;
+}
+
+.rank-item.positive {
+  border-left: 4px solid #a3cf06;
+}
+
+.rank-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3d4450;
+  min-width: 50px;
+}
+
+.rank-info {
+  flex-grow: 1;
+}
+
+.rank-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rank-main strong {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.total-reviews {
+  font-size: 0.8rem;
+  color: #66c0f4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Barra de Calificación */
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.rating-bar-bg {
+  flex-grow: 1;
+  height: 8px;
+  background: #121a24;
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, #7da205, #a3cf06);
+  border-radius: 4px;
+}
+
+.rating-value {
+  color: #a3cf06;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+/* Spinner de carga */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: #66c0f4;
+}
+/* Icono de Reporte Negativo */
+.report-icon.negative { 
+  color: #ff4d4d; 
+  border: 1px solid rgba(255, 77, 77, 0.3); 
+}
+
+/* Item de la lista en modo Alerta */
+.rank-item.negative-item {
+  border-left: 4px solid #c22d2d;
+  background: rgba(194, 45, 45, 0.05);
+}
+
+.rank-item.negative-item:hover {
+  background: rgba(194, 45, 45, 0.1);
+}
+
+.total-reviews-alert {
+  font-size: 0.8rem;
+  color: #ff4d4d;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Barra de Calificación Crítica */
+.rating-bar-fill-danger {
+  height: 100%;
+  background: linear-gradient(to right, #8b0000, #ff4d4d);
+  border-radius: 4px;
+}
+
+.rating-value-danger {
+  color: #ff4d4d;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+/* Mensaje de éxito si no hay malos juegos */
+.empty-report p {
+  color: #a3cf06;
+  font-weight: bold;
+}
+/* Icono de Trofeo */
+.report-icon.trophy {
+  color: #ffc107;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  background: rgba(255, 193, 7, 0.05);
+}
+
+/* Contenedor del Ranking */
+.top-ranking-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.top-card {
+  background: linear-gradient(to right, #1b2838, #171a21);
+  border: 1px solid #2a475e;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.top-card:hover {
+  transform: scale(1.01);
+  border-color: #66c0f4;
+}
+
+/* El número del Rank */
+.rank-position {
+  font-size: 3rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  left: 20px;
+  line-height: 1;
+  font-style: italic;
+}
+
+/* Información del Juego */
+.game-info-wrapper {
+  margin-left: 60px; /* Espacio para el número */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.game-main-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-main-data strong {
+  color: #fff;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+.rank-label {
+  color: #a3cf06;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Estadísticas del Card */
+.stat-box {
+  text-align: right;
+}
+
+.stat-label {
+  display: block;
+  color: #66c0f4;
+  font-size: 11px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.stat-value-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+}
+
+.stars-mini {
+  font-size: 14px;
+}
+
+/* El ganador (Gold Rank) */
+.top-card.gold-rank {
+  border: 1px solid #ffc107;
+  background: linear-gradient(to right, rgba(255, 193, 7, 0.1), #171a21);
+}
+
+.top-card.gold-rank .rank-position {
+  color: rgba(255, 193, 7, 0.2);
+}
+
+.top-card.gold-rank .game-main-data strong {
+  color: #ffc107;
+}
+/* Icono de Dinero */
+.report-icon.money {
+  color: #a3cf06;
+  border: 1px solid rgba(163, 207, 6, 0.3);
+  background: rgba(163, 207, 6, 0.05);
+}
+
+/* Contenedor de Tabla */
+.table-container {
+  background: #1b2838;
+  border-radius: 4px;
+  border: 1px solid #2a475e;
+  overflow: hidden;
+}
+
+.financial-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.financial-table th {
+  background: #171a21;
+  color: #66c0f4;
+  padding: 15px 20px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.financial-table td {
+  padding: 18px 20px;
+  border-bottom: 1px solid #2a475e;
+  color: #c7d5e0;
+}
+
+/* Alineaciones */
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+
+/* Celdas Especiales */
+.game-cell strong {
+  color: #fff;
+  font-size: 15px;
+}
+
+.currency-cell {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+.sales-cell {
+  color: #66c0f4;
+  font-weight: bold;
+}
+
+.sales-cell small {
+  font-weight: normal;
+  color: #56687a;
+}
+
+/* Badge de Comisión */
+.commission-badge {
+  background: rgba(194, 45, 45, 0.1);
+  color: #ff4d4d;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid rgba(194, 45, 45, 0.3);
+}
+
+/* Ingreso Neto (El protagonista) */
+.net-income-cell {
+  color: #a3cf06;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+}
+
+.net-income-cell .symbol {
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+/* Hover effect */
+.financial-table tbody tr:hover {
+  background: rgba(102, 192, 244, 0.05);
+}

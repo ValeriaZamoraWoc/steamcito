@@ -1,0 +1,44 @@
+<div class="report-content-fade">
+  <div class="report-header-minimal">
+    <h3><span class="icon">📜</span> Historial de Transacciones</h3>
+    <p>Registro cronológico de tus adquisiciones en la plataforma.</p>
+  </div>
+
+  <div *ngIf="cargando" class="user-loader">
+    <div class="spinner-steam"></div>
+    <p>Sincronizando con la billetera...</p>
+  </div>
+
+  <div *ngIf="error && !cargando" class="user-alert error">
+    <span class="alert-icon">⚠️</span>
+    <div class="alert-body">
+      <strong>Hubo un problema:</strong>
+      <span>{{ error }}</span>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && !error && historial.length === 0" class="user-empty-state">
+    <div class="empty-icon">💸</div>
+    <p>Tu historial está vacío. ¡Es un buen momento para tu primera compra!</p>
+  </div>
+
+  <div *ngIf="!cargando && !error && historial.length > 0" class="history-container">
+    <div class="historial-meta">
+      <span class="total-badge">
+        {{ historial.length }} Movimiento(s) detectado(s)
+      </span>
+    </div>
+    
+    <div class="receipt-box">
+      <ul class="lista-historial">
+        <li *ngFor="let item of historial; let i = index" class="item-historial">
+          <div class="item-number">#{{ (i + 1).toString().padStart(2, '0') }}</div>
+          <div class="item-content">{{ item }}</div>
+        </li>
+      </ul>
+      <div class="receipt-footer">
+        *** Fin del Registro ***
+      </div>
+    </div>
+  </div>
+</div>

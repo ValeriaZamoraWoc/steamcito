@@ -1,0 +1,141 @@
+.negotiation-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.section-header {
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section-header p {
+  color: #66c0f4;
+  margin-top: 5px;
+}
+
+/* Layout de dos columnas */
+.negotiation-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 30px;
+}
+
+/* Sidebar informativo */
+.info-sidebar .sidebar-card {
+  background: rgba(103, 193, 245, 0.05);
+  border: 1px solid #2a475e;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.sidebar-card h4 {
+  color: #66c0f4;
+  margin-top: 0;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.sidebar-card ul {
+  padding-left: 18px;
+  color: #8f98a0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Formulario */
+.form-card {
+  background: #1b2838;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  color: #fff;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+/* Input con símbolo de porcentaje */
+.input-with-symbol {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-symbol input {
+  width: 100%;
+  background: #121a24;
+  border: 1px solid #2a475e;
+  padding: 15px;
+  padding-right: 40px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.input-with-symbol .symbol {
+  position: absolute;
+  right: 15px;
+  color: #66c0f4;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.helper-text {
+  display: block;
+  margin-top: 8px;
+  color: #56687a;
+  font-size: 12px;
+}
+
+/* Botón */
+.btn-submit {
+  width: 100%;
+  background: linear-gradient(to right, #67c1f5 0%, #417a9b 100%);
+  color: #fff;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-submit:hover {
+  filter: brightness(1.2);
+}
+
+/* Alertas */
+.alert {
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.alert-error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
+.alert-success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }
+
+@media (max-width: 768px) {
+  .negotiation-layout { grid-template-columns: 1fr; }
+  .info-sidebar { order: 2; }
+}

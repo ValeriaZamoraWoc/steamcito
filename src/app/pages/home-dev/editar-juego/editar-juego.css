@@ -1,0 +1,178 @@
+.edit-game-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #3d4450;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.admin-header h2 {
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.admin-header p {
+  color: #66c0f4;
+  margin: 5px 0 0;
+}
+
+/* Secciones del Formulario */
+.form-section {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.section-label {
+  color: #66c0f4;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border-left: 3px solid #66c0f4;
+  padding-left: 10px;
+}
+
+.grid-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #afafaf;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Inputs y Selects */
+input, textarea, select {
+  background: #121a24;
+  border: 1px solid #2a475e;
+  border-radius: 3px;
+  padding: 12px;
+  color: #fff;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #66c0f4;
+  background: #171d25;
+}
+
+/* Precio con prefijo */
+.price-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.price-input .currency {
+  position: absolute;
+  left: 12px;
+  color: #a3cf06;
+  font-weight: bold;
+}
+
+.price-input input {
+  padding-left: 30px;
+  width: 100%;
+}
+
+/* Upload de archivo */
+.file-upload-box {
+  border: 2px dashed #3d4450;
+  border-radius: 4px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.file-upload-box:hover {
+  background: rgba(102, 192, 244, 0.05);
+  border-color: #66c0f4;
+}
+
+.custom-file-upload {
+  cursor: pointer;
+  display: block;
+  padding: 40px;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.upload-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Botones */
+.form-footer {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #3d4450;
+}
+
+.btn-save-main {
+  background: linear-gradient(to right, #a3cf06 0%, #7da205 100%);
+  color: #000;
+  border: none;
+  padding: 15px 40px;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #3d4450;
+  color: #fff;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-cancel-top {
+  background: transparent;
+  color: #8f98a0;
+  border: 1px solid #3d4450;
+  padding: 8px 15px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* Alertas */
+.alert {
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
+.success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }

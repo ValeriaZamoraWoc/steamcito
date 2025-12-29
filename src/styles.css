@@ -1,0 +1,51 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-dark: #1b2838;       /* Fondo principal Steam */
+  --bg-card: #2a475e;       /* Fondo de tarjetas/contenedores */
+  --accent-blue: #66c0f4;   /* Azul brillante para links/botones */
+  --text-main: #c7d5e0;     /* Gris claro para lectura */
+  --text-bright: #ffffff;   /* Blanco para títulos */
+  --success: #a3cf06;       /* Verde "comprar" o "activo" */
+}
+.sim-container {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  padding: 2rem;
+}
+body {
+  margin: 0;
+  background-color: var(--bg-dark);
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-main);
+}
+.card {
+  background: linear-gradient(135deg, var(--bg-card) 0%, #16202d 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.05);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: var(--accent-blue);
+  }
+
+  .card-content {
+    padding: 15px;
+    h3 { color: var(--text-bright); margin: 0; }
+  }
+}
+
+.btn-primary {
+  background-color: var(--success);
+  color: black;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover { filter: brightness(1.1); }
+}

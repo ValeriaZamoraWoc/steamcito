@@ -1,0 +1,134 @@
+.admin-form-container {
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.section-header {
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.section-header p {
+  color: #66c0f4;
+  font-size: 14px;
+}
+
+/* La tarjeta del formulario */
+.form-card {
+  background: #1b2838;
+  border-radius: 4px;
+  padding: 40px;
+  border: 1px solid rgba(102, 192, 244, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.steam-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group label {
+  color: #afafaf;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Estilo de los Inputs */
+.input-wrapper input {
+  width: 100%;
+  background: #121a24;
+  border: 1px solid #2a475e;
+  border-radius: 3px;
+  padding: 12px 15px;
+  color: #fff;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-wrapper input:focus {
+  outline: none;
+  border-color: #66c0f4;
+  background: #171d25;
+  box-shadow: 0 0 8px rgba(102, 192, 244, 0.4);
+}
+
+/* Botón de acción */
+.btn-primary {
+  width: 100%;
+  margin-top: 20px;
+  background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%);
+  border: none;
+  color: white;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: filter 0.2s;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.2);
+}
+
+.btn-primary span {
+  font-size: 20px;
+}
+
+/* Alertas */
+.alert {
+  padding: 15px;
+  border-radius: 3px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error {
+  background: rgba(194, 45, 45, 0.2);
+  color: #ff4d4d;
+  border: 1px solid #c22d2d;
+}
+
+.alert-success {
+  background: rgba(163, 207, 6, 0.2);
+  color: #a3cf06;
+  border: 1px solid #a3cf06;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

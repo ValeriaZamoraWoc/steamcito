@@ -1,0 +1,148 @@
+.dev-game-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Estilo Dashboard */
+.dashboard-header {
+  background: #1b2838;
+  padding: 30px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #2a475e;
+  margin-bottom: 30px;
+}
+
+.game-identity {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.game-thumbnail {
+  width: 120px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 2px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.badge-dev {
+  background: #66c0f4;
+  color: #171a21;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
+.title-meta h2 {
+  color: #fff;
+  margin: 5px 0;
+  font-size: 24px;
+}
+
+.price-info {
+  color: #8f98a0;
+  margin: 0;
+}
+
+.price-tag {
+  color: #a3cf06;
+  font-weight: bold;
+}
+
+/* Acciones */
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-edit {
+  background: #3d4450;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-suspend {
+  background: rgba(194, 45, 45, 0.2);
+  color: #ff4d4d;
+  border: 1px solid #c22d2d;
+  padding: 10px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-suspend:hover {
+  background: #c22d2d;
+  color: #fff;
+}
+
+/* Contenido */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.info-card {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 4px;
+  border-left: 3px solid #66c0f4;
+}
+
+.info-card h3 {
+  color: #66c0f4;
+  font-size: 14px;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+
+.info-card p {
+  color: #acb2b8;
+  line-height: 1.6;
+}
+
+/* Sección de Moderación */
+.moderation-section {
+  background: rgba(23, 26, 33, 0.5);
+  border-radius: 4px;
+  padding: 25px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.section-header h3 {
+  color: #fff;
+  margin: 0;
+}
+
+.comment-count {
+  color: #66c0f4;
+  font-size: 14px;
+}
+
+.status-suspended {
+  color: #ff4d4d;
+  font-weight: bold;
+  border: 1px solid #ff4d4d;
+  padding: 10px;
+  border-radius: 2px;
+}
