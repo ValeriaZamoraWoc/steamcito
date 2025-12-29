@@ -1,0 +1,82 @@
+<div class="upload-container">
+  <header class="section-header">
+    <h2>Publicar Nuevo Título</h2>
+    <p>Completa la ficha técnica para dar de alta tu juego en el catálogo global.</p>
+  </header>
+
+  <div class="upload-card">
+    <div class="alert error" *ngIf="error">
+      <span class="icon">⚠</span> {{ error }}
+    </div>
+    <div class="alert success" *ngIf="mensaje">
+      <span class="icon">✓</span> {{ mensaje }}
+    </div>
+
+    <form (ngSubmit)="registrar()" class="steam-form">
+      
+      <div class="form-section">
+        <h3 class="section-title">Datos Principales</h3>
+        
+        <div class="form-group">
+          <label>Nombre del Juego</label>
+          <input [(ngModel)]="nombre" name="nombre" required placeholder="Ej: Half-Life 3">
+        </div>
+
+        <div class="form-group">
+          <label>Descripción General</label>
+          <textarea [(ngModel)]="descripcion" name="descripcion" rows="4" placeholder="¿De qué trata tu juego?"></textarea>
+        </div>
+      </div>
+
+      <div class="form-section grid-2-columns">
+        <div class="form-group">
+          <label>Clasificación</label>
+          <select [(ngModel)]="clasificacion" name="clasificacion" required>
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">
+              {{ c.nombreCalsificacion }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Categoría</label>
+          <select [(ngModel)]="categoria" name="categoria" required>
+            <option value="">Seleccionar...</option>
+            <option *ngFor="let c of categorias" [value]="c.idCategoria">
+              {{ c.nombreCategoria }} ({{ c.edadCategoria }}+)
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label>Especificaciones de Hardware</label>
+          <textarea [(ngModel)]="especificaciones" name="especificaciones" rows="3" placeholder="SO, RAM, Procesador..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Precio Sugerido (Q)</label>
+            <div class="price-input">
+              <span>Q</span>
+              <input type="number" [(ngModel)]="precio" name="precio" placeholder="0.00">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Fecha Estimada de Lanzamiento</label>
+            <input type="date" [(ngModel)]="fechaLanzamiento" name="fechaLanzamiento">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <button type="submit" class="btn-publish">
+          Lanzar a la Tienda
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

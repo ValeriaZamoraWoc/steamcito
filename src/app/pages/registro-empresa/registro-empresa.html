@@ -1,0 +1,28 @@
+<h2>Registrar empresa</h2>
+
+<form (submit)="registrar(); $event.preventDefault()">
+  <div>
+    <label>Nombre</label><br>
+    <input
+      type="text"
+      [(ngModel)]="nombre"
+      name="nombre"
+      required
+    >
+  </div>
+
+  <br>
+
+  <div>
+    <label>Descripción</label><br>
+    <textarea
+      [(ngModel)]="descripcion"
+      name="descripcion"
+      required
+    ></textarea>
+  </div>
+
+  <br>
+
+  <button type="submit">Registrar</button>
+</form>

@@ -1,0 +1,46 @@
+<div class="catalogo-container">
+  <header class="section-header">
+    <div class="header-text">
+      <h2>Catálogo de Publicaciones</h2>
+      <p>Gestiona y supervisa los títulos publicados por tu empresa.</p>
+    </div>
+    <div class="stats-badge" *ngIf="catalogo.length > 0">
+      {{ catalogo.length }} Títulos registrados
+    </div>
+  </header>
+
+  <div class="game-grid" *ngIf="catalogo.length > 0">
+    <div
+      class="game-card-dev"
+      *ngFor="let juego of catalogo"
+      (click)="verDetalle(juego.id)"
+      [class.suspended]="!juego.enVenta"
+    >
+      <div class="poster-container">
+        <img [src]="juego.urlImagen" class="game-img" (error)="$event.target.src='assets/no-image.png'" />
+        
+        <div class="status-overlay" *ngIf="!juego.enVenta">
+          <span class="suspended-label">VENTA SUSPENDIDA</span>
+        </div>
+        
+        <div class="hover-hint">
+          <span>Gestionar Detalles</span>
+        </div>
+      </div>
+
+      <div class="game-meta">
+        <h4>{{ juego.nombreJuego }}</h4>
+        <div class="price-row">
+          <span class="currency">Q</span>
+          <span class="amount">{{ juego.precio }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-catalogo" *ngIf="catalogo.length === 0">
+    <div class="empty-icon">📁</div>
+    <h3>No hay juegos publicados</h3>
+    <p>Comienza subiendo tu primer proyecto al sistema.</p>
+  </div>
+</div>

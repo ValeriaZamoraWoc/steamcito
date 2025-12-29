@@ -1,0 +1,49 @@
+<div class="report-detail">
+  <div class="report-header">
+    <h3>Mejores Comentarios de la Comunidad</h3>
+    <p>Visualiza las reseñas más destacadas y mejor valoradas por tus jugadores.</p>
+  </div>
+
+  <div *ngIf="error" class="alert-error">
+    <span class="icon">⚠</span> {{ error }}
+  </div>
+
+  <div class="table-responsive" *ngIf="comentarios.length > 0">
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Juego</th>
+          <th>Usuario</th>
+          <th>Comentario</th>
+          <th class="text-center">Calificación</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let c of comentarios">
+          <td class="game-name-cell">{{ c.juego }}</td>
+          <td class="user-cell">
+            <span class="user-avatar-mini"></span>
+            {{ c.usuario }}
+          </td>
+          <td class="comment-text-cell">
+            <blockquote class="comment-bubble">
+              "{{ c.comentario }}"
+            </blockquote>
+          </td>
+          <td class="rating-cell text-center">
+            <div class="star-rating">
+              <span class="score">{{ c.calificacion }}</span>
+              <span class="star">★</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-report" *ngIf="comentarios.length === 0 && !error">
+    <div class="empty-icon">💬</div>
+    <p>No hay comentarios para mostrar en este momento.</p>
+  </div>
+</div>

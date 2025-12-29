@@ -1,0 +1,62 @@
+<div class="dev-game-container">
+  <div *ngIf="juego" class="game-dashboard">
+    
+    <header class="dashboard-header">
+      <div class="game-identity">
+        <img [src]="juego.urlImagen" class="game-thumbnail" (error)="$event.target.src='assets/no-image.png'" />
+        <div class="title-meta">
+          <span class="badge-dev">Panel de Desarrollador</span>
+          <h2>{{ juego.nombreJuego }}</h2>
+          <p class="price-info">Precio actual: <span class="price-tag">Q{{ juego.precio }}</span></p>
+        </div>
+      </div>
+
+      <div class="dashboard-actions">
+        <button class="btn-edit" (click)="editarJuego()">
+          <span class="icon">✎</span> Editar detalles
+        </button>
+        
+        <button
+          *ngIf="juego.enVenta"
+          class="btn-suspend"
+          (click)="suspenderVenta()"
+        >
+          <span class="icon">⛔</span> Suspender venta
+        </button>
+        <span *ngIf="!juego.enVenta" class="status-suspended">Venta Suspendida</span>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <section class="info-grid">
+        <div class="info-card">
+          <h3>Descripción del Producto</h3>
+          <p>{{ juego.descripcion }}</p>
+        </div>
+        <div class="info-card">
+          <h3>Especificaciones Técnicas</h3>
+          <p>{{ juego.especificaciones }}</p>
+        </div>
+      </section>
+
+      <section class="moderation-section" *ngIf="comentariosRaiz.length">
+        <div class="section-header">
+          <h3>Comentarios y Feedback</h3>
+          <span class="comment-count">{{ comentariosRaiz.length }} hilos activos</span>
+        </div>
+
+        <div class="comments-container">
+          <app-comentario
+            *ngFor="let c of comentariosRaiz"
+            [comentario]="c"
+            [puedeResponder]="false"
+            [puedeOcultar]="true"
+            (comentarioOcultado)="cargarComentarios(juego.id)"
+          >
+          </app-comentario>
+        </div>
+      </section>
+    </div>
+
+  </div>
+</div>

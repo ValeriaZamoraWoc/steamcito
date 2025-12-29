@@ -1,0 +1,377 @@
+/* Layout General */
+.game-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.game-content {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 30px;
+}
+
+/* Columna Principal */
+.game-hero {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+}
+
+.description-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.description-box h3 {
+  color: #66c0f4;
+  margin-top: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+/* Columna Lateral */
+.info-card {
+  background: #212429;
+  padding: 20px;
+  border-radius: 4px;
+  position: sticky;
+  top: 20px;
+}
+
+.price-tag {
+  background: #000;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.price-tag .amount {
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.price-tag .currency { color: #a3cf06; margin-right: 5px; }
+
+/* Botones Steam */
+.actions-panel button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-steam-green { background: linear-gradient(to bottom, #a3cf06 5%, #82a007 95%); color: #fff; }
+.btn-steam-blue { background: linear-gradient(to bottom, #67c1f5 5%, #417a9b 95%); color: #fff; }
+.btn-steam-gray { background: #3d4450; color: #fff; }
+.btn-steam-red { background: #c22d2d; color: #fff; }
+
+/* Reseñas */
+.reviews-section { margin-top: 40px; border-top: 1px solid #3d4450; padding-top: 20px; }
+
+.write-review {
+  background: #171a21;
+  padding: 20px;
+  border-radius: 4px;
+  margin-bottom: 30px;
+}
+
+.write-review textarea {
+  width: 100%;
+  height: 100px;
+  background: #23262e;
+  border: 1px solid #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.review-footer { display: flex; justify-content: space-between; align-items: center; }
+
+/* Comentario (Componente) */
+.comment-card {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 3px solid #66c0f4;
+}
+
+.comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.user-name { color: #66c0f4; font-weight: bold; font-size: 14px; }
+.comment-body { color: #acb2b8; line-height: 1.5; }
+
+.replies-container {
+  margin-left: 30px;
+  margin-top: 15px;
+  border-left: 1px solid #3d4450;
+  padding-left: 15px;
+}
+
+.btn-link { background: none; border: none; color: #8f98a0; cursor: pointer; padding: 5px 0; }
+.btn-link:hover { color: #fff; }
+.btn-danger-link { color: #c22d2d; background: none; border: none; cursor: pointer; }
+/* Contenedor de etiquetas */
+.tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 15px 0;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.meta-tag {
+  margin: 0;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag-label {
+  color: #8f98a0;
+  font-weight: bold;
+}
+
+.tag-value {
+  color: #66c0f4;
+}
+
+/* Estilo especial para la Clasificación (tipo badge de edad) */
+.badge-age {
+  background: #3d4450;
+  color: #ffffff !important;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 800;
+  border: 1px solid #545b68;
+  font-size: 0.8rem;
+}
+
+.availability {
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.status-on { color: #a3cf06; }
+.status-off { color: #ff4c4c; }
+/* Contenedor principal del editor */
+.write-review-container {
+  margin-top: 20px;
+  background: #1b2838;
+  border-radius: 4px;
+  padding: 1px; /* Para el borde sutil */
+}
+
+.review-editor {
+  background: #1b2838;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-header {
+  padding: 12px 15px;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-action-text {
+  color: #66c0f4;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.review-tip {
+  color: #556772;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* El Campo de Texto */
+.steam-textarea {
+  width: 100%;
+  background: #23262e;
+  border: none;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #3d4450;
+  color: #d1d1d1;
+  padding: 15px;
+  font-family: 'Motiva Sans', Arial, sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 120px;
+  outline: none;
+  transition: background 0.3s;
+}
+
+.steam-textarea:focus {
+  background: #2a2e38;
+}
+
+/* Pie del editor */
+.review-footer-bar {
+  padding: 12px 15px;
+  background: #1b2838;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.rating-selector label {
+  color: #8f98a0;
+  font-size: 0.85rem;
+}
+
+/* Selector de Estrellas */
+.select-style select {
+  background: #3d4450;
+  color: white;
+  border: 1px solid #4f5864;
+  padding: 5px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Botón de Publicar */
+.btn-post-review {
+  background: linear-gradient( to right, #47bfff 0%, #1a44c2 100%);
+  color: white;
+  border: none;
+  padding: 8px 25px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.btn-post-review:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+
+.btn-post-review:disabled {
+  background: #3d4450;
+  color: #666;
+  cursor: not-allowed;
+}
+/* Contenedor de la Respuesta */
+.reply-input-box {
+  margin-top: 12px;
+  border-left: 2px solid #3d4450;
+  padding-left: 15px;
+}
+
+.reply-editor-mini {
+  background: #171a21; /* Un tono más oscuro para diferenciarlo */
+  border: 1px solid #3d4450;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Textarea de respuesta */
+.steam-textarea-mini {
+  width: 100%;
+  background: #23262e;
+  border: none;
+  color: #d1d1d1;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+}
+
+.steam-textarea-mini:focus {
+  background: #2a2e38;
+}
+
+/* Footer Mini */
+.reply-footer-mini {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating-selector-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #8f98a0;
+  font-size: 0.8rem;
+}
+
+.steam-select-mini {
+  background: #3d4450;
+  color: white;
+  border: 1px solid #4f5864;
+  font-size: 0.8rem;
+  border-radius: 2px;
+  outline: none;
+}
+
+/* Botones Mini */
+.reply-actions-mini {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-cancel-mini {
+  background: transparent;
+  color: #8f98a0;
+  border: none;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.btn-cancel-mini:hover {
+  color: #fff;
+}
+
+.btn-post-mini {
+  background: #66c0f4;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 2px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-post-mini:disabled {
+  background: #3d4450;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Animación simple */
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

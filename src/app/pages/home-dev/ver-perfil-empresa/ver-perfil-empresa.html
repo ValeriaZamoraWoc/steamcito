@@ -1,0 +1,62 @@
+<div class="company-profile-page">
+  <div *ngIf="cargando" class="loading-box">
+    <div class="steam-spinner"></div>
+    <p>Cargando perfil corporativo...</p>
+  </div>
+
+  <div *ngIf="error" class="error-alert">
+    <span>⚠</span> {{ error }}
+  </div>
+
+  <div *ngIf="!cargando && empresa" class="profile-content">
+    <header class="company-banner">
+      <div class="banner-overlay">
+        <div class="company-info">
+          <div class="company-logo-placeholder">
+            {{ empresa.nombreEmpresa.charAt(0) }}
+          </div>
+          <div class="company-text">
+            <span class="label">Empresa Desarrolladora</span>
+            <h2>{{ empresa.nombreEmpresa }}</h2>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="catalog-section">
+      <div class="section-header">
+        <h3>Lanzamientos Recientes</h3>
+        <span class="game-count">{{ totalJuegos }} títulos en total</span>
+      </div>
+
+      <div *ngIf="catalogo.length === 0" class="empty-catalog">
+        <p>Esta empresa aún no ha publicado juegos en la plataforma.</p>
+      </div>
+
+      <div class="catalog-grid" *ngIf="catalogo.length > 0">
+        <div class="game-card-corporate" *ngFor="let juego of catalogo">
+          <div class="poster-box">
+            <img
+              *ngIf="juego.urlImagen"
+              [src]="juego.urlImagen"
+              alt="{{ juego.nombreJuego }}"
+              class="game-img"
+              (error)="$event.target.src='assets/no-image.png'"
+            >
+            <div class="status-badge" [class.not-for-sale]="!juego.enVenta">
+              {{ juego.enVenta ? 'EN VENTA' : 'SUSPENDIDO' }}
+            </div>
+          </div>
+
+          <div class="game-details">
+            <h4>{{ juego.nombreJuego }}</h4>
+            <div class="price-row">
+              <span class="currency">Q</span>
+              <span class="price">{{ juego.precio }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

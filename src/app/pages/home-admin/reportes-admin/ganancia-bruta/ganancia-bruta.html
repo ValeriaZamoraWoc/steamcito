@@ -1,0 +1,49 @@
+<div class="admin-report-detail">
+  <div class="report-header-flex">
+    <div class="title-group">
+      <h3>Estado de Ganancias Globales</h3>
+      <p>Reporte consolidado de ingresos brutos generados por la plataforma.</p>
+    </div>
+    
+    <div class="total-summary-card" *ngIf="!cargando && ganancias.length > 0">
+      <span class="summary-label">Total General Acumulado</span>
+      <div class="summary-value">
+        <span class="symbol">Q</span> {{ totalGeneral | number:'1.2-2' }}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring"></div>
+    <span>Calculando balance global...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && ganancias.length > 0">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Título del Juego</th>
+          <th class="text-right">Ingresos Generados</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let g of ganancias">
+          <td class="game-column">
+            <span class="dot"></span> {{ g.nombre }}
+          </td>
+          <td class="text-right money-column">
+            <span class="currency">Q</span> {{ g.monto | number:'1.2-2' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && ganancias.length === 0 && !error">
+    <p>No se han registrado transacciones en el periodo actual.</p>
+  </div>
+</div>

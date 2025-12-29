@@ -1,0 +1,55 @@
+<div class="admin-reports-container">
+  <header class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge dev">Sistema</span>
+      </div>
+      <h3>Gestión de Clasificaciones</h3>
+      <p>Administra las etiquetas de edad (ESRB/PEGI) disponibles para los videojuegos.</p>
+    </div>
+  </header>
+
+  <div class="admin-action-card creation-zone">
+    <div class="input-group-modern">
+      <span class="input-icon">🏷️</span>
+      <input
+        type="text"
+        [(ngModel)]="nuevaClasificacion"
+        placeholder="Ej: Accion, RPG, Aventura..."
+        class="modern-input"
+      />
+      <button class="btn-primary-admin" (click)="crearClasificacion()">
+        <span class="icon">+</span> Agregar Clasificación
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="clasificaciones.length === 0" class="admin-empty-state">
+    <div class="empty-icon">📂</div>
+    <p>No hay clasificaciones registradas en la base de datos.</p>
+  </div>
+
+  <div class="table-wrapper" *ngIf="clasificaciones.length > 0">
+    <table class="admin-table">
+      <thead>
+        <tr>
+
+          <th>Nombre de Clasificación</th>
+          <th class="text-right">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clasificaciones">
+          <td>
+            <span class="classification-tag-preview">{{ c.nombreCalsificacion }}</span>
+          </td>
+          <td class="text-right">
+            <button class="btn-danger-outline" (click)="eliminarClasificacion(c.idClasificacion)">
+              <span class="icon">🗑️</span> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

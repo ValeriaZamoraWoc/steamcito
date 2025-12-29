@@ -1,0 +1,56 @@
+<div class="steam-layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo-icon"></div>
+      <h3>STEAMCITO</h3>
+    </div>
+
+    <nav class="nav-groups">
+      <section class="nav-section">
+        <label>Principal</label>
+        <a routerLink="/app/home" routerLinkActive="active">Inicio</a>
+        <a routerLink="/app/admin/buscar" routerLinkActive="active">Buscar</a>
+      </section>
+
+      <section class="nav-section" *ngIf="loginService.isComun()">
+        <label>Mi Cuenta</label>
+        <a routerLink="/app/biblioteca" routerLinkActive="active">Mi Biblioteca</a>
+        <a routerLink="/app/wallet" routerLinkActive="active">Mi Wallet</a>
+        <a routerLink="/app/grupos-familiares" routerLinkActive="active">Grupos Familiares</a>
+        <a routerLink="/app/reportes" routerLinkActive="active">Reportes</a>
+      </section>
+
+      <section class="nav-section" *ngIf="loginService.isAdmin()">
+        <label>Administración</label>
+        <a routerLink="/app/admin/editar-banner" routerLinkActive="active">Editar Banner</a>
+        <a routerLink="/app/admin/Comisiones" routerLinkActive="active">Comisiones</a>
+        <a routerLink="/app/admin/reportes" routerLinkActive="active">Reportes Globales</a>
+        <a routerLink="/app/admin/clasificaciones" routerLinkActive="active">Gestionar clasificaciones</a>
+      </section>
+
+      <section class="nav-section" *ngIf="loginService.isDesarrollador()">
+        <label>Developer Console</label>
+        <a routerLink="/app/home-dev/subir-juego" routerLinkActive="active">Subir Juego</a>
+        <a routerLink="/app/home-dev/agregar-usuario-empresa" routerLinkActive="active">Gestionar Empresa</a>
+        <a routerLink="/app/home-dev/negociar-comision" routerLinkActive="active">Negociar Comisión</a>
+        <a routerLink="/app/home-dev/catalogo" routerLinkActive="active">Ver Catálogo</a>
+        <a 
+          [routerLink]="['/app/home-dev/ver-perfil-empresa', loginService.getIdEmpresa()]" 
+          routerLinkActive="active">
+          Perfil Empresa
+        </a>
+        <a routerLink="/app/home-dev/reportes" routerLinkActive="active">Reportes Dev</a>
+      </section>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="logout()" class="btn-logout">
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>

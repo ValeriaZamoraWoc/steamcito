@@ -1,0 +1,188 @@
+.buscador-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-header h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.section-header p {
+  color: var(--accent-blue);
+  margin-bottom: 30px;
+}
+
+/* Barra de Búsqueda Principal */
+.search-bar-wrapper {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.main-search-input {
+  flex: 1;
+  background: #2a475e;
+  border: 1px solid #1b2838;
+  padding: 15px 20px;
+  border-radius: 4px;
+  color: white;
+  font-size: 1.1rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.btn-search-icon {
+  background: linear-gradient(to bottom, #67c1f5 0%, #417a9b 100%);
+  border: none;
+  padding: 0 30px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Filtros tipo "Chips" */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.chip {
+  cursor: pointer;
+  background: rgba(0,0,0,0.2);
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: #afafaf;
+  font-size: 13px;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.chip input { display: none; }
+
+.chip:hover { background: rgba(255,255,255,0.1); }
+
+.chip.active {
+  background: var(--accent-blue);
+  color: #1b2838;
+  font-weight: bold;
+}
+
+/* Tarjetas de Resultados */
+.results-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.steam-card {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+}
+
+.steam-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.card-info h4 {
+  color: white;
+  margin: 0 0 5px 0;
+  font-size: 1.2rem;
+}
+
+.card-info p {
+  color: #8f98a0;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Botones de acción dentro de las tarjetas */
+.btn-action {
+  background: #3d4450;
+  color: #67c1f5;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 2px;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.btn-action:hover {
+  background: #67c1f5;
+  color: white;
+}
+
+.btn-action.dev {
+  border: 1px solid #a3cf06;
+  color: #a3cf06;
+  background: transparent;
+}
+
+.btn-action.dev:hover {
+  background: #a3cf06;
+  color: black;
+}
+
+.results-title {
+  color: #afafaf;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 10px;
+}
+/* Chip social */
+.chip.social.active {
+  background: rgba(180, 92, 245, 0.2) !important;
+  border-color: #b45cf5 !important;
+  color: #cba6f7 !important;
+}
+
+/* Tarjeta de Grupo */
+.steam-card.group-social {
+  border-left: 4px solid #b45cf5;
+  background: linear-gradient(145deg, #1b2838, #1e1e2e);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.group-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  background: rgba(180, 92, 245, 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+}
+
+.group-meta {
+  margin-top: 5px;
+}
+
+.member-count {
+  font-size: 11px;
+  color: #b45cf5;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(180, 92, 245, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.btn-action.social {
+  background: #7e30e1;
+}
+
+.btn-action.social:hover {
+  background: #b45cf5;
+}

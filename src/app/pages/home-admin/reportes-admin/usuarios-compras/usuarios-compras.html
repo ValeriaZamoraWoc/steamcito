@@ -1,0 +1,56 @@
+<div class="admin-report-detail">
+  <header class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge users">User Retention</span>
+      </div>
+      <h3>Top Coleccionistas</h3>
+      <p>Usuarios con el mayor número de licencias adquiridas en la plataforma.</p>
+    </div>
+  </header>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring blue"></div>
+    <span>Escaneando bibliotecas de usuarios...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && usuarios.length > 0">
+    <table class="admin-table user-leaderboard">
+      <thead>
+        <tr>
+          <th class="text-center">Rango</th>
+          <th>Identidad de Usuario</th>
+          <th class="text-right">Títulos en Biblioteca</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of usuarios; let i = index">
+          <td class="text-center rank-col">
+            <span class="rank-badge" [class.top-three]="i < 3">{{ i + 1 }}</span>
+          </td>
+          <td class="user-profile-cell">
+            <div class="avatar-placeholder">
+              {{ u.usuario.charAt(0).toUpperCase() }}
+            </div>
+            <div class="user-info">
+              <span class="user-name">{{ u.usuario }}</span>
+              <span class="user-status">Cliente Activo</span>
+            </div>
+          </td>
+          <td class="text-right count-column">
+            <span class="game-count-value">{{ u.totalJuegos }}</span>
+            <span class="unit-label">Juegos</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && usuarios.length === 0 && !error">
+    <p>No se encontraron datos de actividad de usuarios.</p>
+  </div>
+</div>

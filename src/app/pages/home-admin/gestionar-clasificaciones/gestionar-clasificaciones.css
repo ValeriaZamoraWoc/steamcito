@@ -1,0 +1,81 @@
+/* Zona de Creación */
+.creation-zone {
+  background: #1b2838;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid #2a475e;
+}
+
+.input-group-modern {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.modern-input {
+  flex-grow: 1;
+  background: #0d121a;
+  border: 1px solid #3d4450;
+  padding: 12px 15px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.modern-input:focus {
+  border-color: #66c0f4;
+  outline: none;
+}
+
+/* Botones Admin */
+.btn-primary-admin {
+  background: #66c0f4;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.btn-primary-admin:hover {
+  background: #417a9b;
+}
+
+/* Preview de Etiqueta */
+.classification-tag-preview {
+  background: #f8f8f2;
+  color: #282a36;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 900;
+  font-family: 'Arial Black', sans-serif;
+  box-shadow: 2px 2px 0px #6272a4;
+  text-transform: uppercase;
+}
+
+/* Botón Eliminar Estilizado */
+.btn-danger-outline {
+  background: transparent;
+  color: #ff5555;
+  border: 1px solid rgba(255, 85, 85, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-danger-outline:hover {
+  background: #ff5555;
+  color: #fff;
+}
+
+.id-column {
+  color: #6272a4;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+}

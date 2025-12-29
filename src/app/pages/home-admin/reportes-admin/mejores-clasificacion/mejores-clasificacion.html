@@ -1,0 +1,71 @@
+<div class="admin-report-detail">
+  <header class="report-header-flex">
+    <div class="title-group">
+      <div class="badge-row">
+        <span class="admin-badge quality">Ratings Expert</span>
+      </div>
+      <h3>Calidad por Clasificación</h3>
+      <p>Ranking de satisfacción segmentado por público objetivo.</p>
+    </div>
+  </header>
+
+  <div class="admin-filter-bar highlight-gold">
+    <div class="filter-group">
+      <label>Clasificación</label>
+      <div class="select-wrapper">
+        <select [(ngModel)]="clasificacionSeleccionada">
+          <option value="">-- Seleccionar Clasificación --</option>
+          <option *ngFor="let c of clasificaciones" [value]="c.nombreCalsificacion">
+            {{ c.nombreCalsificacion }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-search-quality" (click)="buscar()">
+      <span class="icon">🏆</span> Analizar Calificación
+    </button>
+  </div>
+
+  <div *ngIf="cargando" class="admin-loader">
+    <div class="pulse-ring gold"></div>
+    <span>Comparando reseñas por audiencia...</span>
+  </div>
+
+  <div *ngIf="error" class="admin-alert error">
+    <span class="icon">❌</span> {{ error }}
+  </div>
+
+  <div class="table-wrapper" *ngIf="!cargando && juegos.length > 0">
+    <table class="admin-table quality-table">
+      <thead>
+        <tr>
+          <th>Título del Videojuego</th>
+          <th class="text-center">Etiqueta</th>
+          <th class="text-right">Calificación Promedio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let j of juegos">
+          <td class="game-column">
+            <div class="quality-dot" [class.excellent]="j.promedio >= 4.0"></div>
+            <strong>{{ j.nombre }}</strong>
+          </td>
+          <td class="text-center">
+            <span class="mini-rating-tag">{{ clasificacionSeleccionada }}</span>
+          </td>
+          <td class="text-right">
+            <div class="rating-display-admin">
+              <span class="score-number">{{ j.promedio | number:'1.1-1' }}</span>
+              <span class="star-icon gold">★</span>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="!cargando && juegos.length === 0 && !error">
+    <div class="empty-illustration">🔍</div>
+    <p>No se encontraron resultados para esta clasificación o aún no has realizado la búsqueda.</p>
+  </div>
+</div>

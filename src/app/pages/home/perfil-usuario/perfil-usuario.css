@@ -1,0 +1,157 @@
+.profile-page {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Header Estilo Steam */
+.profile-header {
+  background: linear-gradient(to right, rgba(38, 56, 74, 0.8), rgba(23, 26, 33, 0.9));
+  padding: 40px;
+  border-radius: 4px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #2a475e;
+}
+
+.profile-header-content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.avatar-frame {
+  width: 160px;
+  height: 160px;
+  padding: 4px;
+  background: linear-gradient(135deg, #66c0f4 0%, #3a3a3a 100%);
+  border-radius: 4px;
+}
+
+.avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #171a21;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 64px;
+  color: #66c0f4;
+  font-weight: bold;
+}
+
+.nickname {
+  color: #fff;
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #8f98a0;
+  font-size: 14px;
+}
+
+.detail-item strong {
+  color: #56687a;
+}
+
+/* Vitrina de Biblioteca */
+.library-showcase {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  border-radius: 4px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #3d4450;
+  padding-bottom: 10px;
+}
+
+.section-title h3 {
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.count {
+  color: #66c0f4;
+  font-weight: bold;
+}
+
+/* Grid de Juegos Mini */
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.game-mini-card {
+  background: #171a21;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  border: 1px solid transparent;
+}
+
+.game-mini-card:hover {
+  transform: scale(1.05);
+  border-color: #66c0f4;
+}
+
+.image-container {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.game-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-mini-info {
+  padding: 10px;
+}
+
+.game-mini-info h4 {
+  color: #c7d5e0;
+  font-size: 13px;
+  margin: 0 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.price {
+  color: #a3cf06;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Nivel Badge */
+.level-badge {
+  border: 2px solid #66c0f4;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 11px;
+}
+
+.level-badge span {
+  font-size: 18px;
+  font-weight: bold;
+}

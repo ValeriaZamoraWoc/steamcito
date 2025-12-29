@@ -1,0 +1,48 @@
+<div class="report-container-user">
+  <div class="report-header-minimal">
+    <h3><span class="icon-social">🏆</span> Joyas de la Familia</h3>
+    <p>Los títulos mejor valorados que tus familiares han compartido contigo.</p>
+  </div>
+
+  <div *ngIf="cargando" class="user-loader">
+    <div class="spinner-steam purple"></div>
+    <p>Buscando lo mejor de tu círculo social...</p>
+  </div>
+
+  <div *ngIf="error" class="user-alert error">
+    <span class="alert-icon">❌</span>
+    <p>{{ error }}</p>
+  </div>
+
+  <div class="jewels-grid" *ngIf="!cargando && juegos.length > 0">
+    <div class="jewel-card" *ngFor="let juego of juegos">
+      <div class="jewel-poster-wrapper">
+        <img [src]="juego.portada" alt="{{ juego.nombre }}" class="jewel-img">
+        <div class="quality-tag">Top Tier</div>
+      </div>
+
+      <div class="jewel-info">
+        <div class="title-meta">
+          <h3>{{ juego.nombre }}</h3>
+          <span class="shared-badge">Socio Familiar</span>
+        </div>
+
+        <div class="rating-box-social">
+          <div class="rating-content">
+            <span class="rating-label">Puntaje Global</span>
+            <span class="rating-value">{{ juego.promedio | number:'1.1-1' }}</span>
+          </div>
+          <div class="stars-line">
+            <span class="star-mini filled" *ngFor="let s of [1,2,3,4,5]" 
+                  [class.active]="s <= juego.promedio">★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando && juegos.length === 0" class="user-empty-state">
+    <div class="empty-icon">💎</div>
+    <p>No hay juegos prestados con calificaciones registradas en este momento.</p>
+  </div>
+</div>
