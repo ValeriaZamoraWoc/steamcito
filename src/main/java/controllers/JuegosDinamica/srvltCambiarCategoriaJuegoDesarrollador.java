@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import services.UsoJuegos.EliminarCategoria;
+import services.UsoJuegos.CambioClasificacion;
 
 /**
  *
@@ -20,7 +20,7 @@ import services.UsoJuegos.EliminarCategoria;
  */
 @WebServlet("/cambiarCategoriaDesarrollador")
 public class srvltCambiarCategoriaJuegoDesarrollador extends HttpServlet{
-    private EliminarCategoria servicio = new EliminarCategoria();
+    private CambioClasificacion servicio = new CambioClasificacion();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,18 +54,8 @@ public class srvltCambiarCategoriaJuegoDesarrollador extends HttpServlet{
             return;
         }
 
-        // Lógica principal
-        String mensaje = servicio.cambiarCategoriaDeJuegoPorDesarrollador(
-                idCategoria, idJuego, mail
-        );
+//este servlet ya no funcionará
 
-        if ("Categoría cambiada correctamente".equals(mensaje)) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }
-
-        response.getWriter().write(mensaje);
     }
 
 }

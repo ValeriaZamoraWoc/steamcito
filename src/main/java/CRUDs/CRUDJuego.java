@@ -5,6 +5,7 @@
 package CRUDs;
 
 import dtos.Juegos.dtoCategoria;
+import dtos.Juegos.dtoClasificacion;
 import dtos.Juegos.dtoComentario;
 import dtos.Juegos.dtoJuego;
 import java.sql.Connection;
@@ -252,7 +253,7 @@ public class CRUDJuego {
     public List<dtoComentario> obtenerComentariosJuego(Integer idJuego){
         List<dtoComentario> comentarios= new ArrayList<>();
         String sql= """
-            SELECT * FROM comentario WHERE id_juego = ?;
+            SELECT * FROM comentario WHERE id_juego = ? AND es_visible= TRUE;
                     """;
         try(Connection c = Conexion.obtenerConexion()) {
             PreparedStatement st = c.prepareStatement(sql);
@@ -276,4 +277,24 @@ public class CRUDJuego {
         return comentarios;
     }
     
+    public void cambiarClasificacionJuego(dtoJuego juego, dtoClasificacion clasificacionNueva) {
+
+        String sql = """
+            UPDATE juego SET
+                id_clasificacion = ?
+            WHERE id_juego = ?;
+        """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+
+            st.setInt(1, clasificacionNueva.getIdClasificacion());
+            st.setInt(2, juego.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

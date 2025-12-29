@@ -272,5 +272,67 @@ public class CRUDGrupoFamiliar {
 
         return integrantes;
     }
+    
+    public List<String[]> obtenerPrestadosMasJugados(String mail) {
+        List<String[]> juegos = new ArrayList<>();
+        String sql = """
+            SELECT j.nombre_juego, 
+                    SUM(DATEDIFF(p.fecha_devolucion, p.fecha_prestamo) + 1) as dias_totales, 
+                    j.url_imagen
+            FROM prestamo p
+            INNER JOIN juego j ON p.id_juego = j.id_juego
+            WHERE p.mail_prestamista = ? AND p.devuelto = 1
+            GROUP BY j.id_juego, j.nombre_juego, j.url_imagen
+            ORDER BY dias_totales DESC;
+                """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, mail);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                String[] fila = new String[3];
+                fila[0] = resultado.getString("nombre_juego");
+                fila[1] = String.valueOf(resultado.getInt("dias_totales"));
+                fila[2] = resultado.getString("url_imagen");
+                juegos.add(fila);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return juegos;
+    }
+        
+    public List<String[]> obtenerMejoresCalificadosPrestados(String mail) {
+        List<String[]> juegos = new ArrayList<>();
+        String sql = """
+                SELECT DISTINCT j.id_juego, j.nombre_juego, AVG(c.calificacion) as promedio, j.url_imagen
+                FROM prestamo p
+                INNER JOIN juego j ON p.id_juego = j.id_juego
+                INNER JOIN calificacion c ON j.id_juego = c.id_juego
+                WHERE p.mail_prestamista = ?
+                GROUP BY j.id_juego, j.nombre_juego, j.url_imagen
+                ORDER BY promedio DESC;
+                """;
+
+        try (Connection c = Conexion.obtenerConexion()) {
+            PreparedStatement st = c.prepareStatement(sql);
+            st.setString(1, mail);
+            ResultSet resultado = st.executeQuery();
+
+            while (resultado.next()) {
+                String[] fila = new String[4];
+                fila[0] = String.valueOf(resultado.getInt("id_juego"));
+                fila[1] = resultado.getString("nombre_juego");
+                fila[2] = String.format("%.2f", resultado.getDouble("promedio"));
+                fila[3] = resultado.getString("url_imagen");
+                juegos.add(fila);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return juegos;
+    }
 
 }

@@ -17,19 +17,32 @@ import services.Registros.RegistrarClasificacion;
  * @author cacerola
  */
 @WebServlet("/registroClasificacion")
-public class srvltRegistrarClasificacion extends HttpServlet{
+public class srvltRegistrarClasificacion extends HttpServlet {
+
     private RegistrarClasificacion servicio = new RegistrarClasificacion();
-    
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            System.out.println("ENTRÉ AL SERVLET REGISTRAR COMISION");
-            
-            String nombre = request.getParameter("nombre");
-            
-            if(nombre==null){
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Nombre nulo");
-            }
-            servicio.registrarClasificacion(nombre);
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        String nombre = request.getParameter("nombre");
+
+        if (nombre == null || nombre.isBlank()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("""
+                { "exito": false, "mensaje": "Nombre inválido" }
+            """);
+            return;
         }
+
+        servicio.registrarClasificacion(nombre);
+
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.getWriter().write("""
+            { "exito": true, "mensaje": "Clasificación creada" }
+        """);
+    }
 }
+

@@ -86,6 +86,7 @@ public class CRUDUsuario {
                     st.setString(2, u.getMail());
                     st.executeUpdate();
                 } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             
@@ -167,7 +168,10 @@ public class CRUDUsuario {
                 dto.setMail(rs.getString("mail"));
                 dto.setNickname(rs.getString("nickname"));
                 dto.setContraseña(rs.getString("contraseña"));
-                dto.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                Date fecha = rs.getDate("fechaNacimiento");
+                if (fecha != null) {
+                    dto.setFechaNacimiento(fecha.toLocalDate());
+                }
                 dto.setTelefono(rs.getInt("telefono"));
                 dto.setPais(rs.getString("pais"));
                 
@@ -204,7 +208,10 @@ public class CRUDUsuario {
                 dto.setMail(rs.getString("mail"));
                 dto.setNickname(rs.getString("nickname"));
                 dto.setContraseña(rs.getString("contraseña"));
-                dto.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                Date fecha = rs.getDate("fechaNacimiento");
+                if (fecha != null) {
+                    dto.setFechaNacimiento(fecha.toLocalDate());
+                }
                 dto.setTelefono(rs.getInt("telefono"));
                 dto.setPais(rs.getString("pais"));
                 
@@ -253,7 +260,7 @@ public class CRUDUsuario {
 
         String sql = """
             SELECT j.id_juego, j.nombre_juego, j.id_clasificacion, j.id_categoria, j.id_empresa, j.precio, j.en_venta, 
-                     j.descripcion, j.especificaciones, j.fecha_lanzamiento, j.url_imagen
+                     j.descripcion, j.especificaciones, j.fecha_lanzamiento, j.url_imagen,bj.instalado
             FROM biblioteca_juego bj
             INNER JOIN juego j ON bj.id_juego = j.id_juego
             WHERE bj.mail = ? ;
@@ -279,7 +286,7 @@ public class CRUDUsuario {
                 Date fecha = rs.getDate("fecha_lanzamiento");
                 dto.setFechaLanzamiento(fecha.toLocalDate());
                 dto.setUrlImagen(rs.getString("url_imagen"));
-
+                dto.setInstalado(rs.getBoolean("instalado"));
                 juegos.add(dto);
             }
 

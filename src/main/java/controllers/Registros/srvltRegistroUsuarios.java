@@ -96,7 +96,7 @@ public class srvltRegistroUsuarios extends HttpServlet{
                 }
 
                 case Desarrollador: {
-                    String empresaSt = request.getParameter("empresa");
+                    String empresaSt = request.getParameter("idEmpresa");
                     Integer empresa = Integer.parseInt(empresaSt);
 
                     if (empresaSt == null || empresaSt.isBlank()) {

@@ -23,6 +23,16 @@ public class dtoJuego {
     private boolean enVenta;
     private LocalDate fechaLanzamiento;
     private String urlImagen;
+    
+    private Boolean instalado;
+
+    public Boolean getInstalado() {
+        return instalado;
+    }
+
+    public void setInstalado(Boolean instalado) {
+        this.instalado = instalado;
+    }
 
     public String getUrlImagen() {
         return urlImagen;

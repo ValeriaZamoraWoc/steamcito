@@ -37,7 +37,6 @@ public class srvltObtenerPerfilUsuario extends HttpServlet {
 
         String mail = request.getParameter("mail");
 
-        // Validar datos de entrada
         if (mail == null || mail.isBlank()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("{\"mensaje\":\"Mail requerido\"}");
@@ -45,7 +44,6 @@ public class srvltObtenerPerfilUsuario extends HttpServlet {
         }
 
         try {
-            // Obtener información básica del usuario
             dtoUsuario usuario = servicio.obtenerUsuarioComun(mail);
 
             if (usuario == null) {
@@ -54,36 +52,33 @@ public class srvltObtenerPerfilUsuario extends HttpServlet {
                 return;
             }
 
-            // Crear el Gson de solo el usuario sin biblioteca
             Gson gson = new GsonBuilder()
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                     .create();
 
-            // Determinar si se debe incluir la biblioteca
-            boolean incluirBiblioteca = servicio.obtenerBibliotecaUsuario(mail)!= null;
+            List<dtoJuego> biblioteca = servicio.obtenerBibliotecaUsuario(mail);
+            boolean visibilidad = servicio.obtenerVisibilidadBiblioteca(mail);
             
-            if (incluirBiblioteca) {
-                List<dtoJuego> biblioteca = servicio.obtenerBibliotecaUsuario(mail);
-                
-                if (biblioteca == null || biblioteca.isEmpty()) {
-                    // Si biblioteca es nula o vacía, devolver solo el usuario
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write(gson.toJson(usuario));
-                } else {
-                    // Si hay biblioteca, agregar al json
-                    String respuestaJson = String.format(
-                        "{\"usuario\": %s, \"biblioteca\": %s}",
-                        gson.toJson(usuario),
-                        gson.toJson(biblioteca)
-                    );
-                    
-                    response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write(respuestaJson);
-                }
-            } else {
-                // Si no se solicita biblioteca, solo devolver el usuario
+            String usuarioJson = gson.toJson(usuario);
+            
+            if (biblioteca != null && !biblioteca.isEmpty()) {
+                String bibliotecaJson = gson.toJson(biblioteca);
+                String respuestaJson = String.format(
+                    "{\"visibilidad\":%s,\"usuario\":%s,\"biblioteca\":%s}",
+                    visibilidad,
+                    usuarioJson,
+                    bibliotecaJson
+                );
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(gson.toJson(usuario));
+                response.getWriter().write(respuestaJson);
+            } else {
+                String respuestaJson = String.format(
+                    "{\"visibilidad\":%s,\"usuario\":%s}",
+                    visibilidad,
+                    usuarioJson
+                );
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.getWriter().write(respuestaJson);
             }
 
         } catch (Exception e) {

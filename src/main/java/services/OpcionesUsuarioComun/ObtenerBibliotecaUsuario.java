@@ -4,6 +4,7 @@
  */
 package services.OpcionesUsuarioComun;
 
+import CRUDs.CRUDBiblioteca;
 import CRUDs.CRUDUsuario;
 import dtos.Juegos.dtoJuego;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class ObtenerBibliotecaUsuario {
     private CRUDUsuario cU= new CRUDUsuario();
+    private CRUDBiblioteca cb= new CRUDBiblioteca();
     
     public List<dtoJuego> obtenerBibliotecaUsuario(String mail){
         List<dtoJuego> biblitoteca= null;
@@ -24,5 +26,9 @@ public class ObtenerBibliotecaUsuario {
             System.getLogger(ObtenerBibliotecaUsuario.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         return biblitoteca;
+    }
+    
+    public boolean obtenerVisibilidadBiblioteca(String mail){
+        return cb.obtenerVisibilidadBiblioteca(mail);
     }
 }

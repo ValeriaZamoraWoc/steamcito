@@ -20,22 +20,28 @@ public class ReportesEmpresa {
         return c.obtenerVentasEmpresa(idEmpresa);
     }
     
-    public List<dtoJuego> obtenerJuegosMejorCalificadosEmpresa(Integer idEmpresa){
+    public List<String[]> obtenerJuegosMejorCalificadosEmpresa(Integer idEmpresa){
         return c.obtenerJuegosMejorCalificadosEmpresa(idEmpresa);
     }
     
-    public List<dtoJuego> obtenerJuegosPeorCalificadosEmpresa(Integer idEmpresa){
+    public List<String[]> obtenerJuegosPeorCalificadosEmpresa(Integer idEmpresa){
         return c.obtenerJuegosPeorCalificadosEmpresa(idEmpresa);
     }
     
-    public List<dtoJuego> obtenerTop5(Integer idEmpresa){
-        List <dtoJuego> todos= c.obtenerJuegosMejorCalificadosEmpresa(idEmpresa);
-        
-        List<dtoJuego> top = new ArrayList();
-        for (int i = 0; i < 5; i++) {
+    public List<String[]> obtenerTop5(Integer idEmpresa) {
+        List<String[]> todos = c.obtenerJuegosMejorCalificadosEmpresa(idEmpresa);
+        List<String[]> top = new ArrayList<>();
+
+        int limite = Math.min(todos.size(), 5);
+
+        for (int i = 0; i < limite; i++) {
             top.add(todos.get(i));
         }
+
         return top;
-        
     }
+    
+     public List<String[]> obtenerComentariosMejorCalificadosEmpresa(Integer idEmpresa){
+         return c.obtenerComentariosMejorCalificadosEmpresa(idEmpresa);
+     }
 }

@@ -64,6 +64,7 @@ public class srvltReportesEmpresa extends HttpServlet {
                 reportesCompletos.put("mejorCalificados", servicio.obtenerJuegosMejorCalificadosEmpresa(idEmpresa));
                 reportesCompletos.put("peorCalificados", servicio.obtenerJuegosPeorCalificadosEmpresa(idEmpresa));
                 reportesCompletos.put("top5", servicio.obtenerTop5(idEmpresa));
+                reportesCompletos.put("mejoresComentarios", servicio.obtenerComentariosMejorCalificadosEmpresa(idEmpresa));
                 
                 resultado = reportesCompletos;
                 tipo = "completo";
@@ -84,6 +85,10 @@ public class srvltReportesEmpresa extends HttpServlet {
                     case "top5":
                         resultado = servicio.obtenerTop5(idEmpresa);
                         tipo = "top5";
+                        break;
+                    case "mejorescomentarios":
+                        resultado = servicio.obtenerComentariosMejorCalificadosEmpresa(idEmpresa);
+                        tipo = "mejoresComentarios";
                         break;
                     default:
                         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

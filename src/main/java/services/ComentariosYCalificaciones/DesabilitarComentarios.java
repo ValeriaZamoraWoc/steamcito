@@ -18,18 +18,11 @@ public class DesabilitarComentarios {
     private CRUDComentario cC= new CRUDComentario();
     private CRUDUsuario cU= new CRUDUsuario();
     
-    public String desabilitarComentario(Integer idComentario, String mail){
-        dtoUsuario usuario = cU.buscarUsuarioComunPorMail(mail);
+    public String desabilitarComentario(Integer idComentario){
         dtoComentario comentario = cC.buscarComentarioPorId(idComentario);
         
-        if(usuario == null){
-            return "Usuario no existe";
-        }
         if(comentario ==null){
             return "Comentario no existe";
-        }
-        if(!(usuario instanceof dtoUsuarioDesarrollador)){
-            return "Usuario no tiene permiso para hacer esto";
         }
         
         cC.ocultarComentario(comentario);

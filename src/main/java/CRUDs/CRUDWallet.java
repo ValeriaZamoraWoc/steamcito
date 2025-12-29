@@ -107,7 +107,7 @@ public class CRUDWallet {
             st.setString(1, mail);
             ResultSet rs = st.executeQuery();
             
-            if(rs.next()){
+            while(rs.next()){
                 Date fecha1= rs.getDate("fecha");
                 LocalDate fecha2 = fecha1.toLocalDate();
                 String registro = contador +". "+ rs.getString("nombre_juego")+" "

@@ -28,18 +28,20 @@ public class srvltActualizarJuego extends HttpServlet{
 
         System.out.println("ENTRÉ AL SERVLET ACTUALIZAR JUEGO");
 
+        String idJuegoSt = request.getParameter("idJuego");
         String nombreJuego = request.getParameter("nombreJuego");
         String descripcion = request.getParameter("descripcion");
         String especificaciones = request.getParameter("especificaciones");
-        String clasificacion = request.getParameter("clasificacion");
-        String categoria = request.getParameter("categoria");
+        String clasificacionST = request.getParameter("clasificacion");
+        String categoriaST = request.getParameter("categoria");
         String precioStr = request.getParameter("precio");
         String fechaStr = request.getParameter("fechaLanzamiento");
 
-        if (nombreJuego == null || nombreJuego.isBlank() ||
+        if (idJuegoSt == null || nombreJuego.isBlank() ||
+            nombreJuego == null || nombreJuego.isBlank() ||
             descripcion == null || descripcion.isBlank() ||
-            clasificacion == null || clasificacion.isBlank() ||
-            categoria == null || categoria.isBlank() ||
+            clasificacionST == null || clasificacionST.isBlank() ||
+            categoriaST == null || categoriaST.isBlank() ||
             precioStr == null || precioStr.isBlank() ||
             fechaStr == null || fechaStr.isBlank()) {
 
@@ -48,8 +50,14 @@ public class srvltActualizarJuego extends HttpServlet{
         }
 
         int precio;
+        int idJuego;
+        int categoria;
+        int clasificacion;
         try {
+            idJuego = Integer.parseInt(idJuegoSt);
             precio = Integer.parseInt(precioStr);
+            categoria = Integer.parseInt(categoriaST);
+            clasificacion = Integer.parseInt(clasificacionST);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Precio inválido");
             return;
@@ -64,7 +72,7 @@ public class srvltActualizarJuego extends HttpServlet{
         }
 
         try {
-            servicio.actualizarJuego(nombreJuego, descripcion, especificaciones, 
+            servicio.actualizarJuego(idJuego,nombreJuego, descripcion, especificaciones, 
                                      clasificacion, categoria, precio, fechaLanzamiento);
         } catch (IllegalArgumentException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());

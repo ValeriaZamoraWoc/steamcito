@@ -31,11 +31,9 @@ public class srvltDeshabilitarComentario extends HttpServlet{
         response.setContentType("text/plain;charset=UTF-8");
 
         String idComentarioStr = request.getParameter("idComentario");
-        String mail = request.getParameter("mail");
 
         // datos incompletos
-        if (idComentarioStr == null || idComentarioStr.isBlank() ||
-            mail == null || mail.isBlank()) {
+        if (idComentarioStr == null || idComentarioStr.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Faltan datos obligatorios");
@@ -52,7 +50,7 @@ public class srvltDeshabilitarComentario extends HttpServlet{
         }
 
         try {
-            String mensaje = servicio.desabilitarComentario(idComentario, mail);
+            String mensaje = servicio.desabilitarComentario(idComentario);
 
             if ("Comentario oculto".equals(mensaje)) {
                 response.setStatus(HttpServletResponse.SC_OK);

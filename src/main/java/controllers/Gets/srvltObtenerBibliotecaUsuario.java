@@ -46,6 +46,7 @@ public class srvltObtenerBibliotecaUsuario extends HttpServlet{
 
         try {
             List<dtoJuego> biblioteca = servicio.obtenerBibliotecaUsuario(mail);
+            boolean visibilidad = servicio.obtenerVisibilidadBiblioteca(mail);
 
             if (biblioteca == null) {
                 biblioteca = new ArrayList<>();
@@ -55,8 +56,15 @@ public class srvltObtenerBibliotecaUsuario extends HttpServlet{
                     .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                     .create();
 
+            String bibliotecaJson = gson.toJson(biblioteca);
+            String jsonResponse = String.format(
+                "{\"visibilidad\":%s,\"biblioteca\":%s}",
+                visibilidad,
+                bibliotecaJson
+            );
+
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write(gson.toJson(biblioteca));
+            response.getWriter().write(jsonResponse);
 
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -65,4 +73,3 @@ public class srvltObtenerBibliotecaUsuario extends HttpServlet{
         }
     }
 }
-

@@ -17,7 +17,8 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/com/mycompany/proyectosteamcito/JakartaRestConfiguration.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/com/mycompany/proyectosteamcito/resources/JakartaEE11Resource.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/CORSFilter.java
-/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Eliminaciones/srvltEliminarCategoriaPorAdmin.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Eliminaciones/srvltEliminarClasificacionPorAdmin.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltBuscador.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltEditarBanner.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltObtenerBanner.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltObtenerBibliotecaUsuario.java
@@ -31,13 +32,16 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltObtenerPerfilEmpresa.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltObtenerPerfilUsuario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltObtenerTodosLosJuegos.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltReportesAdmin.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltReportesEmpresa.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/Gets/srvltReportesUsuario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/GruposFamiliares/srvltEliminarUsuarioGrupoFamiliar.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/GruposFamiliares/srvltRegistrarGrupoFamiliar.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/GruposFamiliares/srvltRegistrarUsuarioEnGrupo.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltActualizarJuego.java
-/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltCambiarCategoriaJuegoAdmin.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltCambiarCategoriaJuegoDesarrollador.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltCambiarClasificacionJuegoAdmin.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltDesinstalarJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltGuardarImagenJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltImagenes.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/controllers/JuegosDinamica/srvltInstalarJuego.java
@@ -88,6 +92,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/ComentarYCalificarJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/DesabilitarComentarios.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/ComentariosYCalificaciones/ObtenerComentariosPorJuego.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/Buscador.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/ConectorBD.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/Conexion.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/General/LocalDateAdapter.java
@@ -101,6 +106,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/MovimientoWallet/ObtenerHistorialDeGastos.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesAdmin/EditarBanner.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesAdmin/PeticionesComisiones.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesAdmin/ReportesAdmin.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesDev/ObtenerCatalogoEmpresa.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesDev/ObtenerCategoriasClasificaciones.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesDev/ObtenerPerfilEmpresa.java
@@ -110,6 +116,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesUsuarioComun/ObtenerGruposFamiliaresUsuario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesUsuarioComun/ObtenerIntegrantesGruposFamiliares.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesUsuarioComun/ObtenerPerfilUsuarioComun.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesUsuarioComun/ReportesUsuarioComun.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/OpcionesUsuarioComun/SacarUsuarioGrupoFamiliar.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/Prestamos/Prestamos.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/Registros/RegistrarClasificacion.java
@@ -123,6 +130,7 @@
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/Registros/RegistrarUsuario.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/Registros/RegistrarUsuarioEnGrupo.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/ActualizarJuego.java
-/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/EliminarCategoria.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/CambioClasificacion.java
+/home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/DesinstalarJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/InstalarJuego.java
 /home/cacerola/Valeria/IPC2Vaqueras2025/Proyecto/proyectoSteamcito/src/main/java/services/UsoJuegos/ObtenerJuego.java

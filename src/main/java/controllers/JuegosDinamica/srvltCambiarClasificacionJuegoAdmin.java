@@ -12,17 +12,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import services.UsoJuegos.EliminarCategoria;
+import services.UsoJuegos.CambioClasificacion;
 
 /**
  *
  * @author cacerola
  */
 
-@WebServlet("/cambiarCategoriaAdmin")
-public class srvltCambiarCategoriaJuegoAdmin extends HttpServlet{
+@WebServlet("/cambiarClasificacionAdmin")
+public class srvltCambiarClasificacionJuegoAdmin extends HttpServlet{
     
-    private EliminarCategoria servicio = new EliminarCategoria();
+    private CambioClasificacion servicio = new CambioClasificacion();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -30,14 +30,12 @@ public class srvltCambiarCategoriaJuegoAdmin extends HttpServlet{
 
         response.setContentType("text/plain;charset=UTF-8");
 
-        String idCategoriaStr = request.getParameter("idCategoria");
+        String idCategoriaStr = request.getParameter("idClasificacion");
         String idJuegoStr = request.getParameter("idJuego");
-        String mail = request.getParameter("mail");
 
         // Validación: datos obligatorios
         if (idCategoriaStr == null || idCategoriaStr.isBlank() ||
-            idJuegoStr == null || idJuegoStr.isBlank() ||
-            mail == null || mail.isBlank()) {
+            idJuegoStr == null || idJuegoStr.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Faltan datos obligatorios");
@@ -57,7 +55,7 @@ public class srvltCambiarCategoriaJuegoAdmin extends HttpServlet{
         }
 
         // Lógica principal
-        String mensaje = servicio.cambiarCategoriaDeJuegoPorAdmin(idCategoria, idJuego, mail);
+        String mensaje = servicio.cambiarClasificacionDeJuegoPorAdmin(idCategoria, idJuego);
 
         if ("Categoría cambiada correctamente".equals(mensaje)) {
             response.setStatus(HttpServletResponse.SC_OK);

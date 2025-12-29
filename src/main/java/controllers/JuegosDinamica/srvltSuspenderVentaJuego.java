@@ -32,11 +32,11 @@ public class srvltSuspenderVentaJuego extends HttpServlet{
         response.setContentType("text/plain;charset=UTF-8");
 
         String nombreJuego = request.getParameter("nombreJuego");
-        String nombreEmpresa = request.getParameter("empresa");
+        String idEmpresaST = request.getParameter("idEmpresa");
 
         // Validaciones básicas
         if (nombreJuego == null || nombreJuego.isBlank() ||
-            nombreEmpresa == null || nombreEmpresa.isBlank()) {
+            idEmpresaST == null || idEmpresaST.isBlank()) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("Faltan datos obligatorios");
@@ -44,7 +44,8 @@ public class srvltSuspenderVentaJuego extends HttpServlet{
         }
 
         try {
-            servicio.suspenderVentaJuego(nombreJuego, nombreEmpresa);
+            Integer idEmpresa= Integer.parseInt(idEmpresaST);
+            servicio.suspenderVentaJuego(nombreJuego, idEmpresa);
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().write("Venta del juego suspendida correctamente");
 

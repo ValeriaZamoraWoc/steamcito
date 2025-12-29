@@ -24,14 +24,14 @@ public class ActualizarJuego {
     CRUDCategoria crudCategoria = new CRUDCategoria();
     CRUDEmpresa cE= new CRUDEmpresa();
     
-    public void actualizarJuego(String nombreJuego, String descripcion, String especificaciones,
-        String clasificacion, String categoria, int precio, LocalDate fechaLanzamiento ){
-        dtoJuego juego = crudJuego.buscarJuegoPorTitulo(nombreJuego);
+    public void actualizarJuego(Integer idJuego,String nombreJuego, String descripcion, String especificaciones,
+        Integer clasificacion, Integer categoria, int precio, LocalDate fechaLanzamiento ){
+        dtoJuego juego = crudJuego.buscarJuegoPorId(idJuego);
         juego.setNombreJuego(nombreJuego);
         juego.setDescripcion(descripcion);
         juego.setEspecificaciones(especificaciones);
-        juego.setClasificacion(encontrarClasificacion(clasificacion));
-        juego.setCategoria(encontrarCategoria(categoria));
+        juego.setClasificacion(clasificacion);
+        juego.setCategoria(categoria);
         juego.setPrecio(precio);
         juego.setFechaLanzamiento(fechaLanzamiento);
         
@@ -51,8 +51,8 @@ public class ActualizarJuego {
         return categoria.getIdCategoria();
     }
     
-    public void suspenderVentaJuego(String nombreJuego, String nombreEmpresa){
-        dtoEmpresa empresa = cE.buscarEmpresaPorNombre(nombreEmpresa);
+    public void suspenderVentaJuego(String nombreJuego, Integer idEmpresa){
+        dtoEmpresa empresa = cE.buscarEmpresaPorId(idEmpresa);
         dtoJuego juego = cE.buscarJuegoEnCatalogo(nombreJuego, empresa);
         
         if(juego != null){

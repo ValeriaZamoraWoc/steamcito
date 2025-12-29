@@ -12,31 +12,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import services.UsoJuegos.EliminarCategoria;
+import services.UsoJuegos.CambioClasificacion;
 
 /**
  *
  * @author cacerola
  */
-@WebServlet("/eliminarCategoriaAdmin")
-public class srvltEliminarCategoriaPorAdmin extends HttpServlet{
+@WebServlet("/eliminarClasificacionAdmin")
+public class srvltEliminarClasificacionPorAdmin extends HttpServlet{
     
-    private EliminarCategoria servicio = new EliminarCategoria();
+    private CambioClasificacion servicio = new CambioClasificacion();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idCategoriaStr = request.getParameter("idCategoria");
-        String mail = request.getParameter("mail");
+        String idCategoriaStr = request.getParameter("idClasificacion");
 
+        
         Map<String, Object> resultado = new HashMap<>();
         
         response.setContentType("application/json");
 
         //por si galtan datos
-        if (idCategoriaStr == null || idCategoriaStr.isBlank() ||
-            mail == null || mail.isBlank()) {
+        if (idCategoriaStr == null || idCategoriaStr.isBlank() ) {
 
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resultado.put("exito", false);
@@ -60,9 +59,9 @@ public class srvltEliminarCategoriaPorAdmin extends HttpServlet{
         }
 
         //éxito, se llama al servicio
-        String mensaje = servicio.eliminarCategoriaPorAdmin(idCategoria, mail);
+        String mensaje = servicio.eliminarClasificacionPorAdmin(idCategoria);
 
-        resultado.put("exito", mensaje.equals("Categoría eliminada correctamente"));
+        resultado.put("exito", mensaje.equals("clasificacion eliminada correctamente"));
         resultado.put("mensaje", mensaje);
 
         response.setStatus(HttpServletResponse.SC_OK);
