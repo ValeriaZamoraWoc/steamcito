@@ -1,0 +1,51 @@
+<div class="family-creation-wrapper">
+  <div class="steam-card-form">
+    <header class="card-header">
+      <div class="header-icon">👨‍👩‍👧‍👦</div>
+      <div class="header-text">
+        <h3>Crear Grupo Familiar</h3>
+        <p>Establece un nuevo núcleo para compartir bibliotecas con tus amigos o familiares.</p>
+      </div>
+    </header>
+
+    <div class="card-body">
+      <div class="form-group-steam">
+        <label for="nombreGrupo">Nombre de la Familia / Grupo</label>
+        <div class="input-wrapper">
+          <input
+            id="nombreGrupo"
+            type="text"
+            [(ngModel)]="nombreGrupo"
+            placeholder="Ej: Los Guerreros del Sofa"
+            class="steam-input-dark"
+            [disabled]="cargando"
+          />
+          <span class="input-focus-border"></span>
+        </div>
+        <small class="input-hint">El nombre será visible para todos los integrantes que invites.</small>
+      </div>
+
+      <div class="actions-area">
+        <button 
+          (click)="crearGrupo()" 
+          class="btn-steam-action" 
+          [disabled]="cargando || !nombreGrupo.trim()">
+          <span *ngIf="!cargando">Crear Grupo</span>
+          <span *ngIf="cargando" class="loader-text">
+            <span class="dot-loader"></span> Procesando...
+          </span>
+        </button>
+      </div>
+
+      <div class="alerts-zone">
+        <div *ngIf="error" class="alert-steam error-steam animate-slide-up">
+          <span class="alert-icon">❌</span> {{ error }}
+        </div>
+
+        <div *ngIf="exito" class="alert-steam success-steam animate-slide-up">
+          <span class="alert-icon">✅</span> {{ exito }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

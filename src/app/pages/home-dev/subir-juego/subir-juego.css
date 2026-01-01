@@ -142,3 +142,115 @@ input:focus, textarea:focus, select:focus {
 
 .alert.error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
 .alert.success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }
+/* Estados de las secciones */
+.section-disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.section-locked {
+  opacity: 0.4;
+  filter: grayscale(1);
+  pointer-events: none;
+}
+
+.step-hint {
+  font-size: 0.85rem;
+  color: #ff9d00;
+  margin-bottom: 15px;
+}
+
+/* Botones con lógica de Steam */
+.btn-save-data {
+  background: #3d4450;
+  color: white;
+  border: 1px solid #4f5864;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-save-data:disabled {
+  background: #a3cf06; /* Verde cuando ya se guardó */
+  color: #000;
+}
+
+/* Subida de archivos */
+.file-upload-wrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  background: rgba(0,0,0,0.2);
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.file-label {
+  flex-grow: 1;
+  background: #23262e;
+  padding: 10px;
+  border: 1px dashed #4f5864;
+  text-align: center;
+  cursor: pointer;
+}
+
+.file-label.disabled { cursor: not-allowed; }
+
+.btn-image-upload {
+  background: #66c0f4;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-image-upload:disabled {
+  background: #3d4450;
+  opacity: 0.6;
+}
+
+/* Botón Final */
+.btn-publish-final {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #a3cf06, #799905);
+  border: none;
+  color: #000;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-publish-final:disabled {
+  background: #2a2e38;
+  color: #555;
+  cursor: not-allowed;
+}
+/* Esto es clave para que no se vea doble */
+.input-file-hidden {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+/* El Label es el que diseñamos para que parezca el botón de selección */
+.file-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #23262e;
+  border: 1px dashed #4f5864;
+  cursor: pointer;
+  color: #66c0f4;
+  transition: all 0.2s;
+}
+
+.file-label:hover:not(.disabled) {
+  background: #3d4450;
+  border-color: #66c0f4;
+}

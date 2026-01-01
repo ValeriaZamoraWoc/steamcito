@@ -1,8 +1,18 @@
 <div class="family-page">
   <header class="section-header">
-    <h2>Grupos Familiares</h2>
-    <p>Gestiona el acceso compartido a bibliotecas y miembros de tu familia.</p>
+    <div class="header-main-info">
+      <h2>Grupos Familiares</h2>
+      <p>Gestiona el acceso compartido a bibliotecas y miembros de tu familia.</p>
+    </div>
+    
+    <button class="btn-steam-green" (click)="mostrandoRegistro = !mostrandoRegistro">
+      {{ mostrandoRegistro ? '✕ Cancelar' : '+ Crear Nuevo Grupo' }}
+    </button>
   </header>
+
+  <div class="registration-overlay animate-fade-in" *ngIf="mostrandoRegistro">
+    <app-registrar-grupo></app-registrar-grupo>
+  </div>
 
   <div *ngIf="cargando" class="loading-state">
     <div class="steam-spinner"></div>
@@ -15,28 +25,31 @@
 
   <div class="family-content" *ngIf="!cargando">
     
-    <div *ngIf="grupos.length === 0" class="empty-state">
-      <div class="family-icon-placeholder"></div>
+    <div *ngIf="grupos.length === 0 && !mostrandoRegistro" class="empty-state">
+      <div class="family-icon-placeholder">👨‍👩‍👧‍👦</div>
       <h3>No hay grupos familiares</h3>
-      <p>No perteneces a ningún grupo familiar en este momento.</p>
+      <p>Parece que no perteneces a ninguno. ¿Quieres fundar uno nuevo?</p>
+      <button class="btn-steam-blue" (click)="mostrandoRegistro = true">Fundar Familia</button>
     </div>
 
     <div class="groups-grid" *ngIf="grupos.length > 0">
       <div class="group-card" *ngFor="let grupo of grupos">
         <div class="group-info">
-          <div class="group-avatar">
-            <span>{{ grupo.nombreGrupo.charAt(0) }}</span>
+          <div class="group-avatar" [style.background-color]="estaEnGrupo(grupo) ? '#67c1f5' : '#3d4450'">
+            <span>{{ grupo?.nombreGrupo?.charAt(0) || 'G' }}</span>
           </div>
           <div class="group-details">
-            <h3>{{ grupo.nombreGrupo }}</h3>
-            <span class="status-label">Grupo Activo</span>
+            <h3>{{ grupo?.nombreGrupo || 'Sin nombre' }}</h3>
+            <span class="status-label" [style.color]="estaEnGrupo(grupo) ? '#67c1f5' : '#8f98a0'">
+              {{ estaEnGrupo(grupo) ? '✓ Eres miembro' : 'Grupo Público' }}
+            </span>
           </div>
         </div>
         
         <div class="group-actions">
-          <button (click)="verIntegrantes(grupo)" class="btn-steam-dark">
-            Mirar integrantes
-          </button>
+          <button (click)="verIntegrantes(grupo)" class="btn-steam-dark">Mirar integrantes</button>
+          <button *ngIf="!estaEnGrupo(grupo)" (click)="unirseAlGrupo(grupo)" class="btn-steam-blue">Unirse</button>
+          <button *ngIf="estaEnGrupo(grupo)" (click)="salirDelGrupo(grupo)" class="btn-steam-red-outline">Salir</button>
         </div>
       </div>
     </div>

@@ -133,3 +133,140 @@
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.group-card {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #2a475e;
+  border-radius: 4px;
+  padding: 20px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.group-card:hover {
+  background: rgba(62, 103, 150, 0.1);
+  transform: translateY(-3px);
+}
+
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.group-avatar {
+  width: 50px;
+  height: 50px;
+  background: #3d4450;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #66c0f4;
+  border-radius: 4px;
+}
+
+.group-avatar.member {
+  border: 2px solid #a3cf06; /* Color verde si eres miembro */
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  color: #8f98a0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.status-badge.active {
+  color: #a3cf06;
+}
+
+.group-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Botones específicos */
+.btn-steam-blue {
+  background: #66c0f4;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-steam-red-outline {
+  background: transparent;
+  color: #ff4c4c;
+  border: 1px solid rgba(255, 76, 76, 0.4);
+  padding: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-steam-red-outline:hover {
+  background: #ff4c4c;
+  color: white;
+}
+
+.btn-steam-dark {
+  background: #3d4450;
+  color: #c7d5e0;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Botón Verde Estilo Steam */
+.btn-steam-green {
+  background: linear-gradient(to bottom, #a3cf06 0%, #82a307 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 2px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: filter 0.2s;
+}
+
+.btn-steam-green:hover {
+  filter: brightness(1.1);
+}
+
+/* Contenedor del componente de registro */
+.registration-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  border-radius: 4px;
+  border: 1px solid #3d4450;
+  margin-bottom: 40px;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

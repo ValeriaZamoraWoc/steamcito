@@ -10,22 +10,22 @@ export class RegistroEmpresaService {
 
   constructor(private http: HttpClient) {}
 
-  async registrarEmpresa(nombre: string, descripcion: string): Promise<void> {
+  async registrarEmpresa(nombre: string, descripcion: string): Promise<number> {
     const body = new URLSearchParams();
     body.set('nombre', nombre);
     body.set('descripcion', descripcion);
 
-    await firstValueFrom(
-      this.http.post(
+    const resp = await firstValueFrom(
+      this.http.post<{ idEmpresa: number }>(
         `${API_BASE_URL}/registroEmpresa`,
         body.toString(),
         {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }
       )
     );
+
+    return resp.idEmpresa; 
   }
 
 }
