@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="VentasEmpresa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<!-- header  -->
+    <parameter name="NOMBRE_EMPRESA" class="java.lang.String"/>
+
+    <field name="nombreJuego" class="java.lang.String"/>
+    <field name="montoTotal" class="java.lang.Double"/>
+    <field name="porcentajeComision" class="java.lang.Integer"/>
+    <field name="comision" class="java.lang.Double"/>
+    <field name="gananciaNeta" class="java.lang.Double"/>
+
+    <title>
+        <band height="60">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[REPORTE DE VENTAS POR JUEGO]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="0" y="35" width="555" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="12" isItalic="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Empresa: " + $P{NOMBRE_EMPRESA}]]></textFieldExpression>
+            </textField>
+            <line>
+                <reportElement x="0" y="58" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="1.0"/>
+                </graphicElement>
+            </line>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="25">
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="25" backcolor="#E0E0E0"/>
+            </rectangle>
+            
+            <!-- Líneas verticales del encabezado -->
+            <line>
+                <reportElement x="180" y="0" width="1" height="25"/>
+            </line>
+            <line>
+                <reportElement x="270" y="0" width="1" height="25"/>
+            </line>
+            <line>
+                <reportElement x="360" y="0" width="1" height="25"/>
+            </line>
+            <line>
+                <reportElement x="450" y="0" width="1" height="25"/>
+            </line>
+            
+            <!-- Textos del encabezado -->
+            <staticText>
+                <reportElement x="0" y="0" width="180" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nombre del Juego]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="180" y="0" width="90" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Precio base]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="0" width="90" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Porcentaje Comisión]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="0" width="90" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Comisión tomada]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="450" y="0" width="105" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Ganancia Neta]]></text>
+            </staticText>
+            
+            <!-- Línea horizontal inferior del encabezado -->
+            <line>
+                <reportElement x="0" y="24" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="1.0"/>
+                </graphicElement>
+            </line>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="20">
+            <!-- Líneas verticales entre columnas -->
+            <line>
+                <reportElement x="180" y="0" width="1" height="20"/>
+            </line>
+            <line>
+                <reportElement x="270" y="0" width="1" height="20"/>
+            </line>
+            <line>
+                <reportElement x="360" y="0" width="1" height="20"/>
+            </line>
+            <line>
+                <reportElement x="450" y="0" width="1" height="20"/>
+            </line>
+            
+            <!-- Campos de datos -->
+            <textField>
+                <reportElement x="0" y="0" width="180" height="20"/>
+                <box leftPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{nombreJuego}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement x="180" y="0" width="90" height="20"/>
+                <box rightPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{montoTotal}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="270" y="0" width="90" height="20"/>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{porcentajeComision} + "%"]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement x="360" y="0" width="90" height="20"/>
+                <box rightPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{comision}]]></textFieldExpression>
+            </textField>
+            <textField pattern="#,##0">
+                <reportElement x="450" y="0" width="105" height="20"/>
+                <box rightPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{gananciaNeta}]]></textFieldExpression>
+            </textField>
+            
+            <!-- Línea horizontal inferior de cada fila -->
+            <line>
+                <reportElement x="0" y="19" width="555" height="1"/>
+            </line>
+        </band>
+    </detail>
+
+</jasperReport>

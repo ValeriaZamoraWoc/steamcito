@@ -325,7 +325,7 @@ public class CRUDGrupoFamiliar {
                 String[] fila = new String[4];
                 fila[0] = String.valueOf(resultado.getInt("id_juego"));
                 fila[1] = resultado.getString("nombre_juego");
-                fila[2] = String.format("%.2f", resultado.getDouble("promedio"));
+                fila[2] = String.valueOf(resultado.getDouble("promedio"));
                 fila[3] = resultado.getString("url_imagen");
                 juegos.add(fila);
             }

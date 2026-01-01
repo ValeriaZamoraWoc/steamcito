@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+    http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="JugadoresConMasJuegosAdmin"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="555"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20">
+
+    <!-- Campos -->
+    <field name="nickname" class="java.lang.String"/>
+    <field name="cantidadJuegos" class="java.lang.Integer"/>
+
+    <!-- Título -->
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[JUGADORES CON MÁS JUEGOS]]></text>
+            </staticText>
+            <line>
+                <reportElement x="0" y="45" width="555" height="1"/>
+            </line>
+        </band>
+    </title>
+
+    <!-- Encabezado de tabla -->
+    <columnHeader>
+        <band height="30">
+            <!-- Fondo del encabezado -->
+            <rectangle>
+                <reportElement x="0" y="0" width="555" height="30" backcolor="#E8E8E8"/>
+            </rectangle>
+            
+            <!-- Columna Nickname -->
+            <staticText>
+                <reportElement x="0" y="5" width="350" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nickname]]></text>
+            </staticText>
+
+            <!-- Columna Cantidad de Juegos -->
+            <staticText>
+                <reportElement x="350" y="5" width="205" height="20"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cantidad de Juegos]]></text>
+            </staticText>
+
+            <!-- Línea vertical entre columnas en el encabezado -->
+            <line>
+                <reportElement x="349" y="0" width="1" height="30"/>
+                <graphicElement>
+                    <pen lineWidth="1.0"/>
+                </graphicElement>
+            </line>
+
+            <!-- Línea horizontal inferior del encabezado -->
+            <line>
+                <reportElement x="0" y="29" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="1.0"/>
+                </graphicElement>
+            </line>
+        </band>
+    </columnHeader>
+
+    <!-- Detalle -->
+    <detail>
+        <band height="25">
+            <!-- Fila de datos -->
+            <textField>
+                <reportElement x="0" y="2" width="350" height="20"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{nickname}]]></textFieldExpression>
+            </textField>
+
+            <textField>
+                <reportElement x="350" y="2" width="205" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{cantidadJuegos}]]></textFieldExpression>
+            </textField>
+
+            <!-- Línea vertical entre columnas -->
+            <line>
+                <reportElement x="349" y="0" width="1" height="25"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </line>
+
+            <!-- Línea horizontal inferior (separa filas) -->
+            <line>
+                <reportElement x="0" y="24" width="555" height="1"/>
+                <graphicElement>
+                    <pen lineWidth="0.5"/>
+                </graphicElement>
+            </line>
+        </band>
+    </detail>
+
+    <!-- Pie de página opcional -->
+    <pageFooter>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="10" width="555" height="15"/>
+                <textElement textAlignment="Right">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>

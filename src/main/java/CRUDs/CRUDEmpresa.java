@@ -148,68 +148,65 @@ public class CRUDEmpresa {
         }
         return catalogo;
     }
+    
+   public List<String[]> obtenerVentasEmpresa(Integer idEmpresa) {
+    List<String[]> ventas = new ArrayList<>();
 
-    public List<String[]> obtenerVentasEmpresa(Integer idEmpresa){
-        List<String[]> ventas = new ArrayList<>();
-        
-        String sqlVentas = """
-                SELECT v.dinero_comision, v.dinero_empresa, j.nombre_juego, c.porcentaje 
-                FROM venta v
-                INNER JOIN juego j ON v.id_juego = j.id_juego
-                INNER JOIN empresa e ON j.id_empresa = e.id_empresa
-                INNER JOIN comision_empresa ce ON e.id_empresa = ce.id_empresa
-                INNER JOIN comision c ON ce.id_comision = c.id_comision
-                WHERE e.id_empresa = ?;
-                """;
+    String sqlVentas = """
+        SELECT v.dinero_comision, v.dinero_empresa, j.nombre_juego, c.porcentaje 
+        FROM venta v
+        INNER JOIN juego j ON v.id_juego = j.id_juego
+        INNER JOIN empresa e ON j.id_empresa = e.id_empresa
+        INNER JOIN comision_empresa ce ON e.id_empresa = ce.id_empresa
+        INNER JOIN comision c ON ce.id_comision = c.id_comision
+        WHERE e.id_empresa = ?;
+    """;
 
-        try (Connection c = Conexion.obtenerConexion()){ 
-            PreparedStatement st = c.prepareStatement(sqlVentas);
-            st.setInt(1, idEmpresa);
-            ResultSet resultado = st.executeQuery();
+    try (Connection c = Conexion.obtenerConexion();
+         PreparedStatement st = c.prepareStatement(sqlVentas)) {
 
-            while (resultado.next()) {
-                String juego = resultado.getString("nombre_juego");
-                int dc =resultado.getInt("dinero_comision");
-                int de=resultado.getInt("dinero_empresa");
-                int monto = dc+de;
-                int porcentaje = resultado.getInt("porcentaje");
+        st.setInt(1, idEmpresa);
+        ResultSet rs = st.executeQuery();
 
-                boolean encontrado = false;
+        while (rs.next()) {
+            String juego = rs.getString("nombre_juego");
+            double precioBase = rs.getDouble("dinero_comision") + rs.getDouble("dinero_empresa");
+            int porcentaje = rs.getInt("porcentaje");
+            double comisionJuego = (precioBase * porcentaje)/100;
 
-                for (String[] fila : ventas) {
-                    if (fila[0].equals(juego)) {
-                        int sumaActual = Integer.parseInt(fila[1]);
-                        fila[1] = String.valueOf(sumaActual + monto);
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    String[] nuevaFila = new String[5];
-                    nuevaFila[0] = juego;         
-                    nuevaFila[1] = String.valueOf(monto);
-                    nuevaFila[2] = String.valueOf(porcentaje);
-                    ventas.add(nuevaFila);
+            double gananciaNetaVenta = precioBase; 
+
+            boolean encontrado = false;
+
+            for (String[] fila : ventas) {
+                if (fila[0].equals(juego)) {
+                    double nuevaGananciaNetaTotal = Double.parseDouble(fila[4]) + gananciaNetaVenta;
+                    fila[4] = String.valueOf(nuevaGananciaNetaTotal);
+
+                    encontrado = true;
+                    break;
                 }
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            if (!encontrado) {
+                String[] nuevaFila = new String[5];
+                nuevaFila[0] = juego;
+                nuevaFila[1] = String.valueOf(precioBase); 
+                nuevaFila[2] = porcentaje + "%";       
+                nuevaFila[3] = String.valueOf(comisionJuego);   
+                nuevaFila[4] = String.valueOf(gananciaNetaVenta);
+
+                ventas.add(nuevaFila);
+            }
         }
 
-        for (String[] fila : ventas) {
-            int monto = Integer.parseInt(fila[1]);
-            int porcentaje = Integer.parseInt(fila[2]);
-
-            int comision = (monto * porcentaje) / 100;
-            int gananciaNeta = monto - comision;
-
-            fila[3] = String.valueOf(comision);
-            fila[4] = String.valueOf(gananciaNeta);
-        }
-
-        return ventas;
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+
+    return ventas;
+}
+
 
     public List<String[]> obtenerJuegosMejorCalificadosEmpresa(Integer idEmpresa) {
         List<String[]> juegos = new ArrayList<>();

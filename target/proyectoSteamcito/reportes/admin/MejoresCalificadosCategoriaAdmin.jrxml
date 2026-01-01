@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport
+    xmlns="http://jasperreports.sourceforge.net/jasperreports"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+                        http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+    name="MejoresCalificadosCategoriaAdmin"
+    pageWidth="595"
+    pageHeight="842"
+    columnWidth="555"
+    leftMargin="20"
+    rightMargin="20"
+    topMargin="20"
+    bottomMargin="20">
+
+    <!-- Parámetro -->
+    <parameter name="CATEGORIA" class="java.lang.String"/>
+
+    <!-- Campos -->
+    <field name="nombreJuego" class="java.lang.String"/>
+    <field name="precio" class="java.lang.Integer"/>
+    <field name="promedioCalificacion" class="java.lang.Double"/>
+
+    <!-- Título -->
+    <title>
+        <band height="45">
+
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="20"/>
+                <text><![CDATA[REPORTE DE JUEGOS MEJOR CALIFICADOS]]></text>
+            </staticText>
+
+            <textField>
+                <reportElement x="0" y="22" width="555" height="20"/>
+                <textFieldExpression><![CDATA["Categoría: " + $P{CATEGORIA}]]></textFieldExpression>
+            </textField>
+
+            <!-- Línea inferior -->
+            <line>
+                <reportElement x="0" y="44" width="555" height="1"/>
+            </line>
+
+        </band>
+    </title>
+
+    <!-- Encabezados -->
+    <columnHeader>
+        <band height="25">
+
+            <staticText>
+                <reportElement x="0" y="0" width="275" height="20"/>
+                <text><![CDATA[Nombre]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="275" y="0" width="120" height="20"/>
+                <text><![CDATA[Precio]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="395" y="0" width="160" height="20"/>
+                <text><![CDATA[Promedio]]></text>
+            </staticText>
+
+            <!-- Líneas verticales -->
+            <line>
+                <reportElement x="275" y="0" width="1" height="25"/>
+            </line>
+
+            <line>
+                <reportElement x="395" y="0" width="1" height="25"/>
+            </line>
+
+            <!-- Línea inferior -->
+            <line>
+                <reportElement x="0" y="24" width="555" height="1"/>
+            </line>
+
+        </band>
+    </columnHeader>
+
+    <!-- Detalle -->
+    <detail>
+        <band height="20">
+
+            <textField>
+                <reportElement x="0" y="0" width="275" height="20"/>
+                <textFieldExpression><![CDATA[$F{nombreJuego}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="##,##0">
+                <reportElement x="275" y="0" width="120" height="20"/>
+                <textFieldExpression><![CDATA[$F{precio}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="0.00">
+                <reportElement x="395" y="0" width="160" height="20"/>
+                <textFieldExpression><![CDATA[$F{promedioCalificacion}]]></textFieldExpression>
+            </textField>
+
+            <!-- Líneas verticales -->
+            <line>
+                <reportElement x="275" y="0" width="1" height="20"/>
+            </line>
+
+            <line>
+                <reportElement x="395" y="0" width="1" height="20"/>
+            </line>
+
+            <!-- Línea inferior -->
+            <line>
+                <reportElement x="0" y="19" width="555" height="1"/>
+            </line>
+
+        </band>
+    </detail>
+
+</jasperReport>

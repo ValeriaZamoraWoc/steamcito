@@ -113,6 +113,7 @@ public class CRUDWallet {
                 String registro = contador +". "+ rs.getString("nombre_juego")+" "
                         + fecha2.toString()+" -"+rs.getInt("precio");
                 historial.add(registro);
+                contador++;
             }
 
         } catch (SQLException e) {
