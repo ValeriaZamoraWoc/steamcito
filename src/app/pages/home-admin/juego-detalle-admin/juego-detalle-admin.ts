@@ -3,9 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
+import { GameService, Juego } from '../../../services/game-service';
 import { CategoriasClasificacionesService, Clasificacion } from '../../../services/categorias-clasificaciones-service';
-import { Juego } from '../../../services/obtener-todos-los-juegos';
 
 @Component({
   selector: 'app-juego-detalle-admin',
@@ -25,7 +24,7 @@ export class JuegoDetalleAdminComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private juegoService: ObtenerJuegoPorIdService,
+    private juegoService: GameService,
         private cdr: ChangeDetectorRef,
     private clasificacionesService: CategoriasClasificacionesService
   ) {}

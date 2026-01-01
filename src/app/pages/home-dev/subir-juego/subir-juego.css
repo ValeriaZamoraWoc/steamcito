@@ -1,256 +1,108 @@
-.upload-container {
-  max-width: 850px;
-  margin: 0 auto;
-  padding: 20px;
-}
+/* Hereda fuentes y colores de .admin-reports-container y .admin-router-box-flat */
 
-.section-header {
-  border-bottom: 2px solid #3d4450;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
-}
-
-.section-header h2 {
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  margin: 0;
-}
-
-.section-header p {
-  color: #66c0f4;
-  font-size: 14px;
-}
-
-/* La tarjeta del formulario */
-.upload-card {
-  background: #1b2838;
-  border-radius: 4px;
-  padding: 40px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.form-section {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid rgba(61, 68, 80, 0.5);
-}
-
-.section-title {
-  color: #66c0f4;
-  font-size: 14px;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  font-weight: bold;
+.flat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-  display: block;
-  color: #afafaf;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 8px;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
-/* Inputs, Textareas y Selects */
+/* Inputs y Selects Arrasados */
 input, textarea, select {
-  width: 100%;
-  background: #121a24;
-  border: 1px solid #2a475e;
-  border-radius: 3px;
-  padding: 12px;
-  color: #fff;
-  font-size: 14px;
-  transition: all 0.2s;
-  box-sizing: border-box;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--white);
+  padding: 10px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  border-radius: 0; /* Sin redondeado */
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #66c0f4;
-  background: #171d25;
-  box-shadow: 0 0 5px rgba(102, 192, 244, 0.2);
+  border-color: var(--text-dim);
 }
 
-/* Layout Grid */
-.grid-2-columns {
+input:disabled, textarea:disabled, select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Layouts */
+.form-row-three {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
 }
 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
+.section-divider {
+  border-bottom: 1px solid var(--border);
+  margin: 10px 0;
 }
 
-/* Input de Precio */
-.price-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.price-input span {
-  position: absolute;
-  left: 12px;
-  color: #a3cf06;
-  font-weight: bold;
-}
-
-.price-input input {
-  padding-left: 30px;
-}
-
-/* Botón de Publicar */
-.btn-publish {
-  width: 100%;
-  background: linear-gradient(to right, #a3cf06 0%, #7da205 100%);
-  color: #000;
-  border: none;
-  padding: 18px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 2px;
+/* Botones Neutros de Sistema */
+.btn-flat-action {
+  background: transparent;
+  color: var(--white);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: transform 0.1s ease;
 }
 
-.btn-publish:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
+.btn-flat-action:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-/* Alertas */
-.alert {
+.btn-flat-action:disabled {
+  border-color: var(--accent);
+  color: var(--accent);
+  cursor: default;
+}
+
+/* Botón Final Destacado (pero sobrio) */
+.btn-flat-primary {
+  width: 100%;
+  background: var(--white);
+  color: #000;
+  border: none;
   padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 25px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.btn-flat-primary:disabled {
+  background: var(--border);
+  color: var(--text-dim);
+  cursor: not-allowed;
+}
+
+/* Controles de archivo */
+.file-control-group {
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-
-.alert.error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
-.alert.success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }
-/* Estados de las secciones */
-.section-disabled {
-  opacity: 0.7;
-  pointer-events: none;
+  gap: 15px;
+  padding: 15px;
+  border: 1px dashed var(--border);
 }
 
 .section-locked {
-  opacity: 0.4;
-  filter: grayscale(1);
-  pointer-events: none;
-}
-
-.step-hint {
-  font-size: 0.85rem;
-  color: #ff9d00;
-  margin-bottom: 15px;
-}
-
-/* Botones con lógica de Steam */
-.btn-save-data {
-  background: #3d4450;
-  color: white;
-  border: 1px solid #4f5864;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.btn-save-data:disabled {
-  background: #a3cf06; /* Verde cuando ya se guardó */
-  color: #000;
-}
-
-/* Subida de archivos */
-.file-upload-wrapper {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  background: rgba(0,0,0,0.2);
-  padding: 15px;
-  border-radius: 4px;
-}
-
-.file-label {
-  flex-grow: 1;
-  background: #23262e;
-  padding: 10px;
-  border: 1px dashed #4f5864;
-  text-align: center;
-  cursor: pointer;
-}
-
-.file-label.disabled { cursor: not-allowed; }
-
-.btn-image-upload {
-  background: #66c0f4;
-  border: none;
-  padding: 10px 20px;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-image-upload:disabled {
-  background: #3d4450;
-  opacity: 0.6;
-}
-
-/* Botón Final */
-.btn-publish-final {
-  width: 100%;
-  padding: 15px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  background: linear-gradient(to right, #a3cf06, #799905);
-  border: none;
-  color: #000;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-publish-final:disabled {
-  background: #2a2e38;
-  color: #555;
-  cursor: not-allowed;
-}
-/* Esto es clave para que no se vea doble */
-.input-file-hidden {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-/* El Label es el que diseñamos para que parezca el botón de selección */
-.file-label {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #23262e;
-  border: 1px dashed #4f5864;
-  cursor: pointer;
-  color: #66c0f4;
-  transition: all 0.2s;
-}
-
-.file-label:hover:not(.disabled) {
-  background: #3d4450;
-  border-color: #66c0f4;
+  opacity: 0.5;
 }

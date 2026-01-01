@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
 import {
   ReportesEmpresaService,
   VentaEmpresa,
   ReporteEmpresaResponse
 } from '../../../../services/reportes-empresa-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 @Component({
   standalone: true,
@@ -20,7 +21,8 @@ export class ReporteVentasDevComponent implements OnInit {
   error: string | null = null;
 
   constructor(
-    private loginService: LoginService,
+    private loginService: UserService,
+    private jasper : JasperReportsService,
     private reportesService: ReportesEmpresaService
   ) {}
 
@@ -45,6 +47,28 @@ export class ReporteVentasDevComponent implements OnInit {
           this.cargando = false;
         }
       });
+  }
+
+  exportarJasper() {
+    const idEmpresa = this.loginService.getIdEmpresa();
+    if (!idEmpresa) {
+      this.error = 'No se pudo obtener la empresa';
+      return;
+    }
+    this.jasper.reporteVentasEmpresa(idEmpresa).subscribe({
+      next: (resp) => {
+        const blob = new Blob([resp], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'reporte_ventas.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error = 'Error al exportar el reporte';
+      }
+    });
   }
 }
 

@@ -1,157 +1,150 @@
+/* Contenedor Principal */
 .profile-page {
   max-width: 1000px;
   margin: 0 auto;
 }
 
-/* Header Estilo Steam */
-.profile-header {
-  background: linear-gradient(to right, rgba(38, 56, 74, 0.8), rgba(23, 26, 33, 0.9));
-  padding: 40px;
-  border-radius: 4px;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #2a475e;
+/* Header Flat: Sin fondo, solo alineación y línea divisoria */
+.profile-header-flat-simple {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
 }
 
-.profile-header-content {
+.header-identity {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 1.5rem;
 }
 
-.avatar-frame {
-  width: 160px;
-  height: 160px;
-  padding: 4px;
-  background: linear-gradient(135deg, #66c0f4 0%, #3a3a3a 100%);
-  border-radius: 4px;
-}
-
-.avatar-placeholder {
-  width: 100%;
-  height: 100%;
-  background: #171a21;
+/* Avatar reducido y estático */
+.avatar-static-small {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 64px;
-  color: #66c0f4;
-  font-weight: bold;
+  font-size: 2.5rem;
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 4px;
 }
 
-.nickname {
-  color: #fff;
-  font-size: 32px;
-  margin: 0 0 10px 0;
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nickname-title {
+  color: var(--white);
+  font-size: 1.8rem;
+  margin: 0;
   font-weight: 500;
 }
 
-.user-details {
+.user-meta-row {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
-  color: #8f98a0;
-  font-size: 14px;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.detail-item strong {
-  color: #56687a;
+.meta-separator {
+  color: var(--border);
 }
 
-/* Vitrina de Biblioteca */
-.library-showcase {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 25px;
-  border-radius: 4px;
-}
-
-.section-title {
+/* Sección de Biblioteca */
+.display-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #3d4450;
-  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.section-title h3 {
-  color: #fff;
-  margin: 0;
+.display-header h3 {
+  color: var(--white);
+  font-size: 0.9rem;
   text-transform: uppercase;
-  font-size: 14px;
   letter-spacing: 1px;
 }
 
-.count {
-  color: #66c0f4;
-  font-weight: bold;
+.data-count {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-/* Grid de Juegos Mini */
-.library-grid {
+/* Grid Estático (Sin escalas ni transiciones) */
+.grid-mini-static {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 15px;
 }
 
-.game-mini-card {
-  background: #171a21;
+.game-item-flat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
-  transition: transform 0.2s;
-  border: 1px solid transparent;
 }
 
-.game-mini-card:hover {
-  transform: scale(1.05);
-  border-color: #66c0f4;
-}
-
-.image-container {
+.image-wrapper-static {
   aspect-ratio: 16/9;
-  overflow: hidden;
+  background: #000;
+  border-bottom: 1px solid var(--border);
 }
 
-.game-thumb {
+.img-flat {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.game-mini-info {
+.item-details-flat {
   padding: 10px;
 }
 
-.game-mini-info h4 {
-  color: #c7d5e0;
-  font-size: 13px;
-  margin: 0 0 5px 0;
+.game-name {
+  display: block;
+  color: var(--white);
+  font-size: 0.85rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 4px;
 }
 
-.price {
-  color: #a3cf06;
-  font-size: 12px;
-  font-weight: bold;
+.game-price-tag {
+  color: var(--success);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Cuadro de Privacidad Flat */
+.privacy-lock-box-flat {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.lock-body h4 {
+  color: var(--white);
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+}
+
+.lock-body p {
+  color: var(--text-dim);
   margin: 0;
-}
-
-/* Nivel Badge */
-.level-badge {
-  border: 2px solid #66c0f4;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 11px;
-}
-
-.level-badge span {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 0.85rem;
 }

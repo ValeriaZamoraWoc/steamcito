@@ -1,98 +1,67 @@
 <div class="edit-game-page">
-  <header class="admin-header">
+  <header class="header-flat">
     <div class="header-content">
       <h2>Editor de Producto</h2>
-      <p>Modificando detalles técnicos y comerciales del título.</p>
+      <p>Modificación de parámetros técnicos y comerciales.</p>
     </div>
-    <div class="header-actions">
-      <button type="button" class="btn-cancel-top" (click)="volver()">Regresar al catálogo</button>
-    </div>
+    <button type="button" class="btn-system-outline" (click)="volver()">Regresar</button>
   </header>
 
-  <div class="alert-container">
-    <div class="alert error" *ngIf="error">
-      <span class="icon">⚠</span> {{ error }}
-    </div>
-    <div class="alert success" *ngIf="mensaje">
-      <span class="icon">✓</span> {{ mensaje }}
-    </div>
-  </div>
+  <div class="status-msg-flat error" *ngIf="error">SISTEMA: {{ error }}</div>
+  <div class="status-msg-flat success" *ngIf="mensaje">SISTEMA: {{ mensaje }}</div>
 
-  <form (ngSubmit)="guardarCambios()" class="steam-edit-form">
+  <form (ngSubmit)="guardarCambios()" class="form-flat">
     
-    <section class="form-section">
-      <h3 class="section-label">Información General</h3>
-      <div class="form-group">
+    <div class="form-section-flat">
+      <h3 class="label-heading">Información General</h3>
+      <div class="field-group">
         <label>Nombre del Juego</label>
-        <input [(ngModel)]="nombre" name="nombre" placeholder="Ej: Half-Life 3">
+        <input [(ngModel)]="nombre" name="nombre" placeholder="Nombre oficial">
       </div>
 
-      <div class="form-group">
-        <label>Descripción Corta</label>
-        <textarea [(ngModel)]="descripcion" name="descripcion" rows="4" placeholder="Describe la experiencia de juego..."></textarea>
+      <div class="field-group">
+        <label>Descripción</label>
+        <textarea [(ngModel)]="descripcion" name="descripcion" rows="3"></textarea>
       </div>
+    </div>
 
-      <div class="form-group">
-        <label>Especificaciones Técnicas</label>
-        <textarea [(ngModel)]="especificaciones" name="especificaciones" rows="3" placeholder="Requisitos mínimos de hardware..."></textarea>
-      </div>
-    </section>
-
-    <section class="form-section grid-section">
-      <div class="form-group">
-        <label>Clasificación de Edad</label>
+    <div class="form-grid-flat">
+      <div class="field-group">
+        <label>Clasificación</label>
         <select [(ngModel)]="clasificacion" name="clasificacion">
-          <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">
-            {{ c.nombreCalsificacion }}
-          </option>
+          <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">{{ c.nombreCalsificacion }}</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label>Categoría Principal</label>
+      <div class="field-group">
+        <label>Categoría</label>
         <select [(ngModel)]="categoria" name="categoria">
-          <option *ngFor="let c of categorias" [value]="c.idCategoria">
-            {{ c.nombreCategoria }}
-          </option>
+          <option *ngFor="let c of categorias" [value]="c.idCategoria">{{ c.nombreCategoria }}</option>
         </select>
       </div>
 
-      <div class="form-group">
-        <label>Precio de Venta (Q)</label>
-        <div class="price-input">
-          <span class="currency">Q</span>
-          <input type="number" [(ngModel)]="precio" name="precio" step="0.01">
-        </div>
+      <div class="field-group">
+        <label>Precio (Q)</label>
+        <input type="number" [(ngModel)]="precio" name="precio" step="0.01">
       </div>
 
-      <div class="form-group">
-        <label>Fecha de Lanzamiento</label>
+      <div class="field-group">
+        <label>Lanzamiento</label>
         <input type="date" [(ngModel)]="fechaLanzamiento" name="fechaLanzamiento">
       </div>
-    </section>
-
-    <section class="form-section">
-      <h3 class="section-label">Multimedia</h3>
-      <div class="file-upload-box">
-        <label class="custom-file-upload">
-          <input type="file" (change)="onFileChange($event)">
-          <div class="upload-content">
-            <span class="upload-icon">📁</span>
-            <span>Subir nueva imagen de portada</span>
-            <small>Formato recomendado: 16:9 (JPG/PNG)</small>
-          </div>
-        </label>
-      </div>
-    </section>
-
-    <div class="form-footer">
-      <button type="button" class="btn-save-main" (click)="guardarCambios()">
-        Guardar cambios
-      </button>
-      <button type="button" class="btn-cancel" (click)="volver()">
-        Cancelar
-      </button>
     </div>
 
+    <div class="form-section-flat">
+      <h3 class="label-heading">Multimedia</h3>
+      <div class="upload-zone-flat">
+        <input type="file" (change)="onFileChange($event)" id="file-input">
+        <label for="file-input"></label>
+      </div>
+    </div>
+
+    <div class="form-footer-flat">
+      <button type="submit" class="btn-system-main">Guardar cambios</button>
+      <button type="button" class="btn-system-outline" (click)="volver()">Cancelar</button>
+    </div>
   </form>
 </div>

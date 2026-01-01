@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../../../services/login-service';
+import { UserService } from '../../../../../services/user-service';
 import {
   ReportesEmpresaService,
   JuegoCalificado,
   ReporteEmpresaResponse
 } from '../../../../../services/reportes-empresa-service';
+import { JasperReportsService } from '../../../../../services/jasper-reports-service';
 
 @Component({
   standalone: true,
@@ -20,7 +21,8 @@ export class ReporteMejorCalificadosDevComponent implements OnInit {
   error: string | null = null;
 
   constructor(
-    private loginService: LoginService,
+    private loginService: UserService,
+    private jasper: JasperReportsService,
     private reportesService: ReportesEmpresaService
   ) {}
 
@@ -44,6 +46,18 @@ export class ReporteMejorCalificadosDevComponent implements OnInit {
           this.error = 'Error al cargar feedback positivo';
           this.cargando = false;
         }
+      });
+  }
+
+  exportarJasper(): void {
+    this.jasper.juegosMejorCalificadosEmpresa(this.loginService.getIdEmpresa()!)
+      .subscribe((blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'mejores_calificados_empresa.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
       });
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportesAdminService } from '../../../../services/reportes-admin-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface UsuarioCompras {
   usuario: string;
@@ -20,7 +21,8 @@ export class UsuariosComprasComponent implements OnInit {
   error: string | null = null;
 
   constructor(private reportesService: ReportesAdminService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+        private jasper : JasperReportsService
   ) {}
 
   ngOnInit(): void {
@@ -40,5 +42,22 @@ export class UsuariosComprasComponent implements OnInit {
           this.cdr.detectChanges();
         }
       });
+  }
+
+  exportarJasper(): void {
+    this.jasper.jugadoresConMasJuegosAdmin().subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'jugadores_con_mas_juegos.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        console.error('Error al exportar el reporte:', error);
+      }
+    });
   }
 }

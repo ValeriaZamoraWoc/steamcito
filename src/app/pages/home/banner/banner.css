@@ -1,101 +1,46 @@
-.banner-wrapper {
-  cursor: pointer;
-  margin-bottom: 40px;
-  perspective: 1000px; /* Para un ligero efecto 3D */
-}
-
-.banner-container {
+.hero-banner {
   position: relative;
   width: 100%;
-  height: 400px;
+  height: 350px;
   background-color: #000;
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid var(--border);
 }
 
-.banner-container:hover {
-  transform: scale(1.01);
-  box-shadow: 0 15px 40px rgba(102, 192, 244, 0.2);
-}
-
-/* Imagen que cubre todo el fondo */
-.banner-img {
+.hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  /* Bajamos la opacidad general para que el texto blanco resalte 
+     sin necesidad de un degradado negro encima */
+  opacity: 0.5; 
 }
 
-.banner-container:hover .banner-img {
-  transform: scale(1.05);
-}
-
-/* El degradado de Steam: de negro a transparente */
-.banner-overlay {
+.hero-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to right, 
-    rgba(0, 0, 0, 0.9) 0%, 
-    rgba(0, 0, 0, 0.4) 50%, 
-    transparent 100%
-  );
+  inset: 0;
   display: flex;
   align-items: center;
-  padding: 0 60px;
+  padding: 0 3rem;
+  /* Eliminamos el background: linear-gradient anterior */
 }
 
-.banner-content {
+.hero-content {
   max-width: 500px;
+  z-index: 2;
 }
 
-.badge-featured {
-  background: rgba(102, 192, 244, 0.2);
-  color: var(--accent-blue);
-  padding: 4px 12px;
-  font-size: 12px;
-  font-weight: bold;
-  border-radius: 2px;
-  letter-spacing: 2px;
+.hero-title {
+  color: var(--white);
+  font-size: 2.2rem;
+  margin: 0.5rem 0;
+  font-weight: 700;
 }
 
-.game-title {
-  color: white;
-  font-size: 3rem;
-  margin: 15px 0;
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
-  font-weight: 800;
-}
-
-.game-description {
-  color: #c7d5e0;
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3; /* Corta el texto a 3 líneas */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.btn-view-game {
-  background: #a3cf06; /* Verde "Comprar/Ver" de Steam */
-  color: #000;
-  border: none;
-  padding: 12px 30px;
-  font-weight: bold;
-  border-radius: 2px;
-  cursor: pointer;
+.hero-text {
+  color: var(--text-main);
   font-size: 1rem;
-  transition: filter 0.2s;
-}
-
-.btn-view-game:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 0 15px rgba(163, 207, 6, 0.4);
+  margin-bottom: 1.5rem;
 }

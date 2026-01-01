@@ -1,55 +1,37 @@
 <div class="admin-form-container">
-  <header class="section-header">
+  <header class="header-flat">
     <h2>Portal de Reclutamiento</h2>
-    <p>Registra un nuevo desarrollador para que se una a tu equipo de trabajo.</p>
+    <p>Registro de nuevo desarrollador en el sistema.</p>
   </header>
 
-  <div class="form-card">
-    <div class="feedback-area">
-      <div class="alert alert-error" *ngIf="error">
-        <span class="icon">⚠</span> {{ error }}
+  <div class="msg-system-flat error" *ngIf="error">ERROR: {{ error }}</div>
+  <div class="msg-system-flat success" *ngIf="mensaje">SISTEMA: {{ mensaje }}</div>
+
+  <form (ngSubmit)="registrar()" class="form-minimal">
+    <div class="field-group">
+      <label for="mail">Correo Electrónico</label>
+      <input type="email" id="mail" [(ngModel)]="mail" name="mail" required placeholder="ejemplo@empresa.com">
+    </div>
+
+    <div class="field-group">
+      <label for="nickname">Nombre de Usuario</label>
+      <input id="nickname" [(ngModel)]="nickname" name="nickname" required placeholder="Alias">
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label for="contrasena">Contraseña Temporal</label>
+        <input type="password" id="contrasena" [(ngModel)]="contrasena" name="contrasena" required>
       </div>
-      <div class="alert alert-success" *ngIf="mensaje">
-        <span class="icon">✓</span> {{ mensaje }}
+
+      <div class="field-group">
+        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+        <input type="date" id="fechaNacimiento" [(ngModel)]="fechaNacimiento" name="fechaNacimiento" required>
       </div>
     </div>
 
-    <form (ngSubmit)="registrar()" class="steam-form">
-      <div class="form-group">
-        <label for="mail">Correo Electrónico</label>
-        <div class="input-wrapper">
-          <input type="email" id="mail" [(ngModel)]="mail" name="mail" required placeholder="ejemplo@empresa.com">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="nickname">Nombre de Usuario (Nickname)</label>
-        <div class="input-wrapper">
-          <input id="nickname" [(ngModel)]="nickname" name="nickname" required placeholder="Alias del desarrollador">
-        </div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="contrasena">Contraseña Temporal</label>
-          <div class="input-wrapper">
-            <input type="password" id="contrasena" [(ngModel)]="contrasena" name="contrasena" required placeholder="••••••••">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="fechaNacimiento">Fecha de Nacimiento</label>
-          <div class="input-wrapper">
-            <input type="date" id="fechaNacimiento" [(ngModel)]="fechaNacimiento" name="fechaNacimiento" required>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="btn-primary">
-          <span>+</span> Agregar al Equipo
-        </button>
-      </div>
-    </form>
-  </div>
+    <div class="form-footer">
+      <button type="submit" class="btn-system-main">Agregar al Equipo</button>
+    </div>
+  </form>
 </div>

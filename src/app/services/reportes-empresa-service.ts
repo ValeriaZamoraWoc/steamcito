@@ -13,7 +13,7 @@ export interface ReporteEmpresaResponse<T> {
 export interface VentaEmpresa {
   nombreJuego: string;
   precio: number;
-  totalVentas: number;
+  porcentaje: number;
   comision: number;
   ingresosNetos: number;
 }
@@ -56,14 +56,13 @@ export class ReportesEmpresaService {
     switch (tipo) {
 
       case 'ventas':
-        return datos.map(row => ({
-          nombreJuego: row[0],
-          ingresosNetos: Number(row[1]),
-          comision: Number(row[2]),
-          precio: Number(row[3]),
-          totalVentas: Number(row[4])
-        }));
-
+      return datos.map(row => ({
+        nombreJuego: row[0],
+        precio: Number(row[1]),    
+        porcentaje: row[2],    
+        comision: Number(row[3]),      
+        ingresosNetos: Number(row[4])    
+      }));
       case 'mejorCalificados':
       case 'peorCalificados':
       case 'top5':

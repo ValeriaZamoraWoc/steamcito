@@ -1,55 +1,36 @@
 <div class="negotiation-container">
-  <header class="section-header">
-    <h2>Solicitud de Ajuste de Comisión</h2>
-    <p>Propón un nuevo porcentaje de ingresos para los títulos publicados por tu empresa.</p>
+  <header class="header-flat">
+    <div class="header-text">
+      <h2>Ajuste de Comisión</h2>
+      <p>Propuesta de nuevo porcentaje de retención de ingresos.</p>
+    </div>
   </header>
 
-  <div class="negotiation-layout">
-    <aside class="info-sidebar">
-      <div class="sidebar-card">
-        <h4>Consideraciones</h4>
-        <ul>
-          <li>El porcentaje estándar es del 15%.</li>
-          <li>Las peticiones están sujetas a revisión por administración.</li>
-        </ul>
-      </div>
-    </aside>
-
-    <div class="form-card">
-      <div class="feedback-area">
-        <div class="alert alert-error" *ngIf="error">
-          <span class="icon">⚠</span> {{ error }}
-        </div>
-        <div class="alert alert-success" *ngIf="mensaje">
-          <span class="icon">✓</span> {{ mensaje }}
-        </div>
-      </div>
-
-      <form (ngSubmit)="registrarPeticion()" class="steam-form">
-        <div class="form-group">
-          <label for="porcentaje">Porcentaje de ingresos solicitado</label>
-          <div class="input-with-symbol">
-            <input
-              id="porcentaje"
-              type="number"
-              [(ngModel)]="porcentaje"
-              name="porcentaje"
-              min="1"
-              max="100"
-              required
-              placeholder="Ej: 25"
-            >
-            <span class="symbol">%</span>
-          </div>
-          <small class="helper-text">Este es el porcentaje que la plataforma retendrá de cada venta.</small>
-        </div>
-
-        <div class="form-actions">
-          <button type="submit" class="btn-submit">
-            Enviar Petición a Revisión
-          </button>
-        </div>
-      </form>
-    </div>
+  <div class="info-block-flat">
+    <p><strong>Consideraciones:</strong> El porcentaje estándar es del 15%. Todas las peticiones están sujetas a revisión administrativa.</p>
   </div>
+
+  <div class="status-msg-flat error" *ngIf="error">ERROR: {{ error }}</div>
+  <div class="status-msg-flat success" *ngIf="mensaje">SISTEMA: {{ mensaje }}</div>
+
+  <form (ngSubmit)="registrarPeticion()" class="form-flat">
+    <div class="field-group">
+      <label for="porcentaje">Porcentaje de ingresos solicitado (%)</label>
+      <input
+        id="porcentaje"
+        type="number"
+        [(ngModel)]="porcentaje"
+        name="porcentaje"
+        min="1"
+        max="100"
+        required
+        placeholder="Ej: 25"
+      >
+      <span class="helper-text">Porcentaje que la plataforma retendrá de cada venta.</span>
+    </div>
+
+    <div class="form-footer-flat">
+      <button type="submit" class="btn-system-main">Enviar Petición a Revisión</button>
+    </div>
+  </form>
 </div>

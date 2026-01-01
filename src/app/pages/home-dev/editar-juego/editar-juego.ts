@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
+import { GameService } from '../../../services/game-service';
 import { CategoriasClasificacionesService, Categoria, Clasificacion } from '../../../services/categorias-clasificaciones-service';
 
 @Component({
@@ -34,7 +34,7 @@ export class EditarJuegoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private juegosService: ObtenerJuegoPorIdService,
+    private juegosService: GameService,
     private catClasService: CategoriasClasificacionesService,
     private router: Router
   ) {}
@@ -43,13 +43,13 @@ export class EditarJuegoComponent implements OnInit {
     this.idJuego = Number(this.route.snapshot.paramMap.get('id'));
 
     // cargar juego
-    this.juegosService.obtenerJuegoPorId(this.idJuego).subscribe(j => {
-      this.nombre = j.nombreJuego;
-      this.descripcion = j.descripcion;
-      this.especificaciones = j.especificaciones;
-      this.precio = j.precio;
-      this.categoria = j.categoria;
-      this.clasificacion = j.clasificacion;
+    this.juegosService.obtenerJuego(this.idJuego).subscribe((juego: any) => {
+      this.nombre = juego.nombreJuego;
+      this.descripcion = juego.descripcion;
+      this.especificaciones = juego.especificaciones;
+      this.precio = juego.precio;
+      this.categoria = juego.categoria;
+      this.clasificacion = juego.clasificacion;
     });
 
     // combos

@@ -1,69 +1,46 @@
 <div class="admin-report-detail">
-  <header class="report-header-flex">
+  <header class="report-meta-header">
     <div class="title-group">
-      <div class="badge-row">
-        <span class="admin-badge quality">Quality Assurance</span>
-      </div>
       <h3>Calidad por Categoría</h3>
-      <p>Ranking de los títulos con mayor índice de satisfacción según su género.</p>
+      <p>Ranking de satisfacción por género.</p>
     </div>
   </header>
 
-  <div class="admin-filter-bar highlight-purple">
-    <div class="filter-group">
-      <label>Categoría</label>
-      <div class="select-wrapper">
-        <select [(ngModel)]="categoriaSeleccionada">
-          <option value="">-- Todas las categorías --</option>
-          <option *ngFor="let c of categorias" [value]="c.nombreCategoria">
-            {{ c.nombreCategoria }}
-          </option>
-        </select>
-      </div>
+  <div class="filter-row-flat">
+    <div class="field-group">
+      <label>Categoría:</label>
+      <select [(ngModel)]="categoriaSeleccionada" class="select-flat">
+        <option value="">-- Todas --</option>
+        <option *ngFor="let c of categorias" [value]="c.nombreCategoria">
+          {{ c.nombreCategoria }}
+        </option>
+      </select>
     </div>
-    <button class="btn-search-quality" (click)="buscar()">
-      <span class="icon">✨</span> Evaluar Calidad
-    </button>
+    <button class="btn-system-flat" (click)="buscar()">Evaluar Calidad</button>
   </div>
 
-  <div *ngIf="cargando" class="admin-loader">
-    <div class="pulse-ring gold"></div>
-    <span>Consultando valoraciones...</span>
-  </div>
+  <div *ngIf="cargando" class="msg-system">Consultando valoraciones...</div>
+  <div *ngIf="error" class="error-system">ERROR: {{ error }}</div>
 
-  <div *ngIf="error" class="admin-alert error">
-    <span class="icon">❌</span> {{ error }}
-  </div>
-
-  <div class="table-wrapper" *ngIf="!cargando && juegos.length > 0">
-    <table class="admin-table quality-table">
+  <div class="report-table-container" *ngIf="!cargando && juegos.length > 0">
+    <table class="table-flat-minimal">
       <thead>
         <tr>
           <th>Título del Juego</th>
-          <th class="text-right">Índice de Satisfacción</th>
+          <th class="text-right">Índice (0-5)</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let j of juegos">
-          <td class="game-column">
-            <div class="quality-dot" [class.excellent]="j.promedio >= 4.5"></div>
-            <strong>{{ j.nombre }}</strong>
-          </td>
-          <td class="text-right">
-            <div class="rating-display-admin">
-              <span class="score-number">{{ j.promedio | number:'1.1-1' }}</span>
-              <div class="stars-container">
-                <span class="star-icon">★</span>
-              </div>
-            </div>
-          </td>
+          <td>{{ j.nombre }}</td>
+          <td class="text-right">{{ j.promedio | number:'1.1-1' }}</td>
         </tr>
       </tbody>
     </table>
+    <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div class="empty-state" *ngIf="!cargando && juegos.length === 0 && !error">
-    <div class="empty-illustration">⭐</div>
-    <p>Selecciona una categoría para ver los títulos más aclamados.</p>
+  <div class="msg-system" *ngIf="!cargando && juegos.length === 0 && !error">
+    Seleccione una categoría para visualizar los datos.
   </div>
 </div>

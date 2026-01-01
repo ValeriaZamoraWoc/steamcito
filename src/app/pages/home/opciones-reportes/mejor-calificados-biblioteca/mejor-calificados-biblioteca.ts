@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JuegoCalificadoUsuario, ReportesUsuarioComunService } from '../../../../services/reportes-usuario-comun-service';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 @Component({
   selector: 'app-mejores-calificados-biblioteca',
@@ -18,7 +19,8 @@ export class MejoresCalificadosBibliotecaComponent implements OnInit {
 
   constructor(
     private reportesService: ReportesUsuarioComunService,
-    private loginService: LoginService
+    private jasper: JasperReportsService,
+    private loginService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -45,5 +47,28 @@ export class MejoresCalificadosBibliotecaComponent implements OnInit {
           this.cargando = false;
         }
       });
+  }
+
+  exportarJasper(): void {
+    const usuario = this.loginService.user();
+
+    if (!usuario?.mail) {
+      this.error = 'Usuario no autenticado';
+      return;
+    }
+
+    this.jasper.juegosMejorCalificadosUsuario(usuario.mail).subscribe({
+      next: blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'mejores_calificados_biblioteca.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error = 'Error al exportar el reporte';
+      }
+    });
   }
 }

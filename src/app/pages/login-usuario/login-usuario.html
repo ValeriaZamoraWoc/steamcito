@@ -28,16 +28,16 @@
 
     <div class="register-promo">
       <p>¿No tienes una cuenta?</p>
-      <button (click)="irRegistro()" class="btn-register-link">Únete a Steamcito</button>
+      <button (click)="irRegistro()" class="btn-login">Únete a Steamcito</button>
     </div>
 
-    <div *ngIf="loginService.isLogged()" class="logged-status">
+    <div *ngIf="userService.isLogged()" class="logged-status">
       <div class="user-pill">
         <span class="dot online"></span>
-        <strong>{{ loginService.user()?.mail }}</strong>
-        <span class="role-tag">{{ loginService.user()?.rol }}</span>
+        <strong>{{ userService.user()?.mail }}</strong>
+        <span class="role-tag">{{ userService.user()?.rol }}</span>
       </div>
-      <button (click)="loginService.logout()" class="btn-logout-link">Cerrar sesión</button>
+      <button (click)="userService.logout()" class="btn-logout-link">Cerrar sesión</button>
     </div>
   </div>
 </div>

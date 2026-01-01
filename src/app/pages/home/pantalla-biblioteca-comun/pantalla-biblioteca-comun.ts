@@ -1,9 +1,9 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../services/login-service';
+import { UserService } from '../../../services/user-service';
 import { VisibilidadBibliotecaService } from '../../../services/cambiar-visibilidad-service';
 import { BibliotecaUsuarioService } from '../../../services/biblioteca-usuario-service';
-import { JuegoBiblioteca } from '../../../services/ver-perfil-usuario-service';
+import { JuegoBiblioteca } from '../../../services/user-service';
 
 @Component({
   selector: 'app-pantalla-biblioteca-comun',
@@ -22,7 +22,7 @@ export class PantallaBibliotecaComun implements OnInit {
 
   constructor(
     private bibliotecaService: BibliotecaUsuarioService,
-    private loginService: LoginService,
+    private loginService: UserService,
     private visibilidadService: VisibilidadBibliotecaService,
     private cdr: ChangeDetectorRef
   ) {}

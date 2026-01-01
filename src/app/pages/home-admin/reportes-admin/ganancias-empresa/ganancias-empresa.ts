@@ -1,6 +1,7 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportesAdminService } from '../../../../services/reportes-admin-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface GananciaEmpresa {
   empresa: string;
@@ -20,7 +21,9 @@ export class GananciasEmpresaComponent implements OnInit {
   error: string | null = null;
 
   constructor(private reportesService: ReportesAdminService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private jasper : JasperReportsService
+    
   ) {}
 
   ngOnInit(): void {
@@ -41,4 +44,20 @@ export class GananciasEmpresaComponent implements OnInit {
         }
       });
   }
+
+  exportarJasper(): void {
+    this.jasper.gananciasPorEmpresaAdmin().subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'ganancias_por_empresa.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error = 'Error al exportar el reporte';
+        this.cdr.detectChanges();
+      }
+    });}
 }

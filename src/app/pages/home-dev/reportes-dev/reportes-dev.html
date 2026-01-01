@@ -1,53 +1,30 @@
-<div class="reports-hub">
-  <header class="hub-header">
+<div class="admin-reports-container">
+  <header class="admin-header-flat">
     <h2>Centro de Análisis de Datos</h2>
-    <p>Consulta el rendimiento de tus títulos, feedback de la comunidad y estadísticas de ventas.</p>
+    <p>Consulta el rendimiento de tus títulos y el feedback de la comunidad.</p>
   </header>
 
-  <div class="reportes-grid">
-    <div class="reporte-card">
-      <div class="card-icon">💰</div>
-      <h3>Ventas Propias</h3>
-      <p class="card-desc">Ingresos netos, comisiones y volumen de ventas.</p>
-      <button (click)="irA('ventas')" class="btn-report">
-        Ver reporte de ingresos
-      </button>
+  <nav class="report-nav-flat">
+    <div class="nav-group">
+      <span class="group-label">Finanzas</span>
+      <button (click)="irA('ventas')">Ventas Propias</button>
     </div>
 
-    <div class="reporte-card">
-      <div class="card-icon">📈</div>
-      <h3>Feedback de Calidad</h3>
-      <p class="card-desc">Análisis de los juegos según la percepción del usuario.</p>
-      <div class="button-group">
-        <button (click)="irA('mejorcalificados')" class="btn-report positive">
-          Mejor calificados
-        </button>
-        <button (click)="irA('peorcalificados')" class="btn-report negative">
-          Peor calificados
-        </button>
-      </div>
+    <div class="nav-group">
+      <span class="group-label">Feedback de Calidad</span>
+      <button (click)="irA('mejorcalificados')">Mejor Calificados</button>
+      <button (click)="irA('peorcalificados')">Peor Calificados</button>
     </div>
 
-    <div class="reporte-card">
-      <div class="card-icon">🏆</div>
-      <h3>Ranking Top 5</h3>
-      <p class="card-desc">Tus 5 títulos con mejor rendimiento histórico.</p>
-      <button (click)="irA('top5')" class="btn-report highlight">
-        Ver top de popularidad
-      </button>
+    <div class="nav-group">
+      <span class="group-label">Popularidad y Social</span>
+      <button (click)="irA('top5')">Ranking Top 5</button>
+      <button (click)="irA('comentarios')">Mejores Comentarios</button>
     </div>
+  </nav>
 
-    <div class="reporte-card">
-      <div class="card-icon">💬</div>
-      <h3>Interacción Social</h3>
-      <p class="card-desc">Reseñas y comentarios más destacados de tus juegos.</p>
-      <button (click)="irA('comentarios')" class="btn-report">
-        Mejores comentarios
-      </button>
-    </div>
-  </div>
-
-  <div class="report-outlet-container">
+  <main class="admin-router-box-flat">
     <router-outlet></router-outlet>
-  </div>
+    
+  </main>
 </div>

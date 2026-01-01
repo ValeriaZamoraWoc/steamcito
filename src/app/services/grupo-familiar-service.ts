@@ -6,16 +6,19 @@ import { API_BASE_URL } from '../core/api.config';
 export interface GrupoFamiliar {
   idGrupoFamiliar: number;
   nombreGrupo: string;
-  integrantes: Usuario[];
+  integrantes: IntegranteGrupo[];
 }
-export interface Usuario {
+
+export interface IntegranteGrupo {
   mail: string;
-  nickname?: string;
+  nickname: string;
+  telefono: number;
 }
+
 @Injectable({
   providedIn: 'root'
 })
-export class GruposFamiliaresService {
+export class GrupoFamiliarService {
 
   constructor(private http: HttpClient) {}
 
@@ -25,7 +28,8 @@ export class GruposFamiliaresService {
       { params: { mail } }
     );
   }
-  registrarUsuarioEnGrupo(mail: string, id:number): Observable<any> {
+
+  registrarUsuarioEnGrupo(mail: string, id: number): Observable<any> {
     const body = new HttpParams()
       .set('mail', mail)
       .set('idGrupo', id);
@@ -44,11 +48,14 @@ export class GruposFamiliaresService {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     });
   }
-  obtenerIntegrantes(idGrupo: number): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(`${API_BASE_URL}/obtenerIntegrantesGrupo`, { 
-      params: { idGrupo: idGrupo.toString() } 
-    });
+
+  obtenerIntegrantes(idGrupo: number): Observable<IntegranteGrupo[]> {
+    return this.http.get<IntegranteGrupo[]>(
+      `${API_BASE_URL}/obtenerIntegrantesGrupo`,
+      { params: { idGrupo: idGrupo.toString() } }
+    );
   }
+
   crearGrupoFamiliar(mail: string, nombreGrupo: string): Observable<any> {
     const body = new HttpParams()
       .set('mail', mail)

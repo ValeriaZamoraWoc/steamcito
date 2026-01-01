@@ -1,37 +1,31 @@
-<div class="report-container-user">
-  <div class="report-header-minimal">
-    <h3><span class="icon-tag">🏷️</span> Tu Perfil de Contenido</h3>
-    <p>Análisis de las clasificaciones por edad que predominan en tu colección personal.</p>
+<div class="report-content">
+  <div class="report-view-header">
+    <h3>Perfil de Contenido</h3>
+    <p>Distribución de clasificaciones por edad en tu biblioteca personal.</p>
   </div>
 
-  <div *ngIf="cargando" class="user-loader">
-    <div class="spinner-steam"></div>
-    <p>Analizando los metadatos de tu biblioteca...</p>
-  </div>
+  <div *ngIf="cargando" class="status-msg">Analizando metadatos...</div>
+  <div *ngIf="error" class="alert-simple error">{{ error }}</div>
 
-  <div *ngIf="error" class="user-alert error">
-    <span class="alert-icon">❌</span>
-    <p>{{ error }}</p>
-  </div>
-
-  <div class="classification-analysis" *ngIf="!cargando && clasificaciones.length > 0">
-    <div class="analysis-card" *ngFor="let c of clasificaciones">
-      <div class="classification-info">
-        <div class="label-group">
-          <span class="rating-badge-user">{{ c.clasificacion }}</span>
-          <strong class="class-name">Contenido {{ c.clasificacion }}</strong>
+  <div class="analysis-viewport" *ngIf="!cargando && clasificaciones.length > 0">
+    <div class="metric-row" *ngFor="let c of clasificaciones">
+      <div class="metric-info">
+        <div class="metric-label">
+          <span class="class-title">{{ c.clasificacion }}</span>
         </div>
-        <span class="count-badge">{{ c.cantidad }} juegos</span>
+        <span class="metric-count">{{ c.cantidad }} juegos</span>
       </div>
 
-      <div class="progress-track">
-        <div class="progress-fill" [style.width.%]="(c.cantidad / clasificaciones[0].cantidad) * 100"></div>
+      <div class="progress-container">
+        <div class="progress-bar-flat" 
+             [style.width.%]="(c.cantidad / clasificaciones[0].cantidad) * 100">
+        </div>
       </div>
     </div>
+    <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div *ngIf="!cargando && clasificaciones.length === 0" class="user-empty-state">
-    <div class="empty-icon">📂</div>
-    <p>Aún no tenemos suficientes datos para definir tu perfil de contenido.</p>
+  <div *ngIf="!cargando && clasificaciones.length === 0" class="empty-notif">
+    No hay datos suficientes para generar el perfil de contenido.
   </div>
 </div>

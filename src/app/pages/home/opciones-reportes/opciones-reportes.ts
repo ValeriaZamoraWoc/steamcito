@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../services/login-service';
-import { GrupoFamiliar, GruposFamiliaresService } from '../../../services/obtener-gruposFamiliares-service';
+import { UserService } from '../../../services/user-service';
+import { GrupoFamiliar, GrupoFamiliarService } from '../../../services/grupo-familiar-service';
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -21,15 +21,15 @@ export class OpcionesReportesComponent implements OnInit {
   mostrarGrupos = false;
 
   constructor(
-    private gruposService: GruposFamiliaresService,
-    private loginService: LoginService,
+    private gruposService: GrupoFamiliarService,
+    private userService: UserService,
     private cdr: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute 
   ) {}
 
   ngOnInit(): void {
-    const usuario = this.loginService.user();
+    const usuario = this.userService.user();
 
     if (!usuario?.mail) {
       this.error = 'Usuario no autenticado';

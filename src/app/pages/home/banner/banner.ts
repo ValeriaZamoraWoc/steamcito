@@ -2,7 +2,7 @@ import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BannerService } from '../../../services/banner-service';
-import { Juego } from '../../../services/obtener-todos-los-juegos';
+import { Juego } from '../../../services/game-service';
 
 @Component({
   selector: 'app-banner-home',

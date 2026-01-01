@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentePantallaPrincipalComun } from './pantalla-principal-comun/pantalla-principal-comun';
-import { LoginService } from '../../services/login-service';
+import { UserService } from '../../services/user-service';
 import { BannerHomeComponent } from './banner/banner';
 
 @Component({
@@ -14,5 +14,5 @@ import { BannerHomeComponent } from './banner/banner';
   styleUrl: './home.css',
 })
 export class ComponenteHome {
-    constructor(public loginService: LoginService) {}
+    constructor(public userService: UserService) {}
 }

@@ -1,51 +1,43 @@
 <div class="admin-reports-container">
-  <header class="report-header-flex">
-    <div class="title-group">
-      <div class="badge-row">
-        <span class="admin-badge dev">Sistema</span>
-      </div>
-      <h3>Gestión de Clasificaciones</h3>
-      <p>Administra las etiquetas de edad (ESRB/PEGI) disponibles para los videojuegos.</p>
+  <header class="section-header-flat">
+    <div class="header-main">
+      <h2>Gestión de Clasificaciones</h2>
+      <p>Administración de etiquetas de edad y categorías del sistema.</p>
     </div>
   </header>
 
-  <div class="admin-action-card creation-zone">
-    <div class="input-group-modern">
-      <span class="input-icon">🏷️</span>
-      <input
-        type="text"
-        [(ngModel)]="nuevaClasificacion"
-        placeholder="Ej: Accion, RPG, Aventura..."
-        class="modern-input"
-      />
-      <button class="btn-primary-admin" (click)="crearClasificacion()">
-        <span class="icon">+</span> Agregar Clasificación
-      </button>
-    </div>
+  <div class="action-bar-flat">
+    <input
+      type="text"
+      [(ngModel)]="nuevaClasificacion"
+      placeholder="Nueva clasificación (ej. ESRB-M, PEGI-18)..."
+      class="input-system"
+    />
+    <button class="btn-system" (click)="crearClasificacion()">
+      Agregar Clasificación
+    </button>
   </div>
 
-  <div *ngIf="clasificaciones.length === 0" class="admin-empty-state">
-    <div class="empty-icon">📂</div>
-    <p>No hay clasificaciones registradas en la base de datos.</p>
+  <div *ngIf="clasificaciones.length === 0" class="status-msg-flat">
+    No se han detectado clasificaciones en la base de datos.
   </div>
 
-  <div class="table-wrapper" *ngIf="clasificaciones.length > 0">
-    <table class="admin-table">
+  <div class="table-container-flat" *ngIf="clasificaciones.length > 0">
+    <table class="table-flat">
       <thead>
         <tr>
-
-          <th>Nombre de Clasificación</th>
+          <th>Clasificación</th>
           <th class="text-right">Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let c of clasificaciones">
           <td>
-            <span class="classification-tag-preview">{{ c.nombreCalsificacion }}</span>
+            <span class="tag-box-system">{{ c.nombreCalsificacion }}</span>
           </td>
           <td class="text-right">
-            <button class="btn-danger-outline" (click)="eliminarClasificacion(c.idClasificacion)">
-              <span class="icon">🗑️</span> Eliminar
+            <button class="btn-system" (click)="eliminarClasificacion(c.idClasificacion)">
+              Eliminar
             </button>
           </td>
         </tr>

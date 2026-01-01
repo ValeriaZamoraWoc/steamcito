@@ -1,87 +1,56 @@
 <div class="steam-container">
+  <div *ngIf="cargando" class="status-msg-flat">Cargando detalles del sistema...</div>
+  <div *ngIf="error" class="alert-flat-error">SISTEMA: {{ error }}</div>
 
-  <div *ngIf="cargando" class="loading-state-overlay">
-    <div class="steam-spinner"></div>
-    <p>Sincronizando datos del servidor...</p>
-  </div>
-
-  <div *ngIf="error" class="error-banner-steam">
-    <span class="icon">⚠️</span> {{ error }}
-  </div>
-
-  <div *ngIf="juego" class="game-page-layout">
-
-    <header class="game-header-title">
-      <div class="breadcrumb">Todos los juegos > {{ juego.nombreJuego }}</div>
+  <div *ngIf="juego" class="game-view-flat">
+    
+    <header class="game-header-flat">
       <h1>{{ juego.nombreJuego }}</h1>
     </header>
 
-    <div class="game-flex-content">
-
-      <div class="main-column">
-        <div class="hero-image-container">
-          <img
-            [src]="juego.urlImagen"
-            class="game-hero-img"
-            (error)="onImgError($event)"
-          >
-          <div class="image-grad"></div>
-        </div>
-
-        <div class="description-section">
-          <h3>Acerca de este juego</h3>
-          <div class="divider-steam"></div>
-          <p class="game-desc-text">{{ juego.descripcion }}</p>
-        </div>
+    <div class="game-content-flat">
+      <div class="hero-static-box">
+        <img [src]="juego.urlImagen" class="hero-img" (error)="onImgError($event)">
       </div>
 
-      <aside class="side-column">
-        <div class="info-card-steam">
-          
-          <div class="price-section">
-            <div class="price-box">
-              <span class="currency">Q</span>
-              <span class="amount">{{ juego.precio | number:'1.2-2' }}</span>
-            </div>
-            <span class="stock-badge" [class.out]="!juego.enVenta">
-              {{ juego.enVenta ? 'En Venta' : 'Retirado' }}
-            </span>
-          </div>
+      <section class="info-section">
+        <h3>Acerca de este juego</h3>
+        <p>{{ juego.descripcion }}</p>
+      </section>
 
-          <div class="metadata-list">
-            <div class="meta-item">
-              <span class="label">Lanzamiento</span>
-              <span class="value">{{ juego.fechaLanzamiento | date:'dd MMM, yyyy' }}</span>
-            </div>
-          </div>
-
-          <div class="admin-control-panel">
-            <div class="admin-header">
-              <span class="admin-icon">🛠️</span>
-              <h4>Panel de Clasificación</h4>
-            </div>
-            
-            <div class="control-body">
-              <label for="class-select">Cambie la clasificacion</label>
-              <div class="select-wrapper">
-                <select id="class-select" [(ngModel)]="clasificacionSeleccionada">
-                  <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">
-                    {{ c.nombreCalsificacion }}
-                  </option>
-                </select>
-              </div>
-
-              <button
-                class="btn-save-meta"
-                (click)="cambiarClasificacion()"
-              >
-                Actualizar Metadatos
-              </button>
-            </div>
-          </div>
-
+      <section class="metadata-grid-flat">
+        <div class="meta-row">
+          <span class="meta-label">Precio</span>
+          <span class="meta-value price-text">Q {{ juego.precio | number:'1.2-2' }}</span>
         </div>
-      </aside>
+        <div class="meta-row">
+          <span class="meta-label">Lanzamiento</span>
+          <span class="meta-value">{{ juego.fechaLanzamiento | date:'dd MMM, yyyy' }}</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-label">Estado</span>
+          <span class="meta-value">{{ juego.enVenta ? 'En Venta' : 'No disponible' }}</span>
+        </div>
+      </section>
+
+      <section class="admin-action-flat">
+        <h3>Panel de Clasificación</h3>
+        
+        <div class="admin-controls">
+          <div class="field">
+            <label>Cambiar Clasificación</label>
+            <select [(ngModel)]="clasificacionSeleccionada" class="select-flat">
+              <option *ngFor="let c of clasificaciones" [value]="c.idClasificacion">
+                {{ c.nombreCalsificacion }}
+              </option>
+            </select>
+          </div>
+
+          <button class="btn-flat-system" (click)="cambiarClasificacion()">
+            Actualizar
+          </button>
+        </div>
+      </section>
     </div>
   </div>
 </div>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalificacionPersonal, ReportesUsuarioComunService } from '../../../../services/reportes-usuario-comun-service';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 @Component({
   selector: 'app-calificaciones-personales',
@@ -18,7 +19,8 @@ export class CalificacionesPersonalesComponent implements OnInit {
 
   constructor(
     private reportesService: ReportesUsuarioComunService,
-    private loginService: LoginService
+    private jasper: JasperReportsService,
+    private loginService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,33 @@ export class CalificacionesPersonalesComponent implements OnInit {
         error: () => {
           this.error = 'No se pudieron cargar tus calificaciones';
           this.cargando = false;
+        }
+      });
+  }
+
+  exportarJasper(): void {
+    const usuario = this.loginService.user();
+
+    if (!usuario?.mail) {
+      this.error = 'Usuario no autenticado';
+      return;
+    }
+
+    this.jasper
+      .calificacionesPersonales(usuario.mail)
+      .subscribe({
+        next: blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'calificaciones_personales_biblioteca.pdf';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          this.error = 'No se pudo exportar el reporte';
         }
       });
   }

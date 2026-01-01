@@ -2,27 +2,21 @@
   <header class="section-header">
     <div class="header-main-content">
       <h2>Mi Biblioteca</h2>
-      <div class="stats" *ngIf="juegos.length > 0">
-        <span class="count-tag">{{ juegos.length }} juegos en total</span>
-      </div>
+      <span class="count-tag">{{ juegos.length }} juegos en total</span>
     </div>
 
     <div class="acciones-biblioteca">
       <div class="privacy-control-group">
         <button
-          class="btn-toggle-visibilidad"
+          class="btn-minimal-toggle"
           (click)="cambiarVisibilidad()"
           [disabled]="cambiandoVisibilidad"
           [class.is-public]="visibilidadBiblioteca"
-          [class.is-private]="!visibilidadBiblioteca"
         >
-          <span class="icon">{{ visibilidadBiblioteca ? '🔒' : '🌐' }}</span>
-          {{ visibilidadBiblioteca ? 'Ocultar mi biblioteca' : 'Hacer pública mi biblioteca' }}
+          {{ visibilidadBiblioteca ? 'Hacer Privada' : 'Hacer Pública' }}
         </button>
-
         <p class="estado-visibilidad">
-          Estado actual:
-          <span class="status-badge" [class.public]="visibilidadBiblioteca">
+          Estado: <span class="status-badge" [class.public]="visibilidadBiblioteca">
             {{ visibilidadBiblioteca ? 'Pública' : 'Privada' }}
           </span>
         </p>
@@ -30,26 +24,18 @@
     </div>
   </header>
 
-  <div *ngIf="cargando" class="loading-box">
-    <div class="steam-spinner"></div>
-    <p>Sincronizando con la nube...</p>
-  </div>
+  <div *ngIf="cargando" class="status-msg">Sincronizando biblioteca...</div>
 
   <div class="game-grid" *ngIf="!cargando && juegos.length > 0">
-    <div class="game-card" *ngFor="let juego of juegos; trackBy: trackById" [class.is-installed]="juego.instalado">
-      <div class="poster-wrapper">
-        <img [src]="juego.urlImagen" alt="Portada" class="game-poster">
-        <div class="card-overlay">
-          <button *ngIf="!juego.instalado" class="btn-install"><span>⬇</span> Instalar</button>
-          <button *ngIf="juego.instalado" class="btn-uninstall"><span>✖</span> Desinstalar</button>
+    <div class="game-card-static" *ngFor="let juego of juegos; trackBy: trackById">
+      <div class="poster-container">
+        <img [src]="juego.urlImagen" alt="" class="game-poster-clean">
+        <div class="install-indicator" *ngIf="juego.instalado">
+          INSTALADO
         </div>
       </div>
-      <div class="game-info">
+      <div class="game-meta-clean">
         <h3>{{ juego.nombreJuego }}</h3>
-        <p class="desc">{{ juego.descripcion }}</p>
-        <div class="status-tag" *ngIf="juego.instalado">
-          <span class="dot"></span> INSTALADO
-        </div>
       </div>
     </div>
   </div>

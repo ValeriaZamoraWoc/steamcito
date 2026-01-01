@@ -1,44 +1,33 @@
-<div class="report-content-fade">
-  <div class="report-header-minimal">
-    <h3><span class="icon">📜</span> Historial de Transacciones</h3>
-    <p>Registro cronológico de tus adquisiciones en la plataforma.</p>
+<div class="report-content">
+  <div class="report-view-header">
+    <h3>Historial de Transacciones</h3>
+    <p>Registro cronológico de adquisiciones y movimientos de cuenta.</p>
   </div>
 
-  <div *ngIf="cargando" class="user-loader">
-    <div class="spinner-steam"></div>
-    <p>Sincronizando con la billetera...</p>
+  <div *ngIf="cargando" class="status-msg">
+    Sincronizando con la billetera...
   </div>
 
-  <div *ngIf="error && !cargando" class="user-alert error">
-    <span class="alert-icon">⚠️</span>
-    <div class="alert-body">
-      <strong>Hubo un problema:</strong>
-      <span>{{ error }}</span>
-    </div>
+  <div *ngIf="error && !cargando" class="alert-simple error">
+    {{ error }}
   </div>
 
-  <div *ngIf="!cargando && !error && historial.length === 0" class="user-empty-state">
-    <div class="empty-icon">💸</div>
-    <p>Tu historial está vacío. ¡Es un buen momento para tu primera compra!</p>
+  <div *ngIf="!cargando && !error && historial.length === 0" class="empty-notif">
+    Tu historial de transacciones está vacío.
   </div>
 
-  <div *ngIf="!cargando && !error && historial.length > 0" class="history-container">
-    <div class="historial-meta">
-      <span class="total-badge">
-        {{ historial.length }} Movimiento(s) detectado(s)
-      </span>
+  <div *ngIf="!cargando && !error && historial.length > 0" class="data-list">
+    <div class="log-meta">
+      <span> Movimiento </span>
     </div>
     
-    <div class="receipt-box">
-      <ul class="lista-historial">
-        <li *ngFor="let item of historial; let i = index" class="item-historial">
-          <div class="item-number">#{{ (i + 1).toString().padStart(2, '0') }}</div>
-          <div class="item-content">{{ item }}</div>
-        </li>
-      </ul>
-      <div class="receipt-footer">
-        *** Fin del Registro ***
+    <div class="log-container-dark">
+      <div *ngFor="let item of historial; let i = index" class="data-row">
+        <div class="log-entry">
+          <span class="log-text">{{ item }}</span>
+        </div>
       </div>
     </div>
   </div>
+  <button (click)="exportarJasper()">Exportar a pdf</button>
 </div>

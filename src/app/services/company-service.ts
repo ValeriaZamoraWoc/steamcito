@@ -3,7 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../core/api.config';
 
-//tipos
+export interface JuegoEmpresa {
+  idJuego: number;
+  nombre: string;
+  fechaLanzamiento: string;
+  precio: number;
+}
+
 export interface EmpresaPerfil {
   idEmpresa: number;
   nombreEmpresa: string;
@@ -28,13 +34,19 @@ export interface PerfilEmpresaResponse {
   totalJuegos?: number;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class VerPerfilEmpresaService {
+export class CompanyService {
 
   constructor(private http: HttpClient) {}
+
+  obtenerCatalogo(idEmpresa: number): Observable<JuegoEmpresa[]> {
+    return this.http.get<JuegoEmpresa[]>(
+      `${API_BASE_URL}/obtenerCatalogoEmpresa`,
+      { params: { idEmpresa } }
+    );
+  }
 
   obtenerPerfilEmpresa(idEmpresa: number): Observable<PerfilEmpresaResponse | EmpresaPerfil> {
     return this.http.get<PerfilEmpresaResponse | EmpresaPerfil>(

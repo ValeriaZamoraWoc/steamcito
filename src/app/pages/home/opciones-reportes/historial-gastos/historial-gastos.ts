@@ -1,7 +1,8 @@
 import { Component, OnInit,ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
 import { HistorialGastosService } from '../../../../services/historial-gastos-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 @Component({
   selector: 'app-historial-gastos',
@@ -18,7 +19,8 @@ export class HistorialGastosComponent implements OnInit {
 
   constructor(
     private historialService: HistorialGastosService,
-    private loginService: LoginService,
+    private jasper: JasperReportsService,
+    private loginService: UserService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -45,4 +47,26 @@ export class HistorialGastosComponent implements OnInit {
       }
     });
   }
-}
+
+  exportarJasper(): void {
+    const usuario = this.loginService.user();
+
+    if (!usuario?.mail) {
+      this.error = 'Usuario no autenticado';
+      return;
+    }
+
+    this.jasper.historialDeGastos(usuario.mail).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'historial_de_gastos.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error = 'Error al exportar el historial de gastos';
+      }
+    });
+}}

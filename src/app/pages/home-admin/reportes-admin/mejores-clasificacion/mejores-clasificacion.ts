@@ -6,6 +6,7 @@ import {
   Clasificacion
 } from '../../../../services/categorias-clasificaciones-service';
 import { ReportesAdminService } from '../../../../services/reportes-admin-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface JuegoCalificado {
   nombre: string;
@@ -30,7 +31,8 @@ export class MejoresClasificacionComponent implements OnInit {
   constructor(
     private clasifService: CategoriasClasificacionesService,
     private reportesService: ReportesAdminService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+        private jasper : JasperReportsService
   ) {}
 
   ngOnInit(): void {
@@ -67,5 +69,22 @@ export class MejoresClasificacionComponent implements OnInit {
       }
     });
   }
-
+  exportarJasper(): void {
+    const clasificacion = this.clasificacionSeleccionada?.trim();
+    if (!clasificacion) return; 
+    this.jasper.mejorCalificadosClasificacionAdmin(clasificacion).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'mejores_calificados_clasificacion.pdf';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        console.error('Error al exportar el reporte:', error);
+      }
+    });
+  }
 }

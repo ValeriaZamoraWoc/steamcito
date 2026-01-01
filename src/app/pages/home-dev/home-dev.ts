@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../services/login-service';
-import { CatalogoEmpresaService, JuegoEmpresa } from '../../services/obtener-catalogo-empresa-service';
+import { UserService } from '../../services/user-service';
+import { CompanyService, JuegoEmpresa } from '../../services/company-service';
 import { RouterOutlet } from "@angular/router";
 
 @Component({

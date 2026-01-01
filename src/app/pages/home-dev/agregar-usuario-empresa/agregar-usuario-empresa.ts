@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../../services/login-service';
-import { RegistroUsuariosService } from '../../../services/registrar-usuario-service';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-agregar-usuario-empresa',
@@ -22,8 +21,8 @@ export class AgregarUsuarioEmpresaComponent {
   error = '';
 
   constructor(
-    private loginService: LoginService,
-    private registroUsuariosService: RegistroUsuariosService
+    private loginService: UserService,
+    private registroUsuariosService: UserService
   ) {}
 
   registrar() {

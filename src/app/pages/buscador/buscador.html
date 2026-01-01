@@ -1,135 +1,84 @@
-<div class="buscador-container">
-  <header class="section-header">
-    <h2><span class="icon-pulse">🔍</span> Buscador de la Comunidad</h2>
-    <p>Encuentra juegos, empresas, amigos o clanes familiares en Steamcito</p>
+<div class="search-container">
+  <header class="header-simple">
+    <h1>Buscador</h1>
+    <p>Consulta juegos, empresas, usuarios o grupos familiares.</p>
   </header>
 
   <form (ngSubmit)="buscar()" class="search-form">
-    <div class="search-bar-wrapper">
+    <div class="input-group">
       <input
         type="text"
         [(ngModel)]="query"
         name="query"
-        placeholder="¿Qué estás buscando hoy?"
+        placeholder="Escribe tu búsqueda..."
         required
-        class="main-search-input"
+        class="input-main"
       />
-      <button type="submit" class="btn-search-icon">Buscar</button>
+      <button type="submit" class="btn-primary">Buscar</button>
     </div>
 
-    <div class="filter-chips">
-      <label class="chip" [class.active]="tipo === 'juego'">
+    <div class="filter-tabs">
+      <label class="tab" [class.active]="tipo === 'juego'">
         <input type="radio" name="tipo" value="juego" [(ngModel)]="tipo">
-        <span>🎮 Juego</span>
+        <span>Juegos</span>
       </label>
 
-      <label class="chip" [class.active]="tipo === 'categoria'">
+      <label class="tab" [class.active]="tipo === 'categoria'">
         <input type="radio" name="tipo" value="categoria" [(ngModel)]="tipo">
-        <span>🏷️ Categoría</span>
+        <span>Categorías</span>
       </label>
 
-      <label class="chip" [class.active]="tipo === 'clasificacion'">
+      <label class="tab" [class.active]="tipo === 'clasificacion'">
         <input type="radio" name="tipo" value="clasificacion" [(ngModel)]="tipo">
-        <span>🔞 Clasificación</span>
+        <span>Clasificación</span>
       </label>
 
-      <label
-  class="chip"
-  *ngIf="puedeBuscarEmpresa"
-  [class.active]="tipo === 'empresa'"
->
-  <input type="radio" name="tipo" value="empresa" [(ngModel)]="tipo">
-  <span>🏢 Empresa</span>
-</label>
+      <label class="tab" *ngIf="puedeBuscarEmpresa" [class.active]="tipo === 'empresa'">
+        <input type="radio" name="tipo" value="empresa" [(ngModel)]="tipo">
+        <span>Empresas</span>
+      </label>
 
+      <label class="tab" *ngIf="puedeBuscarSocial" [class.active]="tipo === 'usuariomail'">
+        <input type="radio" name="tipo" value="usuariomail" [(ngModel)]="tipo">
+        <span>Email</span>
+      </label>
 
-      <label
-  class="chip"
-  *ngIf="puedeBuscarSocial"
-  [class.active]="tipo === 'usuariomail'"
->
-  <input type="radio" name="tipo" value="usuariomail" [(ngModel)]="tipo">
-  <span>📧 Email</span>
-</label>
+      <label class="tab" *ngIf="puedeBuscarSocial" [class.active]="tipo === 'usuarionick'">
+        <input type="radio" name="tipo" value="usuarionick" [(ngModel)]="tipo">
+        <span>Nickname</span>
+      </label>
 
-
-      <label
-  class="chip"
-  *ngIf="puedeBuscarSocial"
-  [class.active]="tipo === 'usuarionick'"
->
-  <input type="radio" name="tipo" value="usuarionick" [(ngModel)]="tipo">
-  <span>👤 Nickname</span>
-</label>
-
-
-      <label
-  class="chip social"
-  *ngIf="puedeBuscarSocial"
-  [class.active]="tipo === 'grupofamiliar'"
->
-  <input type="radio" name="tipo" value="grupofamiliar" [(ngModel)]="tipo">
-  <span>👨‍👩‍👧‍👦 Grupo Familiar</span>
-</label>
-
+      <label class="tab" *ngIf="puedeBuscarSocial" [class.active]="tipo === 'grupofamiliar'">
+        <input type="radio" name="tipo" value="grupofamiliar" [(ngModel)]="tipo">
+        <span>Grupos</span>
+      </label>
     </div>
   </form>
 
-  <div class="results-wrapper" *ngIf="resultados && resultados.length">
-    <h3 class="results-title">Resultados encontrados ({{ resultados.length }})</h3>
+  <div class="results-container" *ngIf="resultados?.length">
+    <div class="results-header">
+      {{ resultados.length }} coincidencias encontradas
+    </div>
 
-    <div class="results-grid">
-      <ng-container *ngIf="['juego', 'categoria', 'clasificacion'].includes(tipo)">
-        <div *ngFor="let juego of resultados" class="steam-card">
-          <div class="card-info">
-            <h4>{{ juego.nombreJuego }}</h4>
-            <p>{{ juego.descripcion }}</p>
-          </div>
-          <div class="card-actions">
-            <a *ngIf="loginService.isComun()" [routerLink]="['/app/juego', juego.id]" class="btn-action">Ver detalles</a>
-            <a *ngIf="loginService.isDesarrollador()" [routerLink]="['/app/home-dev/juego', juego.id]" class="btn-action dev">Panel Dev</a>
-          </div>
+    <div class="results-list">
+      <div *ngFor="let item of resultados" class="result-item">
+        <div class="item-info">
+          <h4>{{ item.nombreJuego || item.nombre || item.nickname || item.nombreGrupo }}</h4>
+          <p>{{ item.descripcion || item.mail || 'ID: #' + item.idGrupoFamiliar }}</p>
         </div>
-      </ng-container>
-
-      <ng-container *ngIf="tipo === 'empresa'">
-        <div *ngFor="let emp of resultados" class="steam-card company">
-          <div class="card-info">
-            <h4>{{ emp.nombre }}</h4>
-            <span class="badge">Socio Steamcito</span>
-          </div>
-          <a [routerLink]="['/app/home-dev/ver-perfil-empresa', emp.idEmpresa]" class="btn-action">Ver Perfil</a>
+        
+        <div class="item-actions">
+          <a *ngIf="['juego', 'categoria', 'clasificacion'].includes(tipo)" 
+             [routerLink]="loginService.isDesarrollador() ? ['/app/home-dev/juego', item.id] : ['/app/juego', item.id]" 
+             class="btn-outline">
+             Detalles
+          </a>
+          
+          <a *ngIf="tipo === 'empresa'" [routerLink]="['/app/home-dev/ver-perfil-empresa', item.idEmpresa]" class="btn-outline">Perfil</a>
+          <a *ngIf="tipo === 'usuariomail' || tipo === 'usuarionick'" [routerLink]="['/app/perfil-usuario', item.mail]" class="btn-outline">Perfil</a>
+          <a *ngIf="tipo === 'grupofamiliar'" [routerLink]="['/app/perfil-grupo', item.idGrupoFamiliar]" class="btn-outline">Ver Grupo</a>
         </div>
-      </ng-container>
-
-      <ng-container *ngIf="tipo === 'usuariomail' || tipo === 'usuarionick'">
-        <div *ngFor="let u of resultados" class="steam-card user">
-          <div class="user-avatar-placeholder">{{ u.nickname.charAt(0) }}</div>
-          <div class="card-info">
-            <h4>{{ u.nickname }}</h4>
-            <p>{{ u.mail }}</p>
-          </div>
-          <a [routerLink]="['/app/perfil-usuario', u.mail]" class="btn-action">Ver Perfil</a>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="tipo === 'grupofamiliar'">
-        <div *ngFor="let grupo of resultados" class="steam-card group-social">
-          <div class="group-icon-wrapper">
-            <span class="icon">🏘️</span>
-          </div>
-          <div class="card-info">
-            <h4>{{ grupo.nombreGrupo }}</h4>
-            <div class="group-meta">
-              <span class="member-count">ID: #{{ grupo.idGrupoFamiliar }}</span>
-            </div>
-          </div>
-          <div class="card-actions">
-            <a [routerLink]="['/app/perfil-grupo', grupo.idGrupoFamiliar]" class="btn-action social">Explorar Grupo</a>
-          </div>
-        </div>
-      </ng-container>
-
+      </div>
     </div>
   </div>
 </div>

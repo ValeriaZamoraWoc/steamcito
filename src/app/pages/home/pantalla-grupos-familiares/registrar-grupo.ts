@@ -1,8 +1,8 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GruposFamiliaresService } from '../../../services/obtener-gruposFamiliares-service';
-import { LoginService } from '../../../services/login-service';
+import { GrupoFamiliarService } from '../../../services/grupo-familiar-service';
+import { UserService } from '../../../services/user-service';
 
 @Component({
   selector: 'app-registrar-grupo',
@@ -20,11 +20,11 @@ export class RegistrarGrupoComponent {
   usuarioMail: string | null = null;
 
   constructor(
-    private gruposService: GruposFamiliaresService,
-    private loginService: LoginService,
+    private gruposService: GrupoFamiliarService,
+    private userService: UserService,
     private cdr: ChangeDetectorRef
   ) {
-    const usuario = this.loginService.user();
+    const usuario = this.userService.user();
     this.usuarioMail = usuario?.mail ?? null;
   }
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, Router, RouterModule } from '@angular/router';
-import { LoginService } from '../services/login-service';
+import { UserService } from '../services/user-service';
 
 @Component({
   selector: 'app-private-layout',
@@ -13,7 +13,7 @@ import { LoginService } from '../services/login-service';
 export class ComponenteLayoutPrivado {
 
   constructor(
-    public loginService: LoginService,
+    public loginService: UserService,
     private router: Router
   ) {}
 

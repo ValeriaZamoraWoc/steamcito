@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
 import { ReportesEmpresaService } from '../../../../services/reportes-empresa-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface ComentarioReporte {
   id: number;
@@ -24,7 +25,8 @@ export class ReporteComentariosDevComponent implements OnInit {
   error = '';
 
   constructor(
-    private loginService: LoginService,
+    private loginService: UserService,
+    private jasper : JasperReportsService,
     private reportesService: ReportesEmpresaService
   ) {}
 
@@ -51,5 +53,27 @@ export class ReporteComentariosDevComponent implements OnInit {
           this.error = 'Error al cargar comentarios';
         }
       });
+  }
+
+  exportarJasper() {
+    const idEmpresa = this.loginService.getIdEmpresa();
+
+    if (!idEmpresa) {
+      this.error = 'No se pudo obtener la empresa';
+      return;
+    }
+    this.jasper.comentariosMejorCalificadosEmpresa(idEmpresa).subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'comentarios_mejor_calificados.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => {
+        this.error = 'Error al exportar el reporte';
+      }
+    });
   }
 }

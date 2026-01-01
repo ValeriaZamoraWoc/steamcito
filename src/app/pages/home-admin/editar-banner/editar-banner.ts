@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { obtenerTodosLosJuegosService, Juego } from '../../../services/obtener-todos-los-juegos';
+import { GameService, Juego } from '../../../services/game-service';
 import { BannerService } from '../../../services/banner-service';
 
 @Component({
@@ -20,7 +20,7 @@ export class EditarBannerComponent implements OnInit {
   error = '';
 
   constructor(
-    private juegosService: obtenerTodosLosJuegosService,
+    private juegosService: GameService,
     private bannerService: BannerService
   ) {}
 

@@ -1,57 +1,39 @@
 <div class="admin-table-container">
-  <header class="section-header">
+  <header class="header-minimal">
     <h2>Peticiones de Comisión</h2>
-    <p>Revisa y gestiona las solicitudes de porcentaje de comisión de las empresas desarrolladoras.</p>
+    <p>Revisión de porcentajes de desarrolladoras.</p>
   </header>
 
-  <div *ngIf="cargando" class="loading-state">
-    <div class="steam-spinner"></div>
-    <p>Cargando solicitudes...</p>
-  </div>
+  <div *ngIf="cargando" class="msg-flat">Cargando...</div>
+  <div *ngIf="error" class="error-flat">Error de sistema: {{ error }}</div>
 
-  <div *ngIf="error" class="error-banner">
-    <span class="icon">⚠</span> {{ error }}
-  </div>
-
-  <div class="table-wrapper" *ngIf="!cargando && peticiones.length > 0">
-    <table class="steam-table">
+  <div class="table-simple-wrapper" *ngIf="!cargando && peticiones.length > 0">
+    <table class="table-minimal">
       <thead>
         <tr>
           <th>Empresa</th>
-          <th>Porcentaje solicitado</th>
+          <th>Porcentaje</th>
           <th>Estado</th>
-          <th class="text-center">Acciones</th>
+          <th class="text-right">Acciones</th>
         </tr>
       </thead>
-
       <tbody>
-        <tr *ngFor="let p of peticiones" class="table-row">
-          <td class="empresa-cell">
-            <div class="company-icon"></div>
-            {{ p.empresa }}
-          </td>
-          <td class="percentage-cell">{{ p.porcentaje }}%</td>
-          <td>
-            <span class="status-badge" [class.pending]="p.estado === 'PENDIENTE'">
-              {{ p.estado }}
-            </span>
-          </td>
-          <td class="actions-cell">
-            <button (click)="aceptar(p.idEmpresa)" class="btn-approve">
-              Aceptar
-            </button>
-            <button (click)="rechazar(p.idEmpresa)" class="btn-reject">
-              Rechazar
-            </button>
+        <tr *ngFor="let p of peticiones">
+          <td>{{ p.empresa }}</td>
+          <td>{{ p.porcentaje }}%</td>
+          <td class="status-text">{{ p.estado }}</td>
+          <td class="text-right">
+            <div class="btn-group-minimal">
+              <button (click)="aceptar(p.idEmpresa)">Aceptar</button>
+              <button (click)="rechazar(p.idEmpresa)">Rechazar</button>
+            </div>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div class="empty-state" *ngIf="!cargando && peticiones.length === 0">
-    <div class="empty-icon">✓</div>
-    <h3>Todo al día</h3>
-    <p>No hay peticiones de comisión pendientes de revisión.</p>
+  <div class="empty-minimal" *ngIf="!cargando && peticiones.length === 0">
+    Sin peticiones pendientes.
   </div>
 </div>

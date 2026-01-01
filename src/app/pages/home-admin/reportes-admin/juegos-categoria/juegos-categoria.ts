@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {CategoriasClasificacionesService,Categoria} from '../../../../services/categorias-clasificaciones-service';
 import { ReportesAdminService } from '../../../../services/reportes-admin-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface JuegoVenta {
   nombre: string;
@@ -27,7 +28,8 @@ export class JuegosCategoriaComponent implements OnInit {
   constructor(
     private catService: CategoriasClasificacionesService,
     private reportesService: ReportesAdminService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+        private jasper : JasperReportsService
   ) {}
 
   ngOnInit(): void {
@@ -64,5 +66,25 @@ export class JuegosCategoriaComponent implements OnInit {
         }
       });
   }
+
+  exportarJasper(): void {
+    if (!this.categoriaSeleccionada) return;
+
+    this.jasper.masVendidosCategoriaAdmin(this.categoriaSeleccionada)
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `juegos_mas_vendidos_categoria_${this.categoriaSeleccionada}.pdf`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          this.error = 'Error al exportar reporte';
+          this.cdr.detectChanges();
+        }
+      });
+  }   
 }
 

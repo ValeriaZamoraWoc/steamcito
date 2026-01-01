@@ -4,119 +4,98 @@
 }
 
 .section-header {
-  border-bottom: 1px solid #3d4450;
-  padding-bottom: 15px;
-  margin-bottom: 25px;
-}
-
-.section-header h2 {
-  color: #fff;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.section-header p {
-  color: #66c0f4;
-  font-size: 14px;
-}
-
-/* Tarjeta de Miembro */
-.members-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.member-card {
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 4px;
-  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid transparent;
-  transition: all 0.2s;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.member-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: #3d4450;
+.section-header h2 {
+  font-size: 1.4rem;
+  color: var(--white);
+  margin: 0;
 }
 
-.member-info {
+.section-header p {
+  color: var(--accent); 
+  font-size: 0.9rem;
+  margin: 4px 0 0 0;
+}
+.members-list-flat {
+  display: flex;
+  flex-direction: column;
+}
+
+.member-row-clean {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-row-clean:last-child {
+  border-bottom: none;
+}
+.member-identity {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 1.2rem;
 }
 
-/* Avatar estilo Steam */
-.member-avatar {
-  width: 48px;
-  height: 48px;
-  background: #2a475e;
+.member-mini-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 4px;
   position: relative;
-  background-image: linear-gradient(135deg, #3d4450 0%, #1b2838 100%);
 }
 
-.online-indicator {
+.status-dot {
   position: absolute;
   bottom: -2px;
   right: -2px;
-  width: 10px;
-  height: 10px;
-  background: #a3cf06; /* Verde "online" */
-  border: 2px solid #1b2838;
+  width: 8px;
+  height: 8px;
+  background: var(--success);
+  border: 2px solid #000; 
   border-radius: 50%;
 }
 
-.nickname {
-  color: #fff;
-  margin: 0 0 5px 0;
-  font-size: 1.1rem;
+.member-data-block .nickname {
+  color: var(--white);
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
-.contact-info {
+.contact-meta {
   display: flex;
-  gap: 20px;
-  font-size: 13px;
-  color: #8f98a0;
+  gap: 15px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  margin-top: 2px;
 }
 
-.contact-info strong {
-  color: #56687a;
+.contact-meta strong {
+  color: var(--text-main);
+  font-weight: 600;
 }
 
-/* Botón de acción */
-.btn-profile {
-  background: #3d4450;
-  color: #67c1f5;
-  border: none;
+.btn-system-alt {
   padding: 8px 16px;
-  border-radius: 2px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-profile:hover {
-  background: #67c1f5;
-  color: #fff;
-}
-
-/* Estados */
-.loading-state, .empty-state {
-  text-align: center;
-  padding: 50px;
-  color: #8f98a0;
-}
-
-.error-banner {
-  background: rgba(194, 45, 45, 0.2);
-  color: #ff4d4d;
-  padding: 10px;
   border-radius: 4px;
-  border-left: 4px solid #c22d2d;
-  margin-bottom: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-main);
+}
+.btn-system:hover, .btn-system-alt:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-dim);
 }

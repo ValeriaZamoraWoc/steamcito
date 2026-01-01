@@ -1,7 +1,7 @@
 import { Component,ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RegistroService } from '../../services/registro-service';
+import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';;
 
 @Component({
@@ -31,7 +31,7 @@ export class RegistrarUsuarioComponent {
   mensaje = '';
   error = '';
 
-  constructor(private registroService: RegistroService,
+  constructor(private registroService: UserService,
         private cdr: ChangeDetectorRef,
         private router: Router
   ) {}

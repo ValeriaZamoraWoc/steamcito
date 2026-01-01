@@ -1,144 +1,115 @@
-/* You can add global styles to this file, and also import other style files */
 :root {
-  --bg-dark: #1b2838;       /* Fondo principal Steam */
-  --bg-card: #2a475e;       /* Fondo de tarjetas/contenedores */
-  --accent-blue: #66c0f4;   /* Azul brillante para links/botones */
-  --text-main: #c7d5e0;     /* Gris claro para lectura */
-  --text-bright: #ffffff;   /* Blanco para títulos */
-  --success: #a3cf06;       /* Verde "comprar" o "activo" */
+  --bg-dark: #12181f;       /* Fondo profundo */
+  --bg-card: #1c2630;       /* Superficies */
+  --accent: #3d9be9;        /* Azul profesional */
+  --text-dim: #94a3b8;      /* Gris para texto secundario */
+  --text-main: #e2e8f0;     /* Blanco suave para lectura */
+  --success: #22c55e;       /* Verde funcional */
+  --border: #2d3748;        /* Bordes sutiles */
 }
-.sim-container {
-  background-color: var(--bg-dark);
-  color: var(--text-main);
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  min-height: 100vh;
-  padding: 2rem;
-}
+
 body {
   margin: 0;
   background-color: var(--bg-dark);
-  font-family: 'Segoe UI', sans-serif;
   color: var(--text-main);
+  font-family: 'Inter', 'Segoe UI', sans-serif; /* Fuente más moderna */
+  line-height: 1.5;
 }
+
+.page-layout {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .card {
-  background: linear-gradient(135deg, var(--bg-card) 0%, #16202d 100%);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    border-color: var(--accent-blue);
-  }
+.card:hover {
+  border-color: var(--accent); 
+}
 
-  .card-content {
-    padding: 15px;
-    h3 { color: var(--text-bright); margin: 0; }
-  }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
 }
 
 .btn-primary {
-  background-color: var(--success);
-  color: black;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 4px;
-  font-weight: bold;
-  cursor: pointer;
-  &:hover { filter: brightness(1.1); }
-}
-.auth-page, .login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 20px;
-}
-
-.registro-card, .login-card {
-  background: #1b2838;
-  border-radius: 4px;
-  width: 100%;
-  max-width: 500px;
-  padding: 30px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  border: 1px solid #2a475e;
-}
-
-.steam-input {
-  width: 100%;
-  background: #23262e;
-  border: 1px solid #000;
-  border-radius: 3px;
-  color: #fff;
-  padding: 10px;
-  margin-top: 5px;
-  transition: border 0.3s;
-}
-
-.steam-input:focus {
-  border-color: #66c0f4;
-  outline: none;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
-.btn-steam-blue, .btn-login {
-  width: 100%;
-  background: linear-gradient(to right, #47bfff 0%, #1a44c2 100%);
+  background-color: var(--accent);
   color: white;
-  border: none;
-  padding: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 2px;
-  margin-top: 15px;
 }
 
-/* Botón de Registro Especial */
-.btn-register-link {
-  background: transparent;
-  color: #fff;
-  border: 1px solid #67707b;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 2px;
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.input-control {
   width: 100%;
-  transition: all 0.3s;
-}
-
-.btn-register-link:hover {
-  border-color: #fff;
-}
-
-.login-divider {
-  position: relative;
-  text-align: center;
-  margin: 25px 0;
-}
-
-.login-divider span {
-  background: #1b2838;
-  padding: 0 10px;
-  color: #67707b;
-  position: relative;
-  top: -12px;
-}
-
-.dynamic-section {
-  background: rgba(0,0,0,0.2);
-  padding: 15px;
+  background: #0f172a;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  margin-top: 15px;
-  border: 1px solid #2a475e;
+  padding: 0.75rem;
+  color: white;
+  box-sizing: border-box;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease;
+.input-control:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.report-table th {
+  text-align: left;
+  background: rgba(0,0,0,0.2);
+  padding: 1rem;
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.report-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

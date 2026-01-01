@@ -1,22 +1,16 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Juego } from '../../../services/obtener-todos-los-juegos';
-import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
+import { Juego, GameService } from '../../../services/game-service';
 import { Comentario, ObtenerComentariosPorJuegoService } from '../../../services/obtener-comentarios-por-juego-service';
 import { ComentarioComponent } from './comentario.component';
 import { BibliotecaUsuarioService } from '../../../services/biblioteca-usuario-service';
-import { LoginService } from '../../../services/login-service';
+import { UserService } from '../../../services/user-service';
 import { FormsModule } from '@angular/forms';
 import { ComentariosJuegoService } from '../../../services/comentar-juego-service';
-import { JuegoAccionesService } from '../../../services/juego-acciones-service';
 import { PrestamosService, Prestamo } from '../../../services/prestamos-service';
-import { JuegoBiblioteca } from '../../../services/ver-perfil-usuario-service';
-import {
-  CategoriasClasificacionesService,
-  Clasificacion,
-  Categoria
-} from '../../../services/categorias-clasificaciones-service';
+import { JuegoBiblioteca } from '../../../services/user-service';
+import {CategoriasClasificacionesService,Clasificacion,Categoria} from '../../../services/categorias-clasificaciones-service';
 
 @Component({
   selector: 'app-juego-detalle',
@@ -45,18 +39,18 @@ export class JuegoDetalleComponent implements OnInit {
 
 constructor(
   private route: ActivatedRoute,
-  private juegoService: ObtenerJuegoPorIdService,
+  private juegoService: GameService,
   private comentariosService: ObtenerComentariosPorJuegoService,
   private comentariosJuegosService: ComentariosJuegoService,
   private bibliotecaService: BibliotecaUsuarioService,
-  private loginService: LoginService,
+  private loginService: UserService,
   private cdr: ChangeDetectorRef,
   private prestamosService: PrestamosService,
-  private juegoAccionesService: JuegoAccionesService,
+  private juegoAccionesService: GameService,
   private clasificacionesService: CategoriasClasificacionesService
 ) {}
 
-verificarPrestamos() {
+  verificarPrestamos() {
     const usuario = this.loginService.user();
     if (!usuario?.mail) return;
 
@@ -82,14 +76,14 @@ verificarPrestamos() {
     });
   }
   devolverJuego() {
-  const usuario = this.loginService.user();
-  if (!usuario?.mail) return;
+    const usuario = this.loginService.user();
+    if (!usuario?.mail) return;
 
-  this.prestamosService.devolverPrestamo(usuario.mail)
-    .subscribe(() => {
-      this.verificarPrestamos();
-    });
-}
+    this.prestamosService.devolverPrestamo(usuario.mail)
+      .subscribe(() => {
+        this.verificarPrestamos();
+      });
+  }
   comprarJuego(): void {
     const usuario = this.loginService.user();
     if (!usuario?.mail || !this.juego) return;
@@ -185,43 +179,42 @@ prestarJuego(): void {
 }
 
   ngOnInit(): void {
-    this.verificarPrestamos();
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+      this.verificarPrestamos();
+      const id = Number(this.route.snapshot.paramMap.get('id'));
 
-    if (!id) {
-      this.error = 'ID inválido';
-      this.cargando = false;
+      if (!id) {
+        this.error = 'ID inválido';
+        this.cargando = false;
+        return;
+      }
+      if (this.loginService.isAdmin()) {
+      window.location.href = `/app/admin/juego/${id}`;
       return;
     }
-     if (this.loginService.isAdmin()) {
-    window.location.href = `/app/admin/juego/${id}`;
-    return;
-  }
 
-  if (this.loginService.isDesarrollador()) {
-    window.location.href = `/app/home-dev/juego/${id}`;
-    return;
-  }
+    if (this.loginService.isDesarrollador()) {
+      window.location.href = `/app/home-dev/juego/${id}`;
+      return;
+    }
 
-    this.juegoService.obtenerJuego(id).subscribe({
-  next: juego => {
-    this.juego = juego;
-    this.cargando = false;
+      this.juegoService.obtenerJuego(id).subscribe({
+    next: juego => {
+      this.juego = juego;
+      this.cargando = false;
 
-    this.cargarClasificaciones();
-    this.cargarCategorias();
+      this.cargarClasificaciones();
+      this.cargarCategorias();
 
-    this.cargarComentarios(id);
-    this.verificarCompra(id);
+      this.cargarComentarios(id);
+      this.verificarCompra(id);
 
-    this.cdr.detectChanges();
-  },
-  error: () => {
-    this.error = 'No se pudo cargar el juego';
-    this.cargando = false;
-  }
-});
-
+      this.cdr.detectChanges();
+    },
+    error: () => {
+      this.error = 'No se pudo cargar el juego';
+      this.cargando = false;
+    }
+  });
   }
   cargarComentarios(idJuego: number): void {
   this.comentariosService.obtenerComentarios(idJuego).subscribe({
@@ -241,11 +234,11 @@ cargarClasificaciones(): void {
       this.clasificaciones = lista;
 
       const c = lista.find(
-  x => x.idClasificacion === this.juego?.clasificacion
-);
+      x => x.idClasificacion === this.juego?.clasificacion
+    );
 
-this.nombreClasificacion =
-  c?.nombreCalsificacion ?? 'Sin clasificación';
+    this.nombreClasificacion =
+    c?.nombreCalsificacion ?? 'Sin clasificación';
 
       this.cdr.detectChanges();
     });

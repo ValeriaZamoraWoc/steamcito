@@ -1,12 +1,12 @@
 import { inject } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
-import { LoginService } from './login-service';
+import { UserService } from './user-service';
 
 export const authGuard = (): boolean | UrlTree => {
-  const login = inject(LoginService);
+  const userService = inject(UserService);
   const router = inject(Router);
 
-  if (!login.isLogged()) {
+  if (!userService.isLogged()) {
     return router.createUrlTree(['/login']);
   }
 

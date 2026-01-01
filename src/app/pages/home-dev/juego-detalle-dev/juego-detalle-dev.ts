@@ -1,8 +1,8 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '../../../services/login-service';
-import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
-import { JuegoEmpresaPerfil } from '../../../services/ver-perfil-empresa-service';
+import { UserService } from '../../../services/user-service';
+import { GameService } from '../../../services/game-service';
+import { JuegoEmpresaPerfil, CompanyService } from '../../../services/company-service';
 import { CommonModule } from '@angular/common';
 import { Comentario } from '../../../services/obtener-comentarios-por-juego-service';
 import { ObtenerComentariosPorJuegoService } from '../../../services/obtener-comentarios-por-juego-service';
@@ -23,8 +23,8 @@ export class JuegoDetalleDevComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private cargaComentariosService: ObtenerComentariosPorJuegoService,
-    private juegosService: ObtenerJuegoPorIdService,
-    private loginService: LoginService,
+    private juegosService: GameService,
+    private loginService: UserService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
@@ -33,8 +33,8 @@ export class JuegoDetalleDevComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id') || '0');
     this.idEmpresa = this.loginService.getIdEmpresa() ?? 0;
 
-    this.juegosService.obtenerJuegoPorId(id).subscribe(j => {
-      this.juego = j;
+    this.juegosService.obtenerJuego(id).subscribe((juego: any) => {
+      this.juego = juego;
       this.cargarComentarios(id); 
       this.cdr.detectChanges();
     });

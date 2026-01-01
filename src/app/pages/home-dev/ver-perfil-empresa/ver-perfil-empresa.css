@@ -1,220 +1,152 @@
 .company-profile-page {
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* Banner de Empresa */
-/* Banner de Empresa Mejorado */
-.company-banner {
-  background: #1b2838;
-  background-image: linear-gradient(135deg, #2a475e 0%, #171a21 100%);
-  min-height: 220px; /* Cambiado a min-height para evitar cortes */
-  border-radius: 4px;
-  margin-bottom: 40px;
-  position: relative;
-  overflow: hidden;
-  border-bottom: 3px solid #66c0f4;
-  display: flex; /* Usamos flex directo aquí también */
+.profile-header-flat-simple {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
 }
 
-.banner-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-  width: 100%;
-  padding: 40px;
-  display: flex;
-  align-items: center; /* Centrado vertical para que no se pegue abajo */
-  justify-content: flex-start;
-}
-
-.company-info {
+.header-identity {
   display: flex;
   align-items: center;
-  gap: 30px;
-  width: 100%;
+  gap: 1.5rem;
 }
 
-.company-text {
-  flex: 1; /* Permite que el texto ocupe el espacio necesario */
+.avatar-static-small {
+  width: 80px;
+  height: 80px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 4px;
 }
 
-.company-text h2 {
-  color: #fff;
-  font-size: 38px; /* Un poco más grande y claro */
-  margin: 5px 0 0 0;
+.nickname-title {
+  color: var(--white);
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+.group-label {
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  line-height: 1.2; /* Asegura que las letras no se corten entre líneas */
-  text-shadow: 2px 2px 10px rgba(0,0,0,0.5); /* Sombra para legibilidad */
 }
 
-/* Ajuste para el logo para que no se vea apretado */
-.company-logo-placeholder {
-  min-width: 120px;
-  height: 120px;
-  background: #171a21;
-  border: 3px solid #66c0f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 56px;
-  font-weight: bold;
-  color: #66c0f4;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  flex-shrink: 0; /* Evita que el logo se aplaste */
-}
-
-.company-info {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.company-logo-placeholder {
-  width: 100px;
-  height: 100px;
-  background: #171a21;
-  border: 2px solid #66c0f4;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 48px;
-  font-weight: bold;
-  color: #66c0f4;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.company-text h2 {
-  color: #fff;
-  font-size: 32px;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.company-text .label {
-  color: #66c0f4;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-/* Catálogo */
-.section-header {
+.display-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #3d4450;
-  padding-bottom: 15px;
-  margin-bottom: 25px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.section-header h3 {
-  color: #fff;
-  margin: 0;
+.display-header h3 {
+  color: var(--white);
+  font-size: 0.9rem;
   text-transform: uppercase;
-  font-size: 16px;
+  letter-spacing: 1px;
+  margin: 0;
 }
 
-.game-count {
-  color: #8f98a0;
-  font-size: 14px;
+.data-count {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.catalog-grid {
+.grid-mini-static {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
 }
 
-.game-card-corporate {
-  background: #171a21;
-  border-radius: 4px;
+.game-item-flat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
   overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.game-card-corporate:hover {
-  transform: translateY(-8px);
-  border-color: #66c0f4;
-}
-
-.poster-box {
-  position: relative;
+.image-wrapper-static {
   aspect-ratio: 16/9;
+  background: #000;
+  border-bottom: 1px solid var(--border);
 }
 
-.game-img {
+.img-flat {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* Badges */
-.status-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: #a3cf06;
-  color: #000;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 2px;
+.item-details-flat {
+  padding: 12px;
 }
 
-.status-badge.not-for-sale {
-  background: #c22d2d;
-  color: #fff;
-}
-
-.game-details {
-  padding: 15px;
-}
-
-.game-details h4 {
-  color: #fff;
-  margin: 0 0 10px 0;
-  font-size: 14px;
+.game-name {
+  display: block;
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-bottom: 8px;
 }
 
-.price-row {
-  color: #a3cf06;
-  font-weight: bold;
-  font-size: 18px;
+.meta-status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.currency {
-  font-size: 14px;
-  margin-right: 2px;
+.game-price-tag {
+  color: var(--white);
+  font-size: 0.85rem;
+  font-weight: 700;
 }
 
-/* Utils */
-.loading-box, .empty-catalog {
-  text-align: center;
-  padding: 60px;
-  color: #8f98a0;
+.tech-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 2px;
 }
 
-.error-alert {
-  background: rgba(194, 45, 45, 0.1);
+.tech-badge.suspended {
+  border-color: #ff4d4d;
   color: #ff4d4d;
-  padding: 15px;
-  border-radius: 4px;
-  border: 1px solid #c22d2d;
 }
 
-.steam-spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(102, 192, 244, 0.1);
-  border-left-color: #66c0f4;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto 15px;
+.status-msg-flat {
+  color: var(--text-dim);
+  padding: 2rem;
+  text-align: center;
+  font-size: 0.85rem;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+.alert-flat-error {
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 1rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}

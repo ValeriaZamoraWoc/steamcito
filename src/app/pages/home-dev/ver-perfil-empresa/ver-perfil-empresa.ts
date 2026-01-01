@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {VerPerfilEmpresaService,EmpresaPerfil,JuegoEmpresaPerfil,PerfilEmpresaResponse} from '../../../services/ver-perfil-empresa-service';
+import {CompanyService,EmpresaPerfil,JuegoEmpresaPerfil,PerfilEmpresaResponse} from '../../../services/company-service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -21,7 +21,7 @@ export class VerPerfilEmpresaComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private perfilEmpresaService: VerPerfilEmpresaService,
+    private perfilEmpresaService: CompanyService,
     private cdr: ChangeDetectorRef
   ) {}
 

@@ -1,26 +1,20 @@
-<div *ngIf="banner" class="banner-wrapper" (click)="irAlJuego()">
-  <div class="banner-container">
-    
-    <img
-      [src]="banner.urlImagen"
-      alt="Banner"
-      class="banner-img"
-      (error)="$event.target.src='assets/no-image.png'"
-    >
+<div *ngIf="banner" class="hero-banner" (click)="irAlJuego()">
+  <img
+    [src]="banner.urlImagen"
+    alt="Banner"
+    class="hero-img"
+    (error)="$event.target.src='assets/no-image.png'"
+  >
 
-    <div class="banner-overlay">
-      <div class="banner-content">
-        <span class="badge-featured">RECOMENDADO</span>
-        <h2 class="game-title">{{ banner.nombreJuego }}</h2>
-        <p class="game-description">{{ banner.descripcion }}</p>
-        
-        <div class="banner-footer">
-          <button class="btn-view-game">
-            Ver juego
-          </button>
-        </div>
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <span class="hero-tag">Destacado</span>
+      <h2 class="hero-title">{{ banner.nombreJuego }}</h2>
+      <p class="hero-text">{{ banner.descripcion }}</p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary">Ver detalles</button>
       </div>
     </div>
-
   </div>
 </div>

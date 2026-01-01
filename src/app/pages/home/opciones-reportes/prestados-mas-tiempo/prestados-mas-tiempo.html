@@ -1,49 +1,33 @@
-<div class="report-container-user">
-  <div class="report-header-minimal">
-    <h3><span class="icon-social">⏳</span> Invasión Familiar</h3>
-    <p>Ranking de los títulos ajenos que más sesiones han ocupado en tu historial.</p>
+<div class="report-content">
+  <div class="report-view-header">
+    <h3>Uso de Préstamos</h3>
+    <p>Ranking de títulos de terceros con mayor actividad en tu historial.</p>
   </div>
 
-  <div *ngIf="cargando" class="user-loader">
-    <div class="spinner-steam purple"></div>
-    <p>Sincronizando registros de tiempo compartido...</p>
-  </div>
+  <div *ngIf="cargando" class="status-msg">Sincronizando registros de tiempo compartido...</div>
+  <div *ngIf="error" class="alert-simple error">{{ error }}</div>
 
-  <div *ngIf="error" class="user-alert error">
-    <span class="alert-icon">❌</span>
-    <p>{{ error }}</p>
-  </div>
-
-  <div class="borrowed-list" *ngIf="!cargando && juegos.length > 0">
-    <div class="borrowed-card" *ngFor="let juego of juegos; let i = index">
+  <div class="analysis-viewport" *ngIf="!cargando && juegos.length > 0">
+    <div class="metric-row" *ngFor="let juego of juegos; let i = index">
       
-      <div class="poster-box">
-        <img [src]="juego.portada" alt="{{ juego.nombre }}" class="game-img">
-        <div class="borrowed-tag">Prestado</div>
+      <div class="metric-info">
+        <div class="metric-label">
+          <span class="code-badge">Numero: {{ i + 1 }}</span><br>
+          <span class="class-title">{{ juego.nombre }}</span>
+        </div>
+        <span class="metric-count">{{ juego.cantidad }} sesiones</span><br><br>
       </div>
 
-      <div class="borrowed-content">
-        <div class="header-row">
-          <h3>{{ juego.nombre }}</h3>
-          <span class="rank-label">#{{ i + 1 }}</span>
-        </div>
-
-        <div class="activity-stats">
-          <div class="stat-item">
-            <span class="stat-value">{{ juego.cantidad }}</span>
-            <span class="stat-desc">Sesiones de juego</span>
-          </div>
-          
-          <div class="activity-bar">
-            <div class="activity-fill" [style.width.%]="(juego.cantidad / juegos[0].cantidad) * 100"></div>
-          </div>
+      <div class="progress-container">
+        <div class="progress-bar-flat" 
+             [style.width.%]="(juego.cantidad / juegos[0].cantidad) * 100">
         </div>
       </div>
     </div>
+        <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div *ngIf="!cargando && juegos.length === 0" class="user-empty-state">
-    <div class="empty-icon">🤝</div>
-    <p>Aún no has registrado actividad en juegos de tus grupos familiares.</p>
+  <div *ngIf="!cargando && juegos.length === 0" class="empty-notif">
+    No se ha detectado actividad en títulos prestados.
   </div>
 </div>

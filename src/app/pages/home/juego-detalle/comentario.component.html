@@ -1,55 +1,39 @@
-<div class="comment-card">
-  <div class="comment-header">
-    <div class="user-avatar-mini"></div>
-    <span class="user-name">{{ comentario.mail }}</span>
-  </div>
-  
-  <div class="comment-body">
-    <p>{{ comentario.contenido }}</p>
-  </div>
-
-  <div class="comment-footer">
-    <div *ngIf="puedeResponder" class="comment-actions">
-      <button (click)="mostrarRespuesta = !mostrarRespuesta" class="btn-link">
-        {{ mostrarRespuesta ? 'Cancelar' : 'Responder' }}
-      </button>
+<div class="comment-thread">
+  <div class="comment-card">
+    <header class="comment-meta">
+      <span class="user-id">{{ comentario.mail }}</span>
+    </header>
+    
+    <div class="comment-text">
+      <p>{{ comentario.contenido }}</p>
     </div>
 
-    <div *ngIf="mostrarRespuesta && puedeResponder" class="reply-input-box animate-fade-in">
-  <div class="reply-editor-mini">
-    <textarea 
-      [(ngModel)]="respuesta" 
-      class="steam-textarea-mini"
-      placeholder="Escribe una respuesta a este comentario..."
-      rows="3">
-    </textarea>
-
-    <div class="reply-footer-mini">
-      <div class="rating-selector-mini">
-        <label>Valorar:</label>
-        <select [(ngModel)]="calificacion" class="steam-select-mini">
-          <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{n}} ★</option>
-        </select>
-      </div>
-      
-      <div class="reply-actions-mini">
-        <button (click)="mostrarRespuesta = false" class="btn-cancel-mini">Cancelar</button>
-        <button 
-          (click)="responder()" 
-          class="btn-post-mini" 
-          [disabled]="!respuesta.trim()">
-          Responder
+    <footer class="comment-actions-bar">
+      <div *ngIf="puedeResponder" class="action-links">
+        <button (click)="mostrarRespuesta = !mostrarRespuesta" class="btn-quiet">
+          {{ mostrarRespuesta ? 'Cancelar' : 'Responder' }}
         </button>
       </div>
-    </div>
-  </div>
-</div>
-    <div *ngIf="puedeOcultar" class="mod-actions">
-      <button class="btn-danger-link" (click)="ocultarComentario()">Ocultar Comentario</button>
-    </div>
+
+      <div *ngIf="mostrarRespuesta && puedeResponder" class="inline-reply-editor">
+        <textarea [(ngModel)]="respuesta" class="dark-input-minimal" placeholder="Escribe tu respuesta..."></textarea>
+        <div class="reply-footer">
+          <select [(ngModel)]="calificacion" class="simple-select">
+            <option *ngFor="let n of [1,2,3,4,5]" [value]="n">{{n}} / 5</option>
+          </select>
+          <div class="btn-group">
+            <button (click)="responder()" class="btn-primary-sm" [disabled]="!respuesta.trim()">Enviar</button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="puedeOcultar" class="admin-zone">
+        <button class="btn-danger-quiet" (click)="ocultarComentario()">Ocultar</button>
+      </div>
+    </footer>
   </div>
 
-  <div class="replies-container" *ngIf="comentario.respuestas?.length">
+  <div class="replies-indentation" *ngIf="comentario.respuestas?.length">
     <app-comentario
       *ngFor="let r of comentario.respuestas"
       [comentario]="r"

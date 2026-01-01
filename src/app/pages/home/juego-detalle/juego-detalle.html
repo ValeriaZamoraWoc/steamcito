@@ -1,8 +1,5 @@
 <div class="steam-container">
-  <div *ngIf="cargando" class="loading-state">
-    <div class="spinner"></div>
-    <p>Cargando detalles del juego...</p>
-  </div>
+  <div *ngIf="cargando" class="status-info">Cargando detalles...</div>
   <div *ngIf="error" class="error-banner">{{ error }}</div>
 
   <div *ngIf="juego" class="game-page">
@@ -10,106 +7,74 @@
       <h1>{{ juego.nombreJuego }}</h1>
     </header>
 
-    <div class="game-content">
-      <div class="main-column">
-        <div class="image-wrapper">
-          <img [src]="juego.urlImagen" class="game-hero" (error)="onImgError($event)">
-        </div>
-        <div class="description-box">
+    <div class="game-content-layout">
+      <div class="main-body">
+        <img [src]="juego.urlImagen" class="game-hero" (error)="onImgError($event)">
+        
+        <div class="description-section">
           <h3>Acerca de este juego</h3>
           <p>{{ juego.descripcion }}</p>
         </div>
-      </div>
 
-      <aside class="side-column">
-        <div class="info-card">
-          <div class="price-tag">
-            <span class="currency">Q</span>
-            <span class="amount">{{ juego.precio | number:'1.2-2' }}</span>
+        <div class="game-meta-grid">
+          <div class="meta-item">
+            <span class="price-label">Precio</span>
+            <span class="price-value">Q {{ juego.precio | number:'1.2-2' }}</span>
           </div>
-
-          <div class="meta-data">
-            <p><strong>Lanzamiento:</strong> {{ juego.fechaLanzamiento | date:'dd/MM/yyyy' }}</p>
-            
-            <div class="tags-container">
-              <p *ngIf="nombreCategoria" class="meta-tag">
-                <span class="tag-label">Categoría:</span>
-                <span class="tag-value">{{ nombreCategoria }}</span>
-              </p>
-              <p *ngIf="nombreClasificacion" class="meta-tag">
-                <span class="tag-label">Clasificación:</span>
-                <span class="tag-value badge-age">{{ nombreClasificacion }}</span>
-              </p>
-            </div>
-
-            <p [class.status-on]="juego.enVenta" [class.status-off]="!juego.enVenta" class="availability">
-              {{ juego.enVenta ? '✅ Disponible en tienda' : '🚫 No disponible' }}
-            </p>
+          <div class="meta-item">
+            <span>Categoría:</span>
+            <span>{{ nombreCategoria }}</span>
           </div>
-
-          <div *ngIf="gruposDisponibles.length > 0" class="loan-alert-inline">
-            <div class="loan-header">
-              <span class="icon">🏘️</span>
-              <h4>Bibliotecas Familiares</h4>
-            </div>
-            <p class="loan-msg">{{ mensajePrestamo }}</p>
-            <div class="loan-list">
-              <div *ngFor="let mail of gruposDisponibles" class="loan-item">
-                <span class="owner-mail" [title]="mail">{{ mail }}</span>
-                <button (click)="confirmarPrestamo(mail)" class="btn-mini-loan">Pedir</button>
-              </div>
-            </div>
+          <div class="meta-item">
+            <span>Clasificación:</span>
+            <span class="badge-simple">{{ nombreClasificacion }}</span>
           </div>
-
-          <div class="actions-panel">
-            <button *ngIf="!comprado && !tienePrestamoActivo" (click)="comprarJuego()" class="btn-steam-green">Comprar</button>
-            <button *ngIf="!comprado && !tienePrestamoActivo" (click)="prestarJuego()" class="btn-steam-blue">Pedir Prestado</button>
-            <button *ngIf="comprado && !instalado" (click)="instalarJuego()" class="btn-steam-blue">Instalar</button>
-            <button *ngIf="tienePrestamoActivo" (click)="devolverJuego()" class="btn-steam-red">Devolver</button>
-            <button *ngIf="comprado && instalado" (click)="desinstalarJuego()" class="btn-steam-gray">Desinstalar</button>
+          <div class="meta-item">
+            <span>Estado:</span>
+            <span [class.status-on]="juego.enVenta">{{ juego.enVenta ? 'Disponible' : 'No disponible' }}</span>
           </div>
         </div>
-      </aside>
+
+        <div *ngIf="gruposDisponibles.length > 0" class="loan-section">
+          <h4>Bibliotecas Familiares</h4>
+          <p>{{ mensajePrestamo }}</p>
+          <div class="loan-list">
+            <div *ngFor="let mail of gruposDisponibles" class="loan-row">
+              <span>{{ mail }}</span>
+              <button (click)="confirmarPrestamo(mail)" class="btn-small">Pedir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="actions-group">
+          <button *ngIf="true" [disabled]="comprado || tienePrestamoActivo || !juego.enVenta" (click)="comprarJuego()" class="btn-success">Comprar</button>
+          <button *ngIf="!comprado && !tienePrestamoActivo" (click)="prestarJuego()" class="btn-primary">Pedir Prestado</button>
+          <button *ngIf="comprado && !instalado" (click)="instalarJuego()" class="btn-primary">Instalar</button>
+          <button *ngIf="tienePrestamoActivo" (click)="devolverJuego()" class="btn-danger">Devolver</button>
+          <button *ngIf="comprado && instalado" (click)="desinstalarJuego()" class="btn-secondary">Desinstalar</button>
+        </div>
+      </div>
     </div>
 
-    <section class="reviews-section">
-      <div class="section-title">
-        <h3>Reseñas de la comunidad</h3>
-      </div>
+    <section class="reviews-area">
+      <h3>Reseñas de la comunidad</h3>
 
-      <div *ngIf="comprado" class="write-review-container">
-        <div class="review-editor">
-          <div class="editor-header">
-            <span class="user-action-text">Escribe una reseña para {{ juego?.nombreJuego }}</span>
-            <span class="review-tip">Describe qué te gustó y qué no de este título</span>
+      <div *ngIf="comprado" class="review-editor-box">
+        <label>Escribe una reseña</label>
+        <textarea [(ngModel)]="nuevoComentario" class="dark-textarea" placeholder="¿Qué te pareció el juego?"></textarea>
+        
+        <div class="editor-footer">
+          <div class="rating-box">
+            <span>Valoración:</span>
+            <select [(ngModel)]="calificacionJuego" class="dark-select">
+              <option *ngFor="let n of [5,4,3,2,1]" [value]="n">{{n}} / 5</option>
+            </select>
           </div>
-          <textarea [(ngModel)]="nuevoComentario" class="steam-textarea" placeholder="Escribe tu opinión aquí..." rows="5"></textarea>
-          <div class="review-footer-bar">
-            <div class="rating-selector">
-              <label>¿Lo recomiendas?</label>
-              <div class="select-style">
-                <select [(ngModel)]="calificacionJuego">
-                  <option [value]="5">⭐⭐⭐⭐⭐ Excelente</option>
-                  <option [value]="4">⭐⭐⭐⭐ Muy bueno</option>
-                  <option [value]="3">⭐⭐⭐ Promedio</option>
-                  <option [value]="2">⭐⭐ Malo</option>
-                  <option [value]="1">⭐ Horrible</option>
-                </select>
-              </div>
-            </div>
-            <button (click)="publicarComentario()" class="btn-post-review" [disabled]="!nuevoComentario.trim()">Publicar reseña</button>
-          </div>
+          <button (click)="publicarComentario()" class="btn-primary" [disabled]="!nuevoComentario.trim()">Publicar</button>
         </div>
       </div>
 
-      <div *ngIf="!comprado" class="not-allowed-review">
-        <p>🔒 Debes tener este juego en tu biblioteca para publicar una reseña.</p>
-      </div>
-
-      <div class="comments-container">
-        <div *ngIf="comentariosRaiz.length === 0" class="no-comments">
-          <p>Aún no hay reseñas. ¡Sé el primero en opinar!</p>
-        </div>
+      <div class="comments-list">
         <app-comentario
           *ngFor="let c of comentariosRaiz"
           [comentario]="c"

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { JuegoBiblioteca, ObtenerPerfilUsuarioService, UsuarioComun } from '../../../services/ver-perfil-usuario-service';
+import { JuegoBiblioteca, UserService, UsuarioComun } from '../../../services/user-service';
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -20,7 +20,7 @@ export class PerfilUsuarioComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private perfilService: ObtenerPerfilUsuarioService,
+    private perfilService: UserService,
     private cdr: ChangeDetectorRef
   ) {}
 

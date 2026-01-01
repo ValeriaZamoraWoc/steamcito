@@ -1,59 +1,35 @@
-<div class="loader-container" *ngIf="cargando">
-  <div class="steam-spinner"></div>
-  <p>Cargando wallet...</p>
-</div>
+<div class="wallet-view" *ngIf="wallet && !cargando">
+  <header class="view-header">
+    <h1>Billetera</h1>
+    <span class="user-ref">{{ wallet.mail }}</span>
+  </header>
 
-<div class="wallet-page" *ngIf="wallet && !cargando">
-  <div class="wallet-card">
-    
-    <header class="wallet-header">
-      <h2>Mi Cartera de Steamcito</h2>
-      <p class="user-mail">Cuenta: {{ wallet.mail }}</p>
-    </header>
-
-    <div class="balance-section">
-      <span class="label">SALDO DE LA CARTERA</span>
-      <div class="amount-display">
-        <span class="currency">Q</span>
-        <span class="value">{{ wallet.saldo }}</span>
-      </div>
+  <div class="wallet-grid">
+    <div class="info-group">
+      <label>Saldo actual</label>
+      <p class="balance">Q {{ wallet.saldo }}</p>
     </div>
 
-    <div class="add-funds-box">
-      <h3>Añadir fondos a tu cuenta</h3>
-      <p class="help-text">Los fondos se pueden utilizar para comprar juegos o servicios dentro de la plataforma.</p>
-      
-      <div class="input-action-group">
-        <div class="styled-input">
-          <span class="input-prefix">Q</span>
-          <input
-            type="number"
-            [(ngModel)]="montoAgregar"
-            placeholder="0.00"
-            min="1"
-            class="steam-input"
-          >
-        </div>
-
+    <div class="action-group">
+      <label>Recargar cuenta</label>
+      <div class="form-row">
+        <input
+          type="number"
+          [(ngModel)]="montoAgregar"
+          placeholder="Monto (Q)"
+          class="input-simple"
+        >
         <button
           (click)="agregarSaldo()"
           [disabled]="procesando || !montoAgregar"
-          class="btn-add-funds"
+          class="btn-primary"
         >
-          {{ procesando ? 'Procesando...' : 'Añadir fondos' }}
+          {{ procesando ? 'Procesando...' : 'Añadir' }}
         </button>
       </div>
-
-      <div class="feedback-messages">
-        <p class="msg success" *ngIf="mensajeExito">
-          <span class="icon">✓</span> {{ mensajeExito }}
-        </p>
-
-        <p class="msg error" *ngIf="error">
-          <span class="icon">⚠</span> {{ error }}
-        </p>
-      </div>
+      
+      <p class="msg-success" *ngIf="mensajeExito">{{ mensajeExito }}</p>
+      <p class="msg-error" *ngIf="error">{{ error }}</p>
     </div>
-
   </div>
 </div>

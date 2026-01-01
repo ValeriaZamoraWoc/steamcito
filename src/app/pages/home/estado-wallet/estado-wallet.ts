@@ -1,9 +1,8 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ObtenerEstadoWalletService, Wallet } from '../../../services/wallet-service';
-import { LoginService } from '../../../services/login-service';
+import { WalletService, Wallet } from '../../../services/wallet-service';
+import { UserService } from '../../../services/user-service';
 import { FormsModule } from '@angular/forms';
-import { AgregarSaldoWalletService } from '../../../services/agregar-saldo.wallet-service';
 
 @Component({
   selector: 'app-wallet',
@@ -23,9 +22,8 @@ export class WalletComponent implements OnInit {
   procesando = false;
 
   constructor(
-    private walletService: ObtenerEstadoWalletService,
-    private agregarSaldoService: AgregarSaldoWalletService,
-    private loginService: LoginService,
+    private walletService: WalletService,
+    private loginService: UserService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -71,7 +69,7 @@ export class WalletComponent implements OnInit {
     this.error = null;
     this.mensajeExito = null;
 
-    this.agregarSaldoService
+    this.walletService
       .agregarSaldo(this.wallet.mail, this.montoAgregar)
       .subscribe({
         next: () => {

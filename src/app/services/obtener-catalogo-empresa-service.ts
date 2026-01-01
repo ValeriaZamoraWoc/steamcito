@@ -10,16 +10,47 @@ export interface JuegoEmpresa {
   precio: number;
 }
 
+export interface EmpresaPerfil {
+  idEmpresa: number;
+  nombreEmpresa: string;
+}
+
+export interface JuegoEmpresaPerfil {
+  id: number;
+  nombreJuego: string;
+  descripcion: string;
+  especificaciones: string;
+  clasificacion: number;
+  categoria: number;
+  empresa: number;
+  precio: number;
+  enVenta: boolean;
+  urlImagen: string;
+}
+
+export interface PerfilEmpresaResponse {
+  empresa: EmpresaPerfil;
+  catalogo?: JuegoEmpresaPerfil[];
+  totalJuegos?: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-export class CatalogoEmpresaService {
+export class CompanyService {
 
   constructor(private http: HttpClient) {}
 
   obtenerCatalogo(idEmpresa: number): Observable<JuegoEmpresa[]> {
     return this.http.get<JuegoEmpresa[]>(
       `${API_BASE_URL}/obtenerCatalogoEmpresa`,
+      { params: { idEmpresa } }
+    );
+  }
+
+  obtenerPerfilEmpresa(idEmpresa: number): Observable<PerfilEmpresaResponse | EmpresaPerfil> {
+    return this.http.get<PerfilEmpresaResponse | EmpresaPerfil>(
+      `${API_BASE_URL}/obtenerPerfilEmpresa`,
       { params: { idEmpresa } }
     );
   }

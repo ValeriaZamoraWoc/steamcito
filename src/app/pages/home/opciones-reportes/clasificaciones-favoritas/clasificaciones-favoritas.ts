@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClasificacionFavorita, ReportesUsuarioComunService } from '../../../../services/reportes-usuario-comun-service';
-import { LoginService } from '../../../../services/login-service';
+import { UserService } from '../../../../services/user-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 @Component({
   selector: 'app-clasificaciones-favoritas',
@@ -18,7 +19,8 @@ export class ClasificacionesFavoritasComponent implements OnInit {
 
   constructor(
     private reportesService: ReportesUsuarioComunService,
-    private loginService: LoginService
+    private jasper: JasperReportsService,
+    private loginService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -46,4 +48,22 @@ export class ClasificacionesFavoritasComponent implements OnInit {
         }
       });
   }
-}
+  exportarJasper(): void {
+    const usuario = this.loginService.user();
+    if (usuario?.mail) {
+      this.jasper.clasificacionesPersonalesFavoritas(usuario.mail).subscribe({
+        next: (blob: Blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'clasificaciones-favoritas.pdf';
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          console.error('Error al exportar el reporte');
+        }
+      });
+    }
+  }}

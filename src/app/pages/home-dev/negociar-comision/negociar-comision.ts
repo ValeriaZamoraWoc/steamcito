@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../../services/login-service';
+import { UserService } from '../../../services/user-service';
 import { PeticionComisionService } from '../../../services/peticion-comision-service';
 
 @Component({
@@ -19,7 +19,7 @@ export class NegociarComisionComponent {
   error = '';
 
   constructor(
-    private loginService: LoginService,
+    private loginService: UserService,
     private peticionService: PeticionComisionService
   ) {}
 

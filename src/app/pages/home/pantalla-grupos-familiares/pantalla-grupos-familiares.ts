@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../../services/login-service';
-import { GrupoFamiliar, GruposFamiliaresService } from '../../../services/obtener-gruposFamiliares-service';
+import { UserService } from '../../../services/user-service';
+import { GrupoFamiliar, GrupoFamiliarService } from '../../../services/grupo-familiar-service';
 import { Router } from '@angular/router';
 import { forkJoin, map } from 'rxjs';
 import { RegistrarGrupoComponent } from "./registrar-grupo";
@@ -21,14 +21,14 @@ export class GruposFamiliaresComponent implements OnInit {
   usuarioMail: string | null = null;
 
   constructor(
-    private gruposService: GruposFamiliaresService,
-    private loginService: LoginService,
+    private gruposService: GrupoFamiliarService,
+    private userService: UserService,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    const usuario = this.loginService.user();
+    const usuario = this.userService.user();
     this.usuarioMail = usuario?.mail ?? null;
 
     const grupoDesdeBuscador = window.history.state?.grupoEncontrado;

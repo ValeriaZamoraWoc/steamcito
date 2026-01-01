@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit ,ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Juego, obtenerTodosLosJuegosService } from '../../../services/obtener-todos-los-juegos';
+import { Juego, GameService } from '../../../services/game-service';
 import { BannerHomeComponent } from '../banner/banner';
 
 @Component({
@@ -17,7 +17,7 @@ export class ComponentePantallaPrincipalComun implements OnInit {
   cargando = true;
 
   constructor(
-    private juegosService: obtenerTodosLosJuegosService,
+    private juegosService: GameService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}

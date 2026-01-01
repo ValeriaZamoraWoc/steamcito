@@ -1,46 +1,29 @@
 <div class="catalogo-container">
-  <header class="section-header">
+  <header class="header-flat">
     <div class="header-text">
       <h2>Catálogo de Publicaciones</h2>
-      <p>Gestiona y supervisa los títulos publicados por tu empresa.</p>
+      <p>Gestión de títulos registrados en el sistema.</p>
     </div>
-    <div class="stats-badge" *ngIf="catalogo.length > 0">
-      {{ catalogo.length }} Títulos registrados
+    <div class="stats-text" *ngIf="catalogo.length > 0">
+      {{ catalogo.length }} Registros totales
     </div>
   </header>
 
-  <div class="game-grid" *ngIf="catalogo.length > 0">
-    <div
-      class="game-card-dev"
-      *ngFor="let juego of catalogo"
-      (click)="verDetalle(juego.id)"
-      [class.suspended]="!juego.enVenta"
-    >
-      <div class="poster-container">
-        <img [src]="juego.urlImagen" class="game-img" (error)="$event.target.src='assets/no-image.png'" />
-        
-        <div class="status-overlay" *ngIf="!juego.enVenta">
-          <span class="suspended-label">VENTA SUSPENDIDA</span>
-        </div>
-        
-        <div class="hover-hint">
-          <span>Gestionar Detalles</span>
-        </div>
+  <div class="game-list-flat" *ngIf="catalogo.length > 0">
+    <div class="game-item-flat" *ngFor="let juego of catalogo">
+      <div class="game-info">
+        <span class="game-name">{{ juego.nombreJuego }}</span>
+        <span class="game-price">Q {{ juego.precio }}</span>
+        <span class="status-msg" *ngIf="!juego.enVenta">[VENTA SUSPENDIDA]</span>
       </div>
-
-      <div class="game-meta">
-        <h4>{{ juego.nombreJuego }}</h4>
-        <div class="price-row">
-          <span class="currency">Q</span>
-          <span class="amount">{{ juego.precio }}</span>
-        </div>
-      </div>
+      
+      <button class="btn-system-flat" (click)="verDetalle(juego.id)">
+        Ver detalle
+      </button>
     </div>
   </div>
 
-  <div class="empty-catalogo" *ngIf="catalogo.length === 0">
-    <div class="empty-icon">📁</div>
-    <h3>No hay juegos publicados</h3>
-    <p>Comienza subiendo tu primer proyecto al sistema.</p>
+  <div class="empty-notif" *ngIf="catalogo.length === 0">
+    <p>SISTEMA: No hay juegos publicados en el catálogo.</p>
   </div>
 </div>

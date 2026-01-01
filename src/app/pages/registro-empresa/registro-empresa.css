@@ -1,39 +1,58 @@
+/* Estilo funcional para formulario de empresa */
+form {
+  max-width: 500px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
 h2 {
-  text-align: center;
+  color: var(--white);
+  font-size: 1.2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
-form {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #f5f5f5;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
 label {
-  font-weight: bold;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-input, textarea {
+input[type="text"], 
+textarea {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-button {
-  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--white);
   padding: 10px;
-  background-color: #1976d2;
-  color: white;
+  margin-top: 5px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+input:focus, 
+textarea:focus {
+  outline: none;
+  border-color: var(--text-dim);
+}
+
+button[type="submit"] {
+  background: var(--white);
+  color: #000;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #125ca1;
+button[type="submit"]:hover {
+  background: var(--text-dim);
 }

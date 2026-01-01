@@ -1,56 +1,50 @@
-<div class="steam-layout">
+<div class="app-layout">
   <aside class="sidebar">
-    <div class="brand">
-      <div class="logo-icon"></div>
-      <h3>STEAMCITO</h3>
-    </div>
+    <header class="brand">
+      <div class="logo-dot"></div>
+      <span class="brand-name">STEAMCITO</span>
+    </header>
 
-    <nav class="nav-groups">
-      <section class="nav-section">
-        <label>Principal</label>
+    <nav class="nav-menu">
+      <div class="nav-group">
+        <small class="group-title">Principal</small>
         <a routerLink="/app/home" routerLinkActive="active">Inicio</a>
         <a routerLink="/app/admin/buscar" routerLinkActive="active">Buscar</a>
-      </section>
+      </div>
 
-      <section class="nav-section" *ngIf="loginService.isComun()">
-        <label>Mi Cuenta</label>
+      <div class="nav-group" *ngIf="loginService.isComun()">
+        <small class="group-title">Mi Cuenta</small>
         <a routerLink="/app/biblioteca" routerLinkActive="active">Mi Biblioteca</a>
         <a routerLink="/app/wallet" routerLinkActive="active">Mi Wallet</a>
         <a routerLink="/app/grupos-familiares" routerLinkActive="active">Grupos Familiares</a>
         <a routerLink="/app/reportes" routerLinkActive="active">Reportes</a>
-      </section>
+      </div>
 
-      <section class="nav-section" *ngIf="loginService.isAdmin()">
-        <label>Administración</label>
+      <div class="nav-group" *ngIf="loginService.isAdmin()">
+        <small class="group-title">Administración</small>
         <a routerLink="/app/admin/editar-banner" routerLinkActive="active">Editar Banner</a>
         <a routerLink="/app/admin/Comisiones" routerLinkActive="active">Comisiones</a>
         <a routerLink="/app/admin/reportes" routerLinkActive="active">Reportes Globales</a>
         <a routerLink="/app/admin/clasificaciones" routerLinkActive="active">Gestionar clasificaciones</a>
-      </section>
+      </div>
 
-      <section class="nav-section" *ngIf="loginService.isDesarrollador()">
-        <label>Developer Console</label>
+      <div class="nav-group" *ngIf="loginService.isDesarrollador()">
+        <small class="group-title">Developer</small>
         <a routerLink="/app/home-dev/subir-juego" routerLinkActive="active">Subir Juego</a>
-        <a routerLink="/app/home-dev/agregar-usuario-empresa" routerLinkActive="active">Gestionar Empresa</a>
-        <a routerLink="/app/home-dev/negociar-comision" routerLinkActive="active">Negociar Comisión</a>
-        <a routerLink="/app/home-dev/catalogo" routerLinkActive="active">Ver Catálogo</a>
-        <a 
-          [routerLink]="['/app/home-dev/ver-perfil-empresa', loginService.getIdEmpresa()]" 
-          routerLinkActive="active">
-          Perfil Empresa
-        </a>
+        <a routerLink="/app/home-dev/catalogo" routerLinkActive="active">Catálogo</a>
+        <a routerLink="/app/home-dev/negociar-comision" routerLinkActive="active">Negociar comision</a>
+        <a [routerLink]="['/app/home-dev/ver-perfil-empresa', loginService.getIdEmpresa()]" routerLinkActive="active">Empresa</a>
+        <a routerLink="/app/home-dev/agregar-usuario-empresa" routerLinkActive="active">Agregar desarrollador</a>
         <a routerLink="/app/home-dev/reportes" routerLinkActive="active">Reportes Dev</a>
-      </section>
+      </div>
     </nav>
 
-    <div class="sidebar-footer">
-      <button (click)="logout()" class="btn-logout">
-        <span>Cerrar sesión</span>
-      </button>
-    </div>
+    <footer class="sidebar-footer">
+      <button (click)="logout()" class="btn-exit">Cerrar sesión</button>
+    </footer>
   </aside>
 
-  <main class="content-area">
+  <main class="main-content">
     <router-outlet></router-outlet>
   </main>
 </div>

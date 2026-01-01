@@ -1,46 +1,37 @@
-<div class="upload-container">
-  <header class="section-header">
-    <h2>Publicar Nuevo Título</h2>
-    <p>Sigue los pasos: registra la información técnica y luego sube el arte oficial.</p>
+<div class="admin-reports-container">
+  <header class="admin-header-flat">
+    <h2>Registro de Nuevo Título</h2>
+    <p>Cumplimente la ficha técnica y adjunte el activo gráfico para la publicación en el catálogo.</p>
   </header>
 
-  <div class="upload-card">
-    <div class="alert error" *ngIf="error">
-      <span class="icon">⚠</span> {{ error }}
-    </div>
-    <div class="alert success" *ngIf="mensaje">
-      <span class="icon">✓</span> {{ mensaje }}
+  <div class="admin-router-box-flat">
+    <div class="alert-flat-error" *ngIf="error">SISTEMA_ERROR: {{ error }}</div>
+    <div class="status-msg-flat" style="border-color: var(--border); margin-bottom: 20px;" *ngIf="mensaje">
+      OPERACION_EXITOSA: {{ mensaje }}
     </div>
 
-    <form class="steam-form">
-      
+    <form class="flat-form">
       <div [class.section-disabled]="idJuegoCreado !== null">
-        <div class="form-section">
-          <h3 class="section-title">1. Ficha Técnica</h3>
-          
+        <h3 class="group-label">01. Especificaciones Técnicas</h3>
+        
+        <div class="form-grid">
           <div class="form-group">
-            <label>Nombre del Juego</label>
-            <input [(ngModel)]="nombre" name="nombre" [disabled]="idJuegoCreado !== null" placeholder="Ej: Half-Life 3">
+            <label>Identificador del Título</label>
+            <input [(ngModel)]="nombre" name="nombre" [disabled]="idJuegoCreado !== null" placeholder="Nombre oficial">
           </div>
 
           <div class="form-group">
-            <label>Descripción General</label>
-            <textarea [(ngModel)]="descripcion" name="descripcion" rows="3" [disabled]="idJuegoCreado !== null" placeholder="¿De qué trata tu juego?"></textarea>
+            <label>Descripción del Producto</label>
+            <textarea [(ngModel)]="descripcion" name="descripcion" rows="2" [disabled]="idJuegoCreado !== null"></textarea>
           </div>
 
           <div class="form-group">
-            <label>Especificaciones de Hardware (Requisitos)</label>
-            <textarea 
-              [(ngModel)]="especificaciones" 
-              name="especificaciones" 
-              rows="3" 
-              [disabled]="idJuegoCreado !== null" 
-              placeholder="SO: Windows 10, RAM: 8GB, GPU: NVIDIA GTX 1050...">
-            </textarea>
+            <label>Requerimientos de Hardware</label>
+            <textarea [(ngModel)]="especificaciones" name="especificaciones" rows="2" [disabled]="idJuegoCreado !== null"></textarea>
           </div>
         </div>
 
-        <div class="form-section grid-2-columns">
+        <div class="form-row-three">
           <div class="form-group">
             <label>Clasificación</label>
             <select [(ngModel)]="clasificacion" name="clasificacion" [disabled]="idJuegoCreado !== null">
@@ -53,71 +44,45 @@
               <option *ngFor="let c of categorias" [value]="c.nombreCategoria">{{ c.nombreCategoria }}</option>
             </select>
           </div>
-        </div>
-
-        <div class="form-section">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Precio (Q)</label>
-              <div class="price-input-wrapper">
-                <span>Q</span>
-                <input type="number" [(ngModel)]="precio" name="precio" [disabled]="idJuegoCreado !== null">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Lanzamiento</label>
-              <input type="date" [(ngModel)]="fechaLanzamiento" name="fechaLanzamiento" [disabled]="idJuegoCreado !== null">
-            </div>
+          <div class="form-group">
+            <label>Precio Unitario (Q)</label>
+            <input type="number" [(ngModel)]="precio" name="precio" [disabled]="idJuegoCreado !== null">
           </div>
         </div>
 
-        <div class="action-step">
-          <button type="button" class="btn-save-data" (click)="registrar()" [disabled]="idJuegoCreado !== null">
-            {{ idJuegoCreado ? '✓ Datos Técnicos Guardados' : 'Guardar información del juego' }}
-          </button>
+        <div class="form-group">
+          <label>Fecha de Lanzamiento</label>
+          <input type="date" [(ngModel)]="fechaLanzamiento" name="fechaLanzamiento" [disabled]="idJuegoCreado !== null">
         </div>
-      </div>
 
-      <hr class="divider-step" *ngIf="idJuegoCreado">
-
-      <div class="form-section" [class.section-locked]="idJuegoCreado === null">
-        <h3 class="section-title">2. Arte de Portada</h3>
-        <p class="step-hint" *ngIf="idJuegoCreado === null">🔒 Primero guarda la ficha técnica para habilitar la subida de imagen.</p>
-        
-        <div class="file-upload-wrapper">
-          <input 
-            type="file" 
-            accept="image/*" 
-            (change)="onFileChange($event)" 
-            [disabled]="idJuegoCreado === null || imagenSubida"
-            id="file-input"
-            class="input-file-hidden">
-          
-          <label for="file-input" class="file-label" [class.disabled]="idJuegoCreado === null || imagenSubida">
-            <span class="icon">🖼️</span>
-            {{ archivoImagen ? archivoImagen.name : 'Seleccionar archivo JPG/PNG' }}
-          </label>
-
-          <button 
-            type="button" 
-            class="btn-image-upload" 
-            (click)="subirImagen()" 
-            [disabled]="idJuegoCreado === null || archivoImagen === null || imagenSubida">
-            {{ imagenSubida ? '✓ Imagen Lista' : 'Subir Imagen' }}
-          </button>
-        </div>
-      </div>
-
-      <div class="form-footer-final">
-        <button 
-          type="button" 
-          class="btn-publish-final" 
-          [disabled]="!imagenSubida" 
-          (click)="volverAlCatalogo()">
-          Finalizar y Publicar en Tienda
+        <button type="button" class="btn-flat-action" (click)="registrar()">
+          {{ idJuegoCreado ? 'REGISTRO_GUARDADO' : 'GUARDAR_DATOS_TECNICOS' }}
         </button>
       </div>
 
+      <div class="section-divider" *ngIf="idJuegoCreado"></div>
+
+      <div class="form-section-flat" [class.section-locked]="idJuegoCreado === null">
+        <h3 class="group-label">02. Activos Gráficos</h3>
+        <p class="status-msg-flat" *ngIf="idJuegoCreado === null" style="padding: 10px; text-align: left;">
+          BLOQUEADO: Se requiere validación de ficha técnica para habilitar carga de archivos.
+        </p>
+        
+        <div class="file-control-group">
+          <input type="file" (change)="onFileChange($event)" [disabled]="idJuegoCreado === null || imagenSubida" id="file-input">
+          
+          <button type="button" class="btn-flat-action" (click)="subirImagen()" 
+            [disabled]="idJuegoCreado === null || archivoImagen === null || imagenSubida">
+            {{ imagenSubida ? 'ARCHIVO_VERIFICADO' : 'SUBIR_IMAGEN_PORTADA' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="form-footer-flat">
+        <button type="button" class="btn-flat-primary" [disabled]="!imagenSubida" (click)="volverAlCatalogo()">
+          FINALIZAR_PUBLICACION_CATALOGO
+        </button>
+      </div>
     </form>
   </div>
 </div>

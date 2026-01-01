@@ -1,141 +1,104 @@
 .negotiation-container {
-  max-width: 900px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px;
 }
 
-.section-header {
-  border-bottom: 1px solid #3d4450;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+/* Header */
+.header-flat {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.section-header h2 {
-  color: #fff;
+.header-flat h2 {
+  color: var(--white);
+  font-size: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  margin: 0;
+  font-weight: 600;
 }
 
-.section-header p {
-  color: #66c0f4;
-  margin-top: 5px;
+.header-flat p {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 4px;
 }
 
-/* Layout de dos columnas */
-.negotiation-layout {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 30px;
+/* Consideraciones como texto plano */
+.info-block-flat {
+  margin-bottom: 2rem;
+  padding: 10px 0;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border);
 }
 
-/* Sidebar informativo */
-.info-sidebar .sidebar-card {
-  background: rgba(103, 193, 245, 0.05);
-  border: 1px solid #2a475e;
-  padding: 20px;
-  border-radius: 4px;
-}
-
-.sidebar-card h4 {
-  color: #66c0f4;
-  margin-top: 0;
-  font-size: 14px;
+.info-block-flat strong {
+  color: var(--white);
   text-transform: uppercase;
-}
-
-.sidebar-card ul {
-  padding-left: 18px;
-  color: #8f98a0;
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 0.75rem;
 }
 
 /* Formulario */
-.form-card {
-  background: #1b2838;
-  padding: 40px;
-  border-radius: 4px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-
-.form-group {
-  margin-bottom: 25px;
-}
-
-.form-group label {
-  display: block;
-  color: #fff;
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-/* Input con símbolo de porcentaje */
-.input-with-symbol {
-  position: relative;
+.form-flat {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.input-with-symbol input {
-  width: 100%;
-  background: #121a24;
-  border: 1px solid #2a475e;
-  padding: 15px;
-  padding-right: 40px;
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  border-radius: 4px;
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.input-with-symbol .symbol {
-  position: absolute;
-  right: 15px;
-  color: #66c0f4;
-  font-size: 20px;
-  font-weight: bold;
+.field-group label {
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.field-group input {
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 12px;
+  color: var(--white);
+  font-size: 1rem;
+  border-radius: 0;
 }
 
 .helper-text {
-  display: block;
-  margin-top: 8px;
-  color: #56687a;
-  font-size: 12px;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  margin-top: 4px;
 }
 
-/* Botón */
-.btn-submit {
-  width: 100%;
-  background: linear-gradient(to right, #67c1f5 0%, #417a9b 100%);
-  color: #fff;
-  border: none;
-  padding: 15px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 3px;
+/* Botón Gris Acero */
+.btn-system-main {
+  background: #3d4450;
+  color: var(--white);
+  border: 1px solid #4d5666;
+  padding: 12px 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: filter 0.2s;
+  width: 100%;
 }
 
-.btn-submit:hover {
-  filter: brightness(1.2);
+.btn-system-main:hover {
+  background: #4a5261;
 }
 
-/* Alertas */
-.alert {
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
+/* Alertas Planas */
+.status-msg-flat {
+  padding: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid transparent;
 }
 
-.alert-error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
-.alert-success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }
-
-@media (max-width: 768px) {
-  .negotiation-layout { grid-template-columns: 1fr; }
-  .info-sidebar { order: 2; }
-}
+.status-msg-flat.error { color: #ff4d4d; border-color: #ff4d4d; }
+.status-msg-flat.success { color: #a3cf06; border-color: #a3cf06; }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import {CategoriasClasificacionesService,Clasificacion} from '../../../../services/categorias-clasificaciones-service';
 
 import { ReportesAdminService } from '../../../../services/reportes-admin-service';
+import { JasperReportsService } from '../../../../services/jasper-reports-service';
 
 interface JuegoVenta {
   nombre: string;
@@ -28,7 +29,8 @@ export class JuegosClasificacionComponent implements OnInit {
   constructor(
     private clasificacionService: CategoriasClasificacionesService,
     private reportesService: ReportesAdminService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+        private jasper : JasperReportsService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,28 @@ export class JuegosClasificacionComponent implements OnInit {
           this.error = 'Error al cargar juegos por clasificación';
           this.cargando = false;
           this.cdr.detectChanges();
+        }
+      });
+  }
+
+  exportarJasper(): void {
+    if (!this.clasificacionSeleccionada) {
+      this.error = 'Seleccione una clasificación';
+      return;
+    }
+
+    this.jasper.masVendidosClasificacionAdmin(this.clasificacionSeleccionada)
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `juegos_mas_vendidos_clasificacion_${this.clasificacionSeleccionada}.pdf`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+        },
+        error: () => {
+          this.error = 'Error al exportar el reporte';
         }
       });
   }

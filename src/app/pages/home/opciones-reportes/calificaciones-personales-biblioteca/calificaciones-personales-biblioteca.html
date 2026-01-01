@@ -1,41 +1,35 @@
-<div class="report-container-user">
-  <div class="report-header-minimal">
-    <h3><span class="icon-star">⭐</span> Tus Valoraciones Personales</h3>
-    <p>Un recuento de los puntajes que has otorgado a los títulos de tu colección.</p>
+<div class="report-content">
+  <div class="report-view-header">
+    <h3>Mis Valoraciones</h3>
+    <p>Historial de puntajes otorgados a tu colección.</p>
   </div>
 
-  <div *ngIf="cargando" class="user-loader">
-    <div class="spinner-steam"></div>
-    <p>Recuperando tu historial de críticas...</p>
+  <div *ngIf="cargando" class="status-msg">Recuperando historial...</div>
+
+  <div *ngIf="error" class="alert-simple error">
+    {{ error }}
   </div>
 
-  <div *ngIf="error" class="user-alert error">
-    <span class="alert-icon">❌</span>
-    <p>{{ error }}</p>
-  </div>
-
-  <div class="reviews-grid" *ngIf="!cargando && calificaciones.length > 0">
-    <div class="review-card" *ngFor="let juego of calificaciones">
-      <div class="poster-wrapper">
-        <img [src]="juego.portada" alt="{{ juego.nombre }}" class="game-poster">
-        <div class="score-overlay">
-          <span class="score-val">{{ juego.calificacion }}</span>
+  <div class="data-list" *ngIf="!cargando && calificaciones.length > 0">
+    <div class="data-row" *ngFor="let juego of calificaciones">
+      <div class="game-info-cell">
+        <br><br>
+        <img [src]="juego.portada" alt="" class="mini-thumb">
+        <div class="game-name-meta">
+          <span class="name">{{ juego.nombre }}</span>
+          <span class="type-tag">: </span>
         </div>
       </div>
 
-      <div class="review-details">
-        <h3>{{ juego.nombre }}</h3>
-        <div class="stars-display">
-          <span class="star-active" *ngFor="let s of [1,2,3,4,5]" 
-                [class.filled]="s <= juego.calificacion">★</span>
-        </div>
-        <p class="review-tag">Calificado por ti</p>
+      <div class="score-cell">
+        <span class="score-number">{{ juego.calificacion }}</span>
+        <span class="score-max">/ 5</span>
       </div>
     </div>
+    <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div *ngIf="!cargando && calificaciones.length === 0" class="user-empty-state">
-    <div class="empty-icon">✍️</div>
-    <p>Tu libreta de críticas está en blanco. ¡Empieza a calificar tus juegos!</p>
+  <div *ngIf="!cargando && calificaciones.length === 0" class="empty-notif">
+    No has calificado ningún juego todavía.
   </div>
 </div>

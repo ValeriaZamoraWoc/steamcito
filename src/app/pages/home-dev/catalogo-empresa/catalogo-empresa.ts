@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from "@angular/router";
-import { LoginService } from '../../../services/login-service';
-import { CatalogoEmpresaService, JuegoEmpresa } from '../../../services/obtener-catalogo-empresa-service';
-import { JuegoEmpresaPerfil, VerPerfilEmpresaService } from '../../../services/ver-perfil-empresa-service';
+import { UserService } from '../../../services/user-service';
+import { CompanyService, JuegoEmpresa, JuegoEmpresaPerfil } from '../../../services/company-service';
 
 @Component({
   selector: 'app-catalogo-empresa',
@@ -17,9 +16,9 @@ export class CatalogoEmpresaComponent implements OnInit {
   idEmpresa!: number;
 
   constructor(
-    private perfilService: VerPerfilEmpresaService,
+    private perfilService: CompanyService,
     private router: Router,
-    private loginService: LoginService,
+    private loginService: UserService,
     private cdr: ChangeDetectorRef
   ) {}
 

@@ -1,169 +1,75 @@
-.wallet-page {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
+.wallet-view {
+  max-width: 800px;
 }
 
-.wallet-card {
-  background-color: #1b2838;
-  width: 100%;
-  max-width: 600px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+.view-header {
+  margin-bottom: 2.5rem;
 }
 
-.wallet-header {
-  padding: 30px;
-  background: linear-gradient(to bottom, #212c3d 0%, #1b2838 100%);
-  border-bottom: 1px solid #2a475e;
-}
-
-.wallet-header h2 {
-  color: white;
+.view-header h1 {
+  font-size: 1.25rem;
+  color: var(--white);
   margin: 0;
+}
+
+.user-ref {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.wallet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide la vista en dos columnas limpias */
+  gap: 3rem;
+  padding-top: 1rem;
+}
+
+.info-group label, 
+.action-group label {
+  display: block;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
 }
 
-.user-mail {
-  color: #66c0f4;
-  margin: 5px 0 0;
-  font-size: 14px;
-}
-
-/* Sección de Saldo */
-.balance-section {
-  padding: 40px 30px;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-}
-
-.balance-section .label {
-  color: #afafaf;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.amount-display {
-  display: flex;
-  justify-content: center;
-  align-items: baseline;
-  color: white;
-  margin-top: 10px;
-}
-
-.amount-display .currency {
+.balance {
   font-size: 2rem;
-  margin-right: 5px;
-  color: #a3cf06;
+  color: var(--white);
+  margin: 0;
+  font-weight: 500;
 }
 
-.amount-display .value {
-  font-size: 4rem;
-  font-weight: 800;
-}
-
-/* Área de Recarga */
-.add-funds-box {
-  padding: 30px;
-}
-
-.add-funds-box h3 {
-  color: white;
-  margin-top: 0;
-}
-
-.help-text {
-  color: #8f98a0;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-
-.input-action-group {
+.form-row {
   display: flex;
-  gap: 15px;
-}
-
-.styled-input {
-  position: relative;
-  flex: 1;
-}
-
-.input-prefix {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #66c0f4;
-  font-weight: bold;
-}
-
-.steam-input {
-  width: 100%;
-  background-color: #000000;
-  border: 1px solid #1b2838;
-  color: #ffffff;
-  padding: 12px 12px 12px 30px;
-  border-radius: 2px;
-  font-size: 18px;
-  box-sizing: border-box;
-}
-
-.btn-add-funds {
-  background: linear-gradient( to bottom, #a3cf06 5%, #82a007 95%);
-  color: white;
-  border: none;
-  padding: 0 25px;
-  border-radius: 2px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: filter 0.2s;
-}
-
-.btn-add-funds:disabled {
-  filter: grayscale(1);
-  cursor: not-allowed;
-}
-
-/* Feedback */
-.feedback-messages {
-  margin-top: 20px;
-}
-
-.msg {
-  padding: 12px;
-  border-radius: 2px;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
   gap: 10px;
 }
 
-.msg.success {
-  background: rgba(163, 207, 6, 0.15);
-  color: #a3cf06;
-  border: 1px solid #a3cf06;
+.input-simple {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: white;
+  padding: 8px 12px;
 }
 
-.msg.error {
-  background: rgba(255, 77, 77, 0.15);
-  color: #ff4d4d;
-  border: 1px solid #ff4d4d;
+.input-simple:focus {
+  border-color: var(--accent);
+  outline: none;
 }
 
-/* Spinner básico */
-.steam-spinner {
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-left-color: #66c0f4;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
+/* Reutiliza el btn-primary del global pero ajustado */
+.action-group .btn-primary {
+  width: auto;
+  padding: 0 20px;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.msg-success { color: var(--success); font-size: 0.85rem; margin-top: 10px; }
+.msg-error { color: #ef4444; font-size: 0.85rem; margin-top: 10px; }
+
+/* Responsive simple */
+@media (max-width: 600px) {
+  .wallet-grid { grid-template-columns: 1fr; gap: 2rem; }
 }

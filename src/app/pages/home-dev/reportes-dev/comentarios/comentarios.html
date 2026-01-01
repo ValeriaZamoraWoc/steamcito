@@ -1,49 +1,38 @@
-<div class="report-detail">
-  <div class="report-header">
+<div class="report-content-view">
+  <div class="report-header-flat">
     <h3>Mejores Comentarios de la Comunidad</h3>
-    <p>Visualiza las reseñas más destacadas y mejor valoradas por tus jugadores.</p>
+    <p>Registro de reseñas destacadas por valoración de usuario.</p>
   </div>
 
-  <div *ngIf="error" class="alert-error">
-    <span class="icon">⚠</span> {{ error }}
+  <div *ngIf="error" class="alert-flat-error">
+    SISTEMA: {{ error }}
   </div>
 
-  <div class="table-responsive" *ngIf="comentarios.length > 0">
-    <table class="report-table">
+  <div class="table-container-flat" *ngIf="comentarios.length > 0">
+    <table >
       <thead>
         <tr>
           <th>Juego</th>
           <th>Usuario</th>
-          <th>Comentario</th>
-          <th class="text-center">Calificación</th>
+          <th>Reseña</th>
+          <th class="text-right">Calificación</th>
         </tr>
       </thead>
 
       <tbody>
         <tr *ngFor="let c of comentarios">
-          <td class="game-name-cell">{{ c.juego }}</td>
-          <td class="user-cell">
-            <span class="user-avatar-mini"></span>
-            {{ c.usuario }}
-          </td>
-          <td class="comment-text-cell">
-            <blockquote class="comment-bubble">
-              "{{ c.comentario }}"
-            </blockquote>
-          </td>
-          <td class="rating-cell text-center">
-            <div class="star-rating">
-              <span class="score">{{ c.calificacion }}</span>
-              <span class="star">★</span>
-            </div>
-          </td>
+          <td class="cell-bold">{{ c.juego }}</td>
+          <td>{{ c.usuario }}</td>
+          <td class="cell-italic">"{{ c.comentario }}"</td>
+          <td class="text-right">{{ c.calificacion }} / 5</td>
         </tr>
       </tbody>
     </table>
+        <button (click)="exportarJasper()">Exportar a pdf</button>
+
   </div>
 
-  <div class="empty-report" *ngIf="comentarios.length === 0 && !error">
-    <div class="empty-icon">💬</div>
-    <p>No hay comentarios para mostrar en este momento.</p>
+  <div class="status-msg-flat" *ngIf="comentarios.length === 0 && !error">
+    No se han encontrado registros de comentarios en el periodo actual.
   </div>
 </div>

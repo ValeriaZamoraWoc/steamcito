@@ -2,32 +2,29 @@
   <app-banner-home></app-banner-home>
 
   <header class="section-header">
-    <h2>Novedades y Destacados</h2>
-    <p>Explora los últimos lanzamientos y títulos populares en Steamcito.</p>
+    <div class="header-main-info">
+      <h2>Novedades y Destacados</h2>
+      <p>Explora los últimos lanzamientos en la plataforma.</p>
+    </div>
   </header>
 
   <div class="game-display-grid">
-    <div class="game-store-card" *ngFor="let juego of juegos">
+    <div class="game-store-card-static" *ngFor="let juego of juegos" (click)="verJuego(juego.id)">
 
-      <div class="game-poster-wrapper">
+      <div class="game-poster-container">
         <img
           [src]="juego.urlImagen"
-          alt="Portada del juego"
-          class="game-poster"
+          alt=""
+          class="game-poster-clean"
           (error)="$event.target.src='assets/no-image.png'"
-        >
-        <div class="card-overlay">
-          <button (click)="verJuego(juego.id)" class="btn-view-game-overlay">
-            Ver juego
-          </button>
-        </div>
-      </div>
+        >      </div>
 
-      <div class="game-card-info">
-        <h3>{{ juego.nombreJuego }}</h3>
-        <p class="game-price">
-          Q <span class="price-value">{{ juego.precio }}</span>
-        </p>
+      <div class="game-card-meta">
+        <h3>{{ juego.nombreJuego }} - Ver detalle</h3>
+        <div class="price-tag">
+          <span class="currency">Q</span>
+          <span class="value">{{ juego.precio }}</span>
+        </div>
       </div>
 
     </div>

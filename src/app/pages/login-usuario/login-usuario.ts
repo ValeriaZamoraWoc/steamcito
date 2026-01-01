@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LoginService } from '../../services/login-service';
+import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,7 +17,7 @@ export class LoginUsuario {
   password = '';
   error = '';
 
-  constructor(public loginService: LoginService,
+  constructor(public userService: UserService,
     private router: Router
   ) {}
 
@@ -25,9 +25,9 @@ export class LoginUsuario {
     this.error = '';
 
     try {
-      await this.loginService.login(this.mail, this.password);
+      await this.userService.login(this.mail, this.password);
 
-      if (this.loginService.isDesarrollador()) {
+      if (this.userService.isDesarrollador()) {
         this.router.navigate(['/app/home-dev']);
       } else {
         this.router.navigate(['/app/home']);

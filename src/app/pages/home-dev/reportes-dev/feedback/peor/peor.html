@@ -1,44 +1,40 @@
-<div class="report-detail">
-  <div class="report-header">
-    <div class="header-with-icon">
-      <span class="report-icon negative">📉</span>
-      <div>
-        <h4>Títulos con Menor Valoración</h4>
-        <p>Juegos que requieren atención. Estos títulos tienen el promedio de satisfacción más bajo.</p>
-      </div>
-    </div>
+<div class="report-content-view">
+  <div class="report-header-flat">
+    <h3>Títulos con Menor Valoración</h3>
+    <p>Registro de títulos con promedio de satisfacción por debajo del estándar.</p>
   </div>
 
-  <div *ngIf="cargando" class="loading-state">
-    <div class="steam-spinner"></div>
-    <p>Analizando feedback negativo...</p>
+  <div *ngIf="cargando" class="status-msg-flat">
+    SISTEMA: Recuperando métricas de rendimiento bajo...
   </div>
 
-  <div *ngIf="error" class="alert-error">
-    <span class="icon">⚠</span> {{ error }}
+  <div *ngIf="error" class="alert-flat-error">
+    ERROR_SISTEMA: {{ error }}
   </div>
 
-  <div class="rank-list" *ngIf="juegos.length > 0">
-    <div class="rank-item negative-item" *ngFor="let j of juegos; let i = index">
-      <div class="rank-number">#{{ i + 1 }}</div>
-      
-      <div class="rank-info">
-        <div class="rank-main">
-          <strong>{{ j.nombre }}</strong>
-          <span class="total-reviews-alert">{{ j.totalResenas }} críticas</span>
-        </div>
-        
-        <div class="rating-container">
-          <div class="rating-bar-bg">
-            <div class="rating-bar-fill-danger" [style.width.%]="(j.promedio / 5) * 100"></div>
-          </div>
-          <span class="rating-value-danger">{{ j.promedio }} / 5</span>
-        </div>
-      </div>
-    </div>
+  <div class="table-container-flat" *ngIf="juegos.length > 0">
+    <table >
+      <thead>
+        <tr>
+          <th style="width: 50px;">Pos.</th>
+          <th>Título del Juego</th>
+          <th class="text-right">Total Críticas</th>
+          <th class="text-right">Promedio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let j of juegos; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="cell-bold">{{ j.nombre }}</td>
+          <td class="text-right">{{ j.totalResenas }}</td>
+          <td class="text-right cell-warning">{{ j.promedio }} / 5.0</td>
+        </tr>
+      </tbody>
+    </table>
+        <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div class="empty-report" *ngIf="!cargando && juegos.length === 0 && !error">
-    <p>¡Felicidades! No hay títulos con calificaciones bajas para mostrar.</p>
+  <div class="status-msg-flat" *ngIf="!cargando && juegos.length === 0 && !error">
+    NO_DATA: No se registran títulos con calificaciones críticas.
   </div>
 </div>

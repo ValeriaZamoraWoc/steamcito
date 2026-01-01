@@ -1,13 +1,12 @@
 import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../../services/login-service';
-import { RegistrarJuegoService } from '../../../services/registrar-juego-service';
+import { UserService } from '../../../services/user-service';
+import { GameService } from '../../../services/game-service';
 import { Categoria, CategoriasClasificacionesService, Clasificacion } from '../../../services/categorias-clasificaciones-service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { ObtenerJuegoPorIdService } from '../../../services/obtener-juego-por-id-service';
-import { EmpresaPerfil, VerPerfilEmpresaService } from '../../../services/ver-perfil-empresa-service';
+import { EmpresaPerfil, CompanyService } from '../../../services/company-service';
 
 @Component({
   selector: 'app-subir-juego',
@@ -35,13 +34,13 @@ export class SubirJuegoComponent implements OnInit {
   imagenSubida = false;
 
   constructor(
-    private registrarJuegoService: RegistrarJuegoService,
-    private loginService: LoginService,
+    private registrarJuegoService: GameService,
+    private loginService: UserService,
     private catClasService: CategoriasClasificacionesService,
     private cdr: ChangeDetectorRef,
-    private juegosService: ObtenerJuegoPorIdService,
+    private juegosService: GameService,
     private router: Router,
-    private perfilEmpresaService: VerPerfilEmpresaService
+    private perfilEmpresaService: CompanyService
   ) {}
 
   ngOnInit(): void {

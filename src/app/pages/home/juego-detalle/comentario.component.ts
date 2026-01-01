@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Comentario } from '../../../services/obtener-comentarios-por-juego-service';
 import { FormsModule } from '@angular/forms';
 import { ComentariosJuegoService } from '../../../services/comentar-juego-service';
-import { LoginService } from '../../../services/login-service';
+import { UserService } from '../../../services/user-service';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class ComentarioComponent {
 
   constructor(
     private comentariosService: ComentariosJuegoService,
-    private loginService: LoginService
+    private loginService: UserService
   ) {}
 
   

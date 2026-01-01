@@ -1,59 +1,32 @@
 <div class="admin-reports-container">
-  <header class="admin-header">
-    <div class="header-content">
-      <span class="admin-badge">System Overlord</span>
-      <h2>Consola de Reportes Administrativos</h2>
-      <p>Supervisión global de ingresos, comportamiento de usuarios y rendimiento del catálogo.</p>
-    </div>
+  <header class="admin-header-flat">
+    <h2>Consola de Reportes Administrativos</h2>
+    <p>Supervisión de ingresos, usuarios y rendimiento del catálogo.</p>
   </header>
 
-  <div class="reportes-grid">
-    <div class="reporte-card finance">
-      <div class="card-icon">🏛️</div>
-      <h3>Ganancia Bruta</h3>
-      <p class="desc">Balance total de la plataforma antes de deducciones.</p>
-      <button (click)="irA('ganancia-bruta')" class="btn-admin">
-        Generar Balance Global
-      </button>
+  <nav class="report-nav-flat">
+    <div class="nav-group">
+      <span class="group-label">Finanzas</span>
+      <button (click)="irA('ganancia-bruta')">Balance Global</button>
+      <button (click)="irA('ganancias-empresa')">Ingresos por Empresa</button>
     </div>
 
-    <div class="reporte-card companies">
-      <div class="card-icon">🏢</div>
-      <h3>Rendimiento de Empresas</h3>
-      <p class="desc">Análisis de ingresos generados por cada socio desarrollador.</p>
-      <button (click)="irA('ganancias-empresa')" class="btn-admin">
-        Ver Ingresos por Empresa
-      </button>
+    <div class="nav-group">
+      <span class="group-label">Usuarios</span>
+      <button (click)="irA('usuarios-compras')">Top Descargas</button>
+      <button (click)="irA('usuarios-resenas')">Críticos Destacados</button>
     </div>
 
-    <div class="reporte-card users">
-      <div class="card-icon">👥</div>
-      <h3>Métricas de Usuarios</h3>
-      <p class="desc">Identifica a los consumidores más activos y críticos.</p>
-      <div class="admin-btn-group">
-        <button (click)="irA('usuarios-compras')" class="btn-sub">
-          Top Descargas
-        </button>
-        <button (click)="irA('usuarios-resenas')" class="btn-sub">
-          Críticos Destacados
-        </button>
-      </div>
+    <div class="nav-group">
+      <span class="group-label">Catálogo</span>
+      <button (click)="irA('juegos-clasificacion')">Ventas/Clasif.</button>
+      <button (click)="irA('juegos-categoria')">Ventas/Categ.</button>
+      <button (click)="irA('mejores-clasificacion')">Top/Clasif.</button>
+      <button (click)="irA('mejores-categoria')">Top/Categ.</button>
     </div>
+  </nav>
 
-    <div class="reporte-card catalog">
-      <div class="card-icon">🕹️</div>
-      <h3>Inteligencia de Juegos</h3>
-      <p class="desc">Tendencias de ventas y calidad por segmentación.</p>
-      <div class="admin-btn-group grid-buttons">
-        <button (click)="irA('juegos-clasificacion')" class="btn-mini">Ventas/Clasif.</button>
-        <button (click)="irA('juegos-categoria')" class="btn-mini">Ventas/Categ.</button>
-        <button (click)="irA('mejores-clasificacion')" class="btn-mini">Top/Clasif.</button>
-        <button (click)="irA('mejores-categoria')" class="btn-mini">Top/Categ.</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="admin-router-box">
+  <main class="admin-router-box-flat">
     <router-outlet></router-outlet>
-  </div>
+  </main>
 </div>

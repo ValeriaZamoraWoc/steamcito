@@ -1,49 +1,38 @@
 <div class="admin-report-detail">
-  <div class="report-header-flex">
+  <header class="report-meta-header">
     <div class="title-group">
       <h3>Estado de Ganancias Globales</h3>
-      <p>Reporte consolidado de ingresos brutos generados por la plataforma.</p>
+      <p>Reporte de ingresos brutos generados.</p>
     </div>
     
-    <div class="total-summary-card" *ngIf="!cargando && ganancias.length > 0">
-      <span class="summary-label">Total General Acumulado</span>
-      <div class="summary-value">
-        <span class="symbol">Q</span> {{ totalGeneral | number:'1.2-2' }}
-      </div>
+    <div class="total-display" *ngIf="!cargando && ganancias.length > 0">
+      <span class="label">Total Acumulado:</span>
+      <span class="value">Q {{ totalGeneral | number:'1.2-2' }}</span>
     </div>
-  </div>
+  </header>
 
-  <div *ngIf="cargando" class="admin-loader">
-    <div class="pulse-ring"></div>
-    <span>Calculando balance global...</span>
-  </div>
+  <div *ngIf="cargando" class="msg-system">Calculando balance...</div>
+  <div *ngIf="error" class="error-system">ERROR: {{ error }}</div>
 
-  <div *ngIf="error" class="admin-alert error">
-    <span class="icon">❌</span> {{ error }}
-  </div>
-
-  <div class="table-wrapper" *ngIf="!cargando && ganancias.length > 0">
-    <table class="admin-table">
+  <div class="report-table-container" *ngIf="!cargando && ganancias.length > 0">
+    <table class="table-flat-minimal">
       <thead>
         <tr>
-          <th>Título del Juego</th>
-          <th class="text-right">Ingresos Generados</th>
+          <th>Juego</th>
+          <th class="text-right">Monto</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let g of ganancias">
-          <td class="game-column">
-            <span class="dot"></span> {{ g.nombre }}
-          </td>
-          <td class="text-right money-column">
-            <span class="currency">Q</span> {{ g.monto | number:'1.2-2' }}
-          </td>
+          <td>{{ g.nombre }}</td>
+          <td class="text-right">Q {{ g.monto | number:'1.2-2' }}</td>
         </tr>
       </tbody>
     </table>
+    <button (click)="exportarJasper()">Exportar a pdf</button>
   </div>
 
-  <div class="empty-state" *ngIf="!cargando && ganancias.length === 0 && !error">
-    <p>No se han registrado transacciones en el periodo actual.</p>
+  <div class="msg-system" *ngIf="!cargando && ganancias.length === 0 && !error">
+    Sin registros de transacciones.
   </div>
 </div>

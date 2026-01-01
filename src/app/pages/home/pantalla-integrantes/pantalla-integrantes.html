@@ -1,42 +1,41 @@
 <div class="members-container">
   <header class="section-header">
-    <h2>Integrantes del Grupo</h2>
-    <p>Lista de miembros vinculados a este grupo familiar</p>
+    <div class="header-main-info">
+      <h2>Integrantes del Grupo</h2>
+      <p>Miembros vinculados a esta biblioteca compartida.</p>
+    </div>
   </header>
 
-  <div *ngIf="cargando" class="loading-state">
-    <div class="steam-spinner"></div>
-    <p>Buscando miembros...</p>
+  <div *ngIf="cargando" class="status-msg">Buscando miembros...</div>
+  
+  <div *ngIf="error" class="alert-simple error">{{ error }}</div>
+
+  <div *ngIf="!cargando && integrantes.length === 0" class="empty-notif">
+    Este grupo no tiene integrantes registrados.
   </div>
 
-  <div *ngIf="error" class="error-banner">
-    {{ error }}
-  </div>
-
-  <div *ngIf="!cargando && integrantes.length === 0" class="empty-state">
-    <p>Este grupo no tiene integrantes registrados.</p>
-  </div>
-
-  <div class="members-list" *ngIf="integrantes.length > 0">
-    <div class="member-card" *ngFor="let integrante of integrantes">
-      <div class="member-info">
-        <div class="member-avatar">
-          <span class="online-indicator"></span>
+  <div class="members-list-flat" *ngIf="integrantes.length > 0">
+    <div class="member-row-clean" *ngFor="let integrante of integrantes">
+      
+      <div class="member-identity">
+        <div class="member-mini-avatar">
+          <span class="status-dot"></span>
         </div>
-        <div class="member-data">
+        
+        <div class="member-data-block">
           <h3 class="nickname">{{ integrante.nickname }}</h3>
-          <div class="contact-info">
-            <span class="mail"><strong>Email:</strong> {{ integrante.mail }}</span>
-            <span class="phone"><strong>Tel:</strong> {{ integrante.telefono || 'No registrado' }}</span>
+          <div class="contact-meta">
+            <span class="meta-item"><strong>Tel:</strong> {{ integrante.telefono || '--' }}</span>
           </div>
         </div>
       </div>
 
-      <div class="member-actions">
-        <button (click)="verPerfil(integrante.mail)" class="btn-profile">
-          Ver perfil
+      <div class="member-row-actions">
+        <button (click)="verPerfil(integrante.mail)" class="btn-system-alt">
+          Ver Perfil
         </button>
       </div>
+      
     </div>
   </div>
 </div>

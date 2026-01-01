@@ -1,53 +1,51 @@
 <div class="admin-container">
-  <header class="admin-header">
-    <h2>Gestión del Banner Principal</h2>
-    <p>Selecciona el juego que aparecerá como recomendación destacada en el Home.</p>
+  <header class="section-header-flat">
+    <div class="header-main">
+      <h2>Gestión del Banner Principal</h2>
+      <p>Selección de título para recomendación destacada.</p>
+    </div>
   </header>
 
   <div class="status-messages">
-    <p *ngIf="cargando" class="msg info">
-      <span class="spinner-mini"></span> Cargando catálogo de juegos...
-    </p>
-    <p *ngIf="error" class="msg error">⚠ {{ error }}</p>
-    <p *ngIf="mensaje" class="msg success">✓ {{ mensaje }}</p>
+    <p *ngIf="cargando" class="msg-info">Cargando catálogo...</p>
+    <p *ngIf="error" class="msg-error">ERROR: {{ error }}</p>
+    <p *ngIf="mensaje" class="msg-success">SISTEMA: {{ mensaje }}</p>
   </div>
 
   <div class="selector-layout">
-    <div class="lista-juegos">
+    <div class="grid-juegos-flat">
       <div
-        class="card-juego"
+        class="card-juego-flat"
         *ngFor="let juego of juegos"
         (click)="seleccionarJuego(juego)"
-        [class.seleccionado]="juegoSeleccionado?.id === juego.id"
+        [class.is-selected]="juegoSeleccionado?.id === juego.id"
       >
-        <div class="img-container">
-          <img
-            [src]="juego.urlImagen"
-            (error)="$event.target.src='assets/no-image.png'"
-          >
-          <div class="selection-check" *ngIf="juegoSeleccionado?.id === juego.id">
-            <span>Luz Verde</span>
-          </div>
+        <div class="img-wrapper-flat">
+          <img [src]="juego.urlImagen" alt="">
         </div>
 
-        <div class="card-body">
+        <div class="card-content-flat">
           <h3>{{ juego.nombreJuego }}</h3>
-          <p class="price">Q {{ juego.precio }}</p>
+          <span class="price-data">Q {{ juego.precio }}</span>
         </div>
       </div>
     </div>
 
-    <div class="action-footer">
-      <div class="selection-info" *ngIf="juegoSeleccionado">
-        Juego seleccionado: <strong>{{ juegoSeleccionado.nombreJuego }}</strong>
+    <footer class="save-bar">
+      <div class="selection-status">
+        <span *ngIf="juegoSeleccionado">
+          ASIGNAR: <strong>{{ juegoSeleccionado.nombreJuego }}</strong>
+        </span>
+        <span *ngIf="!juegoSeleccionado">Ningún juego seleccionado</span>
       </div>
+      
       <button
-        class="btn-save"
+        class="btn-system-flat"
         [disabled]="!juegoSeleccionado"
         (click)="guardarCambios()"
       >
-        Publicar como Banner
+        Actualizar Banner
       </button>
-    </div>
+    </footer>
   </div>
 </div>

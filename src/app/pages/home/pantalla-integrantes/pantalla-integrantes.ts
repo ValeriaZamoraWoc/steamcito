@@ -1,8 +1,8 @@
 import { Component, OnInit ,ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { IntegranteGrupo, ObtenerIntegrantesGrupoService } from '../../../services/obtener-integrantes-grupo-service';
 import { Router } from '@angular/router';
+import { IntegranteGrupo, GrupoFamiliarService } from '../../../services/grupo-familiar-service';
 
 @Component({
   selector: 'app-integrantes-grupo',
@@ -20,7 +20,7 @@ export class IntegrantesGrupoComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private integrantesService: ObtenerIntegrantesGrupoService,
+    private integrantesService: GrupoFamiliarService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}

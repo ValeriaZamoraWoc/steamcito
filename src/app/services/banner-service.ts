@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_BASE_URL } from '../core/api.config';
-import { Juego } from './obtener-todos-los-juegos';
+import { Juego } from './game-service';
 
 @Injectable({
   providedIn: 'root'

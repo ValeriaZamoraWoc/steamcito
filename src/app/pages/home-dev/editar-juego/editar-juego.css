@@ -1,178 +1,139 @@
 .edit-game-page {
-  max-width: 900px;
+  max-width: 850px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px;
 }
 
-.admin-header {
+/* Header Sobrio */
+.header-flat {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #3d4450;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
-.admin-header h2 {
-  color: #fff;
+.header-flat h2 {
+  color: var(--white);
+  font-size: 1.2rem;
   text-transform: uppercase;
   margin: 0;
-  letter-spacing: 1px;
+  font-weight: 600;
 }
 
-.admin-header p {
-  color: #66c0f4;
-  margin: 5px 0 0;
+.header-flat p {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  margin-top: 4px;
 }
 
-/* Secciones del Formulario */
-.form-section {
-  background: rgba(0, 0, 0, 0.2);
-  padding: 25px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+/* Estructura del Formulario */
+.form-flat {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-.section-label {
-  color: #66c0f4;
-  font-size: 14px;
+.label-heading {
+  color: var(--text-dim);
+  font-size: 0.75rem;
   text-transform: uppercase;
-  margin-bottom: 20px;
-  border-left: 3px solid #66c0f4;
-  padding-left: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 5px;
 }
 
-.grid-section {
+.form-grid-flat {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
-.form-group {
+.field-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.form-group label {
-  color: #afafaf;
-  font-size: 12px;
-  font-weight: bold;
+.field-group label {
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
 /* Inputs y Selects */
 input, textarea, select {
-  background: #121a24;
-  border: 1px solid #2a475e;
-  border-radius: 3px;
-  padding: 12px;
-  color: #fff;
-  font-size: 14px;
-  transition: border-color 0.2s;
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 10px;
+  color: var(--white);
+  font-size: 0.9rem;
+  border-radius: 0;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: #66c0f4;
-  background: #171d25;
+  border-color: var(--text-dim);
 }
 
-/* Precio con prefijo */
-.price-input {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.price-input .currency {
-  position: absolute;
-  left: 12px;
-  color: #a3cf06;
-  font-weight: bold;
-}
-
-.price-input input {
-  padding-left: 30px;
-  width: 100%;
-}
-
-/* Upload de archivo */
-.file-upload-box {
-  border: 2px dashed #3d4450;
-  border-radius: 4px;
+/* Upload simple */
+.upload-zone-flat {
+  border: 1px dashed var(--border);
+  padding: 20px;
   text-align: center;
-  transition: background 0.2s;
 }
 
-.file-upload-box:hover {
-  background: rgba(102, 192, 244, 0.05);
-  border-color: #66c0f4;
-}
-
-.custom-file-upload {
+.upload-zone-flat label {
+  color: var(--text-dim);
+  font-size: 0.85rem;
   cursor: pointer;
-  display: block;
-  padding: 40px;
 }
 
-.custom-file-upload input[type="file"] {
-  display: none;
-}
-
-.upload-icon {
-  font-size: 32px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-/* Botones */
-.form-footer {
+/* Botones Sobrios */
+.form-footer-flat {
   display: flex;
   gap: 15px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #3d4450;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
 }
 
-.btn-save-main {
-  background: linear-gradient(to right, #a3cf06 0%, #7da205 100%);
-  color: #000;
-  border: none;
-  padding: 15px 40px;
-  font-weight: bold;
-  border-radius: 2px;
+.btn-system-main {
+  background: #3d4450; /* Gris acero */
+  color: var(--white);
+  border: 1px solid #4d5666;
+  padding: 12px 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
-.btn-cancel {
-  background: #3d4450;
-  color: #fff;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 2px;
-  cursor: pointer;
-}
-
-.btn-cancel-top {
+.btn-system-outline {
   background: transparent;
-  color: #8f98a0;
-  border: 1px solid #3d4450;
-  padding: 8px 15px;
-  font-size: 12px;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+  padding: 10px 20px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
   cursor: pointer;
 }
 
-/* Alertas */
-.alert {
-  padding: 15px;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.btn-system-main:hover { background: #4a5261; }
+.btn-system-outline:hover { color: var(--white); border-color: var(--white); }
+
+/* Alertas Planas */
+.status-msg-flat {
+  padding: 12px;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.error { background: rgba(194, 45, 45, 0.2); color: #ff4d4d; border: 1px solid #c22d2d; }
-.success { background: rgba(163, 207, 6, 0.2); color: #a3cf06; border: 1px solid #a3cf06; }
+.status-msg-flat.error { color: #ff4d4d; border: 1px solid #ff4d4d; }
+.status-msg-flat.success { color: #a3cf06; border: 1px solid #a3cf06; }
+
+@media (max-width: 600px) {
+  .form-grid-flat { grid-template-columns: 1fr; }
+}

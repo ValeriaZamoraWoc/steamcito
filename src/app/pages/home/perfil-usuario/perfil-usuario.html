@@ -1,63 +1,52 @@
 <div class="profile-page">
-  <div *ngIf="cargando" class="loading-overlay">
-    <div class="steam-spinner"></div>
-    <p>Cargando perfil de usuario...</p>
-  </div>
-
-  <div *ngIf="error" class="error-banner">
-    <span class="icon">⚠</span> {{ error }}
-  </div>
+  <div *ngIf="cargando" class="status-msg">Cargando perfil de usuario...</div>
+  <div *ngIf="error" class="alert-simple error">{{ error }}</div>
 
   <div *ngIf="!cargando && usuario" class="profile-container">
     
-    <header class="profile-header">
-      <div class="profile-header-content">
-        <div class="avatar-frame">
-          <div class="avatar-placeholder">{{ usuario.nickname.charAt(0).toUpperCase() }}</div>
+    <header class="profile-header-flat-simple">
+      <div class="header-identity">
+        <div class="avatar-static-small">
+          {{ usuario.nickname.charAt(0).toUpperCase() }}
         </div>
-        <div class="user-meta">
-          <h2 class="nickname">{{ usuario.nickname }}</h2>
-          <div class="user-details">
-            <span class="detail-item"><strong>País:</strong> {{ usuario.pais }}</span>
-            <span class="detail-item"><strong>Email:</strong> {{ usuario.mail }}</span>
+        <div class="user-info-text">
+          <h2 class="nickname-title">{{ usuario.nickname }}</h2>
+          <div class="user-meta-row">
+            <span class="meta-label">País: {{ usuario.pais }}</span>
           </div>
-        </div>
-        <div class="profile-level">
-          <div class="level-badge">Nivel <span>10</span></div>
         </div>
       </div>
     </header>
 
-    <section class="library-showcase">
-      <div class="section-title">
+    <section class="library-display">
+      <div class="display-header">
         <h3>Biblioteca de Juegos</h3>
-        <span class="count" *ngIf="bibliotecaVisible">{{ biblioteca.length }} juegos</span>
+        <span class="data-count" *ngIf="bibliotecaVisible">
+          {{ biblioteca.length }} Registros
+        </span>
       </div>
 
-      <div *ngIf="!bibliotecaVisible" class="empty-library locked">
-        <div class="lock-icon-wrapper">
-          <span class="big-lock">🔒</span>
+      <div *ngIf="!bibliotecaVisible" class="privacy-lock-box-flat">
+        <div class="lock-body">
+          <h4>Acceso Restringido</h4>
+          <p>La biblioteca de este usuario es privada.</p>
         </div>
-        <div class="lock-text">
-          <h4>Perfil Privado</h4>
-          <p>Este usuario ha decidido mantener su biblioteca fuera del alcance público.</p>
-        </div>
       </div>
 
-      <div *ngIf="bibliotecaVisible && biblioteca.length === 0" class="empty-library">
-        <p>Este usuario aún no ha añadido juegos a su colección.</p>
-      </div>
-
-      <div class="library-grid" *ngIf="bibliotecaVisible && biblioteca.length > 0">
-        <div class="game-mini-card" *ngFor="let juego of biblioteca">
-          <div class="image-container">
-            <img [src]="juego.urlImagen" alt="Portada" class="game-thumb">
+      <div class="grid-mini-static" *ngIf="bibliotecaVisible && biblioteca.length > 0">
+        <div class="game-item-flat" *ngFor="let juego of biblioteca">
+          <div class="image-wrapper-static">
+            <img [src]="juego.urlImagen" alt="" class="img-flat">
           </div>
-          <div class="game-mini-info">
-            <h4>{{ juego.nombreJuego }}</h4>
-            <p class="price">Q {{ juego.precio }}</p>
+          <div class="item-details-flat">
+            <span class="game-name">{{ juego.nombreJuego }}</span>
+            <span class="game-price-tag">Q {{ juego.precio }}</span>
           </div>
         </div>
+      </div>
+
+      <div *ngIf="bibliotecaVisible && biblioteca.length === 0" class="empty-notif">
+        No hay títulos registrados en esta colección.
       </div>
     </section>
 
