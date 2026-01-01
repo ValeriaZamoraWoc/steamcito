@@ -1,0 +1,258 @@
+-- Crear base de datos
+CREATE DATABASE IF NOT EXISTS steamcito;
+USE steamcito;
+
+-- Tabla: imagen
+CREATE TABLE IF NOT EXISTS imagen (
+  url VARCHAR(300) NOT NULL,
+  PRIMARY KEY (url)
+);
+
+-- Tabla: rol
+CREATE TABLE IF NOT EXISTS rol (
+  id_rol INT NOT NULL AUTO_INCREMENT,
+  nombre_rol VARCHAR(20) DEFAULT NULL,
+  PRIMARY KEY (id_rol)
+);
+
+-- Tabla: clasificacion
+CREATE TABLE IF NOT EXISTS clasificacion (
+  id_clasificacion INT NOT NULL AUTO_INCREMENT,
+  nombre_clasificacion VARCHAR(50) DEFAULT NULL,
+  PRIMARY KEY (id_clasificacion)
+);
+
+-- Tabla: categoria
+CREATE TABLE IF NOT EXISTS categoria (
+  id_categoria INT NOT NULL AUTO_INCREMENT,
+  nombre_categoria VARCHAR(100) DEFAULT NULL,
+  edad_categoria INT DEFAULT NULL,
+  PRIMARY KEY (id_categoria)
+);
+
+-- Tabla: empresa
+CREATE TABLE IF NOT EXISTS empresa (
+  id_empresa INT NOT NULL AUTO_INCREMENT,
+  nombre_empresa VARCHAR(100) DEFAULT NULL,
+  descripcion LONGTEXT,
+  PRIMARY KEY (id_empresa)
+);
+
+-- Tabla: comision
+CREATE TABLE IF NOT EXISTS comision (
+  id_comision INT NOT NULL AUTO_INCREMENT,
+  porcentaje INT DEFAULT NULL,
+  PRIMARY KEY (id_comision)
+);
+
+-- Tabla: grupoFamiliar
+CREATE TABLE IF NOT EXISTS grupoFamiliar (
+  id_grupoFamiliar INT NOT NULL AUTO_INCREMENT,
+  nombre_grupoFamiliar VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (id_grupoFamiliar)
+);
+
+-- Tabla: usuario
+CREATE TABLE IF NOT EXISTS usuario (
+  mail VARCHAR(150) NOT NULL,
+  nickname VARCHAR(150) DEFAULT NULL,
+  id_rol INT DEFAULT NULL,
+  contraseña VARCHAR(100) DEFAULT NULL,
+  fechaNacimiento DATE DEFAULT NULL,
+  url_imagen VARCHAR(300) DEFAULT NULL,
+  PRIMARY KEY (mail),
+  KEY fk_usuario_rol (id_rol),
+  KEY fk_usuario_imagen (url_imagen),
+  CONSTRAINT fk_usuario_imagen FOREIGN KEY (url_imagen) REFERENCES imagen (url),
+  CONSTRAINT fk_usuario_rol FOREIGN KEY (id_rol) REFERENCES rol (id_rol)
+);
+
+-- Tabla: juego
+CREATE TABLE IF NOT EXISTS juego (
+  id_juego INT NOT NULL AUTO_INCREMENT,
+  nombre_juego VARCHAR(150) DEFAULT NULL,
+  id_clasificacion INT DEFAULT NULL,
+  id_categoria INT DEFAULT NULL,
+  id_empresa INT DEFAULT NULL,
+  precio INT DEFAULT NULL,
+  en_venta TINYINT(1) DEFAULT NULL,
+  descripcion LONGTEXT,
+  especificaciones LONGTEXT,
+  fecha_lanzamiento DATE DEFAULT NULL,
+  url_imagen VARCHAR(300) DEFAULT NULL,
+  PRIMARY KEY (id_juego),
+  KEY fk_juego_clasificacion (id_clasificacion),
+  KEY fk_juego_categoria (id_categoria),
+  KEY fk_juego_empresa (id_empresa),
+  KEY fk_juego_imagen (url_imagen),
+  CONSTRAINT fk_juego_categoria FOREIGN KEY (id_categoria) REFERENCES categoria (id_categoria),
+  CONSTRAINT fk_juego_clasificacion FOREIGN KEY (id_clasificacion) REFERENCES clasificacion (id_clasificacion),
+  CONSTRAINT fk_juego_empresa FOREIGN KEY (id_empresa) REFERENCES empresa (id_empresa),
+  CONSTRAINT fk_juego_imagen FOREIGN KEY (url_imagen) REFERENCES imagen (url),
+  CONSTRAINT fk_url_imagen_juego FOREIGN KEY (url_imagen) REFERENCES imagen (url)
+);
+
+-- Tabla: biblioteca
+CREATE TABLE IF NOT EXISTS biblioteca (
+  mail VARCHAR(150) NOT NULL,
+  es_publica TINYINT(1) DEFAULT NULL,
+  PRIMARY KEY (mail),
+  CONSTRAINT fk_biblioteca_usuario FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: datosExtra
+CREATE TABLE IF NOT EXISTS datosExtra (
+  mail VARCHAR(150) NOT NULL,
+  telefono INT DEFAULT NULL,
+  pais VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (mail),
+  CONSTRAINT fk_mail FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: wallet
+CREATE TABLE IF NOT EXISTS wallet (
+  saldo INT DEFAULT NULL,
+  mail VARCHAR(150) NOT NULL,
+  PRIMARY KEY (mail),
+  CONSTRAINT fk_mail_wallet FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: comentario
+CREATE TABLE IF NOT EXISTS comentario (
+  id_comentario INT NOT NULL AUTO_INCREMENT,
+  descripcion LONGTEXT,
+  es_visible TINYINT(1) DEFAULT NULL,
+  comentario_padre INT DEFAULT NULL,
+  id_juego INT DEFAULT NULL,
+  mail VARCHAR(150) DEFAULT NULL,
+  PRIMARY KEY (id_comentario),
+  KEY fk_comentario_padre (comentario_padre),
+  KEY fk_comentario_juego (id_juego),
+  KEY fk_comentario_mail (mail),
+  CONSTRAINT fk_comentario_juego FOREIGN KEY (id_juego) REFERENCES juego (id_juego),
+  CONSTRAINT fk_comentario_mail FOREIGN KEY (mail) REFERENCES usuario (mail),
+  CONSTRAINT fk_comentario_padre FOREIGN KEY (comentario_padre) REFERENCES comentario (id_comentario)
+);
+
+-- Tabla: biblioteca_juego
+CREATE TABLE IF NOT EXISTS biblioteca_juego (
+  id_juego INT NOT NULL,
+  mail VARCHAR(150) NOT NULL,
+  instalado TINYINT(1) DEFAULT NULL,
+  PRIMARY KEY (id_juego, mail),
+  KEY fk_biblioteca_juego_mail (mail),
+  CONSTRAINT fk_biblioteca_juego_juego FOREIGN KEY (id_juego) REFERENCES juego (id_juego),
+  CONSTRAINT fk_biblioteca_juego_mail FOREIGN KEY (mail) REFERENCES biblioteca (mail)
+);
+
+-- Tabla: calificacion
+CREATE TABLE IF NOT EXISTS calificacion (
+  id_calificacion INT NOT NULL AUTO_INCREMENT,
+  mail VARCHAR(150) DEFAULT NULL,
+  id_juego INT DEFAULT NULL,
+  calificacion VARCHAR(1) DEFAULT NULL,
+  id_comentario INT DEFAULT NULL,
+  PRIMARY KEY (id_calificacion),
+  UNIQUE KEY mail (mail, id_juego),
+  KEY fk_calificacion_juego (id_juego),
+  KEY fk_calificacion_comentario (id_comentario),
+  CONSTRAINT fk_calificacion_comentario FOREIGN KEY (id_comentario) REFERENCES comentario (id_comentario),
+  CONSTRAINT fk_calificacion_juego FOREIGN KEY (id_juego) REFERENCES juego (id_juego),
+  CONSTRAINT fk_calificacion_usuario FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: grupoFamiliar_usuario
+CREATE TABLE IF NOT EXISTS grupoFamiliar_usuario (
+  id_grupoFamiliar INT NOT NULL,
+  mail VARCHAR(150) NOT NULL,
+  PRIMARY KEY (id_grupoFamiliar, mail),
+  KEY fk_grupo_usuario_usuario (mail),
+  CONSTRAINT fk_grupo_usuario_grupo FOREIGN KEY (id_grupoFamiliar) REFERENCES grupoFamiliar (id_grupoFamiliar),
+  CONSTRAINT fk_grupo_usuario_usuario FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: prestamo
+CREATE TABLE IF NOT EXISTS prestamo (
+  id_prestamo INT NOT NULL AUTO_INCREMENT,
+  mail_prestamista VARCHAR(150) DEFAULT NULL,
+  mail_dueno VARCHAR(150) DEFAULT NULL,
+  id_juego INT DEFAULT NULL,
+  fecha_prestamo DATE DEFAULT NULL,
+  fecha_devolucion DATE DEFAULT NULL,
+  devuelto TINYINT(1) DEFAULT NULL,
+  PRIMARY KEY (id_prestamo),
+  KEY fk_prestamo_prestamista (mail_prestamista),
+  KEY fk_prestamo_dueno (mail_dueno),
+  KEY fk_prestamo_juego (id_juego),
+  CONSTRAINT fk_prestamo_dueno FOREIGN KEY (mail_dueno) REFERENCES usuario (mail),
+  CONSTRAINT fk_prestamo_juego FOREIGN KEY (id_juego) REFERENCES juego (id_juego),
+  CONSTRAINT fk_prestamo_prestamista FOREIGN KEY (mail_prestamista) REFERENCES usuario (mail)
+);
+
+-- Tabla: usuario_empresa
+CREATE TABLE IF NOT EXISTS usuario_empresa (
+  id_empresa INT NOT NULL,
+  mail VARCHAR(150) DEFAULT NULL,
+  PRIMARY KEY (id_empresa),
+  KEY fk_usuario_mail (mail),
+  CONSTRAINT fk_empresa FOREIGN KEY (id_empresa) REFERENCES empresa (id_empresa),
+  CONSTRAINT fk_usuario_mail FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: venta
+CREATE TABLE IF NOT EXISTS venta (
+  id_venta INT NOT NULL AUTO_INCREMENT,
+  mail VARCHAR(150) DEFAULT NULL,
+  id_juego INT DEFAULT NULL,
+  fecha DATE DEFAULT NULL,
+  dinero_comision DOUBLE DEFAULT NULL,
+  dinero_empresa DOUBLE DEFAULT NULL,
+  PRIMARY KEY (id_venta),
+  KEY fk_venta_usuario (mail),
+  KEY fk_venta_juego (id_juego),
+  CONSTRAINT fk_venta_juego FOREIGN KEY (id_juego) REFERENCES juego (id_juego),
+  CONSTRAINT fk_venta_usuario FOREIGN KEY (mail) REFERENCES usuario (mail)
+);
+
+-- Tabla: comision_empresa
+CREATE TABLE IF NOT EXISTS comision_empresa (
+  id_empresa INT NOT NULL,
+  id_comision INT NOT NULL,
+  PRIMARY KEY (id_empresa, id_comision),
+  KEY fk_comision_empresa_comision (id_comision),
+  CONSTRAINT fk_comision_empresa_comision FOREIGN KEY (id_comision) REFERENCES comision (id_comision),
+  CONSTRAINT fk_comision_empresa_empresa FOREIGN KEY (id_empresa) REFERENCES empresa (id_empresa)
+);
+
+-- Tabla: peticion_comision
+CREATE TABLE IF NOT EXISTS peticion_comision (
+  porcentaje INT NOT NULL,
+  id_empresa INT NOT NULL,
+  estado ENUM('Pendiente','Aceptada','Rechazada') DEFAULT NULL,
+  KEY fk_empresa_peticion (id_empresa),
+  CONSTRAINT fk_empresa_peticion FOREIGN KEY (id_empresa) REFERENCES empresa (id_empresa)
+);
+-- Insertar las 3 empresas con descripciones genéricas
+INSERT INTO empresa (nombre_empresa, descripcion) VALUES
+('Nintendo', 'kajsdkjas'),
+('Ubisoft', 'kajsdkjas'),
+('Sega', 'kajsdkjas');
+
+INSERT INTO rol (nombre_rol) VALUES
+('Admin'),
+('Desarrollador'),
+('Común');
+
+INSERT INTO comision (porcentaje) VALUES (15);
+
+CREATE TABLE banner (
+    id_juego INT NOT NULL,
+    PRIMARY KEY (id_juego),
+    CONSTRAINT fk_banner_juego 
+        FOREIGN KEY (id_juego) 
+        REFERENCES juego (id_juego)
+);
+
+INSERT INTO categoria (nombre_categoria, edad_categoria) VALUES ('Everyone', 0);
+INSERT INTO categoria (nombre_categoria, edad_categoria) VALUES ('Teen', 13);
+INSERT INTO categoria (nombre_categoria, edad_categoria) VALUES ('Mature', 17);
